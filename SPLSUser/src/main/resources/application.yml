@@ -1,0 +1,30 @@
+#EurekaProduct客户端端口
+server:
+  port: 8082
+#Eureka客户端相关配置
+#连接注册中心的配置
+eureka: 
+  client:
+    service-url:
+      defaultZone: http://localhost:8081/eureka/
+#该服务在注册中心的名称
+spring:
+  application:
+    name: user-service
+  #oracle数据库相关配置
+  datasource:
+    url: jdbc:oracle:thin@//10.1.12.223:1521/P2P
+    driver-class-name: oracle.jdbc.driver.OracleDriver
+    username: p2p
+    password: 123456
+  #redis相关配置
+  redis: 
+    host: 10.1.12.223
+    port: 6379
+  freemarker:
+    cache: false
+    suffix: .html
+#mybatis相关配置
+mybatis: 
+  mapper-locations: classpath:mapper/*.xml
+  type-aliases-package: com.zl.pojo

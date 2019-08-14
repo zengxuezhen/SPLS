@@ -70,7 +70,7 @@
 		<!-- POJO依赖 -->
 		<dependency>
 			<groupId>com.zl</groupId>
- 			<artifactId>POJO</artifactId>
+ 			<artifactId>SPLSPOJO</artifactId>
   			<version>0.0.1-SNAPSHOT</version>
 		</dependency>
 		<!-- oracl 驱动 -->

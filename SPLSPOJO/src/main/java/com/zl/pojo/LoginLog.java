@@ -3,6 +3,10 @@ package com.zl.pojo;
 import java.io.Serializable;
 import java.util.Date;
 
+import org.springframework.format.annotation.DateTimeFormat;
+
+import com.fasterxml.jackson.annotation.JsonFormat;
+
 /**
  * 登录日志信息实体类
  * @author Administrator
@@ -12,7 +16,7 @@ public class LoginLog implements Serializable {
     
 	private static final long serialVersionUID = 8836387612456864863L;
 	//主键
-	private Integer id;
+	private Long id;
 	//登录日志编号
     private String logNo;
     //登录IP地址
@@ -20,13 +24,17 @@ public class LoginLog implements Serializable {
     //登录是否成功
     private Integer isSuccess;
     //登录系统时间
+    @JsonFormat(pattern="yyyy-MM-dd HH-mm-ss")
+    @DateTimeFormat(pattern="yyyy-MM-dd HH-mm-ss")
     private Date loginTime;
     //退出系统时间
+    @JsonFormat(pattern="yyyy-MM-dd HH-mm-ss")
+    @DateTimeFormat(pattern="yyyy-MM-dd HH-mm-ss")
     private Date logoutTime;
     //登录用户主键
-    private Integer userId;
+    private Long userId;
     
-    public LoginLog(Integer id, String logNo, String ipAddress, Integer isSuccess, Date loginTime, Date logoutTime, Integer userId) {
+    public LoginLog(Long id, String logNo, String ipAddress, Integer isSuccess, Date loginTime, Date logoutTime, Long userId) {
         this.id = id;
         this.logNo = logNo;
         this.ipAddress = ipAddress;
@@ -40,11 +48,11 @@ public class LoginLog implements Serializable {
         super();
     }
 
-    public Integer getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(Integer id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
@@ -88,11 +96,11 @@ public class LoginLog implements Serializable {
         this.logoutTime = logoutTime;
     }
 
-    public Integer getUserId() {
+    public Long getUserId() {
         return userId;
     }
 
-    public void setUserId(Integer userId) {
+    public void setUserId(Long userId) {
         this.userId = userId;
     }
 }

@@ -11,11 +11,11 @@ public class Message implements Serializable {
     
 	private static final long serialVersionUID = -3596509332296857510L;
 	//主键ID，自增
-	private Integer id;
+	private Long id;
 	//短信内容
     private String content;
 
-    public Message(Integer id, String content) {
+    public Message(Long id, String content) {
         this.id = id;
         this.content = content;
     }
@@ -24,11 +24,11 @@ public class Message implements Serializable {
         super();
     }
 
-    public Integer getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(Integer id) {
+    public void setId(Long id) {
         this.id = id;
     }
 

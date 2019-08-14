@@ -14,13 +14,25 @@ public class OperationType implements Serializable {
 	private Integer id;
 	//操作类型
     private String operationType;
-
-    public OperationType(Integer id, String operationType) {
+    //操作类型具体描述
+    private String description;
+    
+    
+    public OperationType(Integer id, String operationType, String description) {
         this.id = id;
         this.operationType = operationType;
+        this.description=description;
     }
 
-    public OperationType() {
+    public String getDescription() {
+		return description;
+	}
+
+	public void setDescription(String description) {
+		this.description = description == null ? null : description.trim();
+	}
+
+	public OperationType() {
         super();
     }
 

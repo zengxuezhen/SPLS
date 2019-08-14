@@ -11,7 +11,7 @@ public class Contact implements Serializable {
     
 	private static final long serialVersionUID = 4154538230974324496L;
 	//主键ID，自增
-	private Integer id;
+	private Long id;
 	//联系人姓名
     private String contactName;
     //联系人手机号
@@ -19,9 +19,9 @@ public class Contact implements Serializable {
     //联系人与用户关系
     private String relationsihp;
     //所属贷款人主键
-    private Integer personalLoanInfoId;
+    private Long personalLoanInfoId;
 
-    public Contact(Integer id, String contactName, String telephone, String relationsihp, Integer personalLoanInfoId) {
+    public Contact(Long id, String contactName, String telephone, String relationsihp, Long personalLoanInfoId) {
         this.id = id;
         this.contactName = contactName;
         this.telephone = telephone;
@@ -33,11 +33,11 @@ public class Contact implements Serializable {
         super();
     }
 
-    public Integer getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(Integer id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
@@ -65,11 +65,11 @@ public class Contact implements Serializable {
         this.relationsihp = relationsihp == null ? null : relationsihp.trim();
     }
 
-    public Integer getPersonalLoanInfoId() {
+    public Long getPersonalLoanInfoId() {
         return personalLoanInfoId;
     }
 
-    public void setPersonalLoanInfoId(Integer personalLoanInfoId) {
+    public void setPersonalLoanInfoId(Long personalLoanInfoId) {
         this.personalLoanInfoId = personalLoanInfoId;
     }
 }

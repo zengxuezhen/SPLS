@@ -4,6 +4,10 @@ import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.Date;
 
+import org.springframework.format.annotation.DateTimeFormat;
+
+import com.fasterxml.jackson.annotation.JsonFormat;
+
 /**
  * 回款记录信息实体类
  * @author Administrator
@@ -21,6 +25,8 @@ public class ReturnRecord implements Serializable {
     //当前回款期限
     private Integer term;
     //回款时间
+    @JsonFormat(pattern="yyyy-MM-dd HH-mm-ss")
+    @DateTimeFormat(pattern="yyyy-MM-dd HH-mm-ss")
     private Date createTime;
 
     public ReturnRecord(Integer id, Integer creditId, BigDecimal amount, Integer term, Date createTime) {

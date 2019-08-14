@@ -1,21 +1,27 @@
 package com.zl.pojo;
 
+import java.io.Serializable;
 import java.math.BigDecimal;
+/*
+ * 还款方式实体类
+ * */
+public class RepaymentMethod implements Serializable {
 
-public class RepaymentMethod {
-    private BigDecimal id;
-
+	private static final long serialVersionUID = -592916143122529034L;
+//	主键
+    private Integer id;
+//  还款方式名称
     private String methodName;
-
+//  还款方式描述
     private String description;
-
+//    正常还款年化利率
     private BigDecimal normalInterestRate;
-
+//    逾期还款日利率，万分之一(按天算)
     private BigDecimal overdueInterestRate;
-
+//	提前还款日利率，万分之一(按天算)
     private BigDecimal prepaymentInterestRate;
 
-    public RepaymentMethod(BigDecimal id, String methodName, String description, BigDecimal normalInterestRate, BigDecimal overdueInterestRate, BigDecimal prepaymentInterestRate) {
+    public RepaymentMethod(Integer id, String methodName, String description, BigDecimal normalInterestRate, BigDecimal overdueInterestRate, BigDecimal prepaymentInterestRate) {
         this.id = id;
         this.methodName = methodName;
         this.description = description;
@@ -28,11 +34,11 @@ public class RepaymentMethod {
         super();
     }
 
-    public BigDecimal getId() {
+    public Integer getId() {
         return id;
     }
 
-    public void setId(BigDecimal id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 

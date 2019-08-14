@@ -11,7 +11,7 @@ public class BankCard implements Serializable {
     
 	private static final long serialVersionUID = 8438338913613342260L;
 	//主键
-	private Integer id;
+	private Long id;
 	//银行卡号
     private String cardNo;
     //银行卡所属银行
@@ -19,9 +19,9 @@ public class BankCard implements Serializable {
     //银行卡预留手机号
     private String telephone;
     //所属用户主键
-    private Integer userId;
+    private Long userId;
     
-    public BankCard(Integer id, String cardNo, String branch, String telephone, Integer userId) {
+    public BankCard(Long id, String cardNo, String branch, String telephone, Long userId) {
         this.id = id;
         this.cardNo = cardNo;
         this.branch = branch;
@@ -33,11 +33,11 @@ public class BankCard implements Serializable {
         super();
     }
 
-    public Integer getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(Integer id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
@@ -65,11 +65,11 @@ public class BankCard implements Serializable {
         this.telephone = telephone == null ? null : telephone.trim();
     }
 
-    public Integer getUserId() {
+    public Long getUserId() {
         return userId;
     }
 
-    public void setUserId(Integer userId) {
+    public void setUserId(Long userId) {
         this.userId = userId;
     }
 }

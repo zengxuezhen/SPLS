@@ -11,15 +11,15 @@ public class IdentityVerification implements Serializable {
     
 	private static final long serialVersionUID = -5478556733543216208L;
 	//主键
-	private Integer id;
+	private Long id;
 	//身份证号
     private String cardNo;
     //身份证姓名
     private String realName;
     //对应的用户主键
-    private Integer userId;
+    private Long userId;
 
-    public IdentityVerification(Integer id, String cardNo, String realName, Integer userId) {
+    public IdentityVerification(Long id, String cardNo, String realName, Long userId) {
         this.id = id;
         this.cardNo = cardNo;
         this.realName = realName;
@@ -30,11 +30,11 @@ public class IdentityVerification implements Serializable {
         super();
     }
 
-    public Integer getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(Integer id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
@@ -54,11 +54,11 @@ public class IdentityVerification implements Serializable {
         this.realName = realName == null ? null : realName.trim();
     }
 
-    public Integer getUserId() {
+    public Long getUserId() {
         return userId;
     }
 
-    public void setUserId(Integer userId) {
+    public void setUserId(Long userId) {
         this.userId = userId;
     }
 }

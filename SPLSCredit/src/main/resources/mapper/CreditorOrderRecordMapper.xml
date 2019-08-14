@@ -1,0 +1,284 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zl.dao.CreditorOrderRecordMapper">
+  <resultMap id="BaseResultMap" type="com.zl.pojo.CreditorOrderRecord">
+    <constructor>
+      <idArg column="ID" javaType="java.math.BigDecimal" jdbcType="DECIMAL" />
+      <arg column="RECORD_NO" javaType="java.lang.Long" jdbcType="DECIMAL" />
+      <arg column="BUYER_UER_ID" javaType="java.math.BigDecimal" jdbcType="DECIMAL" />
+      <arg column="AMOUNT" javaType="java.math.BigDecimal" jdbcType="DECIMAL" />
+      <arg column="SUBJECT_MATTER_ID" javaType="java.math.BigDecimal" jdbcType="DECIMAL" />
+      <arg column="CONTRACT_URL" javaType="java.lang.String" jdbcType="VARCHAR" />
+      <arg column="CREATE_TIME" javaType="java.util.Date" jdbcType="TIMESTAMP" />
+      <arg column="SELLER_USER_ID" javaType="java.math.BigDecimal" jdbcType="DECIMAL" />
+      <arg column="ORIGIN_SUBJECT_MATTER_ID" javaType="java.math.BigDecimal" jdbcType="DECIMAL" />
+    </constructor>
+  </resultMap>
+  <sql id="Base_Column_List">
+    ID, RECORD_NO, BUYER_UER_ID, AMOUNT, SUBJECT_MATTER_ID, CONTRACT_URL, CREATE_TIME, 
+    SELLER_USER_ID, ORIGIN_SUBJECT_MATTER_ID
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.math.BigDecimal" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from CREDITOR_ORDER_RECORD
+    where ID = #{id,jdbcType=DECIMAL}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.math.BigDecimal">
+    delete from CREDITOR_ORDER_RECORD
+    where ID = #{id,jdbcType=DECIMAL}
+  </delete>
+  <insert id="insert" parameterType="com.zl.pojo.CreditorOrderRecord">
+    insert into CREDITOR_ORDER_RECORD (ID, RECORD_NO, BUYER_UER_ID, 
+      AMOUNT, SUBJECT_MATTER_ID, CONTRACT_URL, 
+      CREATE_TIME, SELLER_USER_ID, ORIGIN_SUBJECT_MATTER_ID
+      )
+    values (#{id,jdbcType=DECIMAL}, #{recordNo,jdbcType=DECIMAL}, #{buyerUerId,jdbcType=DECIMAL}, 
+      #{amount,jdbcType=DECIMAL}, #{subjectMatterId,jdbcType=DECIMAL}, #{contractUrl,jdbcType=VARCHAR}, 
+      #{createTime,jdbcType=TIMESTAMP}, #{sellerUserId,jdbcType=DECIMAL}, #{originSubjectMatterId,jdbcType=DECIMAL}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.zl.pojo.CreditorOrderRecord">
+    insert into CREDITOR_ORDER_RECORD
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        ID,
+      </if>
+      <if test="recordNo != null">
+        RECORD_NO,
+      </if>
+      <if test="buyerUerId != null">
+        BUYER_UER_ID,
+      </if>
+      <if test="amount != null">
+        AMOUNT,
+      </if>
+      <if test="subjectMatterId != null">
+        SUBJECT_MATTER_ID,
+      </if>
+      <if test="contractUrl != null">
+        CONTRACT_URL,
+      </if>
+      <if test="createTime != null">
+        CREATE_TIME,
+      </if>
+      <if test="sellerUserId != null">
+        SELLER_USER_ID,
+      </if>
+      <if test="originSubjectMatterId != null">
+        ORIGIN_SUBJECT_MATTER_ID,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=DECIMAL},
+      </if>
+      <if test="recordNo != null">
+        #{recordNo,jdbcType=DECIMAL},
+      </if>
+      <if test="buyerUerId != null">
+        #{buyerUerId,jdbcType=DECIMAL},
+      </if>
+      <if test="amount != null">
+        #{amount,jdbcType=DECIMAL},
+      </if>
+      <if test="subjectMatterId != null">
+        #{subjectMatterId,jdbcType=DECIMAL},
+      </if>
+      <if test="contractUrl != null">
+        #{contractUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null">
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="sellerUserId != null">
+        #{sellerUserId,jdbcType=DECIMAL},
+      </if>
+      <if test="originSubjectMatterId != null">
+        #{originSubjectMatterId,jdbcType=DECIMAL},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.zl.pojo.CreditorOrderRecord">
+    update CREDITOR_ORDER_RECORD
+    <set>
+      <if test="recordNo != null">
+        RECORD_NO = #{recordNo,jdbcType=DECIMAL},
+      </if>
+      <if test="buyerUerId != null">
+        BUYER_UER_ID = #{buyerUerId,jdbcType=DECIMAL},
+      </if>
+      <if test="amount != null">
+        AMOUNT = #{amount,jdbcType=DECIMAL},
+      </if>
+      <if test="subjectMatterId != null">
+        SUBJECT_MATTER_ID = #{subjectMatterId,jdbcType=DECIMAL},
+      </if>
+      <if test="contractUrl != null">
+        CONTRACT_URL = #{contractUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null">
+        CREATE_TIME = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="sellerUserId != null">
+        SELLER_USER_ID = #{sellerUserId,jdbcType=DECIMAL},
+      </if>
+      <if test="originSubjectMatterId != null">
+        ORIGIN_SUBJECT_MATTER_ID = #{originSubjectMatterId,jdbcType=DECIMAL},
+      </if>
+    </set>
+    where ID = #{id,jdbcType=DECIMAL}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.zl.pojo.CreditorOrderRecord">
+    update CREDITOR_ORDER_RECORD
+    set RECORD_NO = #{recordNo,jdbcType=DECIMAL},
+      BUYER_UER_ID = #{buyerUerId,jdbcType=DECIMAL},
+      AMOUNT = #{amount,jdbcType=DECIMAL},
+      SUBJECT_MATTER_ID = #{subjectMatterId,jdbcType=DECIMAL},
+      CONTRACT_URL = #{contractUrl,jdbcType=VARCHAR},
+      CREATE_TIME = #{createTime,jdbcType=TIMESTAMP},
+      SELLER_USER_ID = #{sellerUserId,jdbcType=DECIMAL},
+      ORIGIN_SUBJECT_MATTER_ID = #{originSubjectMatterId,jdbcType=DECIMAL}
+    where ID = #{id,jdbcType=DECIMAL}
+  </update>
+  <resultMap id="BaseResultMap" type="com.zl.pojo.CreditorOrderRecord">
+    <constructor>
+      <idArg column="ID" javaType="java.math.BigDecimal" jdbcType="DECIMAL" />
+      <arg column="RECORD_NO" javaType="java.lang.Long" jdbcType="DECIMAL" />
+      <arg column="BUYER_UER_ID" javaType="java.math.BigDecimal" jdbcType="DECIMAL" />
+      <arg column="AMOUNT" javaType="java.math.BigDecimal" jdbcType="DECIMAL" />
+      <arg column="SUBJECT_MATTER_ID" javaType="java.math.BigDecimal" jdbcType="DECIMAL" />
+      <arg column="CONTRACT_URL" javaType="java.lang.String" jdbcType="VARCHAR" />
+      <arg column="CREATE_TIME" javaType="java.util.Date" jdbcType="TIMESTAMP" />
+      <arg column="SELLER_USER_ID" javaType="java.math.BigDecimal" jdbcType="DECIMAL" />
+      <arg column="ORIGIN_SUBJECT_MATTER_ID" javaType="java.math.BigDecimal" jdbcType="DECIMAL" />
+    </constructor>
+  </resultMap>
+  <sql id="Base_Column_List">
+    ID, RECORD_NO, BUYER_UER_ID, AMOUNT, SUBJECT_MATTER_ID, CONTRACT_URL, CREATE_TIME, 
+    SELLER_USER_ID, ORIGIN_SUBJECT_MATTER_ID
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.math.BigDecimal" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from CREDITOR_ORDER_RECORD
+    where ID = #{id,jdbcType=DECIMAL}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.math.BigDecimal">
+    delete from CREDITOR_ORDER_RECORD
+    where ID = #{id,jdbcType=DECIMAL}
+  </delete>
+  <insert id="insert" parameterType="com.zl.pojo.CreditorOrderRecord">
+    insert into CREDITOR_ORDER_RECORD (ID, RECORD_NO, BUYER_UER_ID, 
+      AMOUNT, SUBJECT_MATTER_ID, CONTRACT_URL, 
+      CREATE_TIME, SELLER_USER_ID, ORIGIN_SUBJECT_MATTER_ID
+      )
+    values (#{id,jdbcType=DECIMAL}, #{recordNo,jdbcType=DECIMAL}, #{buyerUerId,jdbcType=DECIMAL}, 
+      #{amount,jdbcType=DECIMAL}, #{subjectMatterId,jdbcType=DECIMAL}, #{contractUrl,jdbcType=VARCHAR}, 
+      #{createTime,jdbcType=TIMESTAMP}, #{sellerUserId,jdbcType=DECIMAL}, #{originSubjectMatterId,jdbcType=DECIMAL}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.zl.pojo.CreditorOrderRecord">
+    insert into CREDITOR_ORDER_RECORD
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        ID,
+      </if>
+      <if test="recordNo != null">
+        RECORD_NO,
+      </if>
+      <if test="buyerUerId != null">
+        BUYER_UER_ID,
+      </if>
+      <if test="amount != null">
+        AMOUNT,
+      </if>
+      <if test="subjectMatterId != null">
+        SUBJECT_MATTER_ID,
+      </if>
+      <if test="contractUrl != null">
+        CONTRACT_URL,
+      </if>
+      <if test="createTime != null">
+        CREATE_TIME,
+      </if>
+      <if test="sellerUserId != null">
+        SELLER_USER_ID,
+      </if>
+      <if test="originSubjectMatterId != null">
+        ORIGIN_SUBJECT_MATTER_ID,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=DECIMAL},
+      </if>
+      <if test="recordNo != null">
+        #{recordNo,jdbcType=DECIMAL},
+      </if>
+      <if test="buyerUerId != null">
+        #{buyerUerId,jdbcType=DECIMAL},
+      </if>
+      <if test="amount != null">
+        #{amount,jdbcType=DECIMAL},
+      </if>
+      <if test="subjectMatterId != null">
+        #{subjectMatterId,jdbcType=DECIMAL},
+      </if>
+      <if test="contractUrl != null">
+        #{contractUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null">
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="sellerUserId != null">
+        #{sellerUserId,jdbcType=DECIMAL},
+      </if>
+      <if test="originSubjectMatterId != null">
+        #{originSubjectMatterId,jdbcType=DECIMAL},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.zl.pojo.CreditorOrderRecord">
+    update CREDITOR_ORDER_RECORD
+    <set>
+      <if test="recordNo != null">
+        RECORD_NO = #{recordNo,jdbcType=DECIMAL},
+      </if>
+      <if test="buyerUerId != null">
+        BUYER_UER_ID = #{buyerUerId,jdbcType=DECIMAL},
+      </if>
+      <if test="amount != null">
+        AMOUNT = #{amount,jdbcType=DECIMAL},
+      </if>
+      <if test="subjectMatterId != null">
+        SUBJECT_MATTER_ID = #{subjectMatterId,jdbcType=DECIMAL},
+      </if>
+      <if test="contractUrl != null">
+        CONTRACT_URL = #{contractUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null">
+        CREATE_TIME = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="sellerUserId != null">
+        SELLER_USER_ID = #{sellerUserId,jdbcType=DECIMAL},
+      </if>
+      <if test="originSubjectMatterId != null">
+        ORIGIN_SUBJECT_MATTER_ID = #{originSubjectMatterId,jdbcType=DECIMAL},
+      </if>
+    </set>
+    where ID = #{id,jdbcType=DECIMAL}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.zl.pojo.CreditorOrderRecord">
+    update CREDITOR_ORDER_RECORD
+    set RECORD_NO = #{recordNo,jdbcType=DECIMAL},
+      BUYER_UER_ID = #{buyerUerId,jdbcType=DECIMAL},
+      AMOUNT = #{amount,jdbcType=DECIMAL},
+      SUBJECT_MATTER_ID = #{subjectMatterId,jdbcType=DECIMAL},
+      CONTRACT_URL = #{contractUrl,jdbcType=VARCHAR},
+      CREATE_TIME = #{createTime,jdbcType=TIMESTAMP},
+      SELLER_USER_ID = #{sellerUserId,jdbcType=DECIMAL},
+      ORIGIN_SUBJECT_MATTER_ID = #{originSubjectMatterId,jdbcType=DECIMAL}
+    where ID = #{id,jdbcType=DECIMAL}
+  </update>
+</mapper>

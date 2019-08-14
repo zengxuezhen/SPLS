@@ -1,0 +1,256 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zl.dao.SubjectMatterTypeMapper">
+  <resultMap id="BaseResultMap" type="com.zl.pojo.SubjectMatterType">
+    <constructor>
+      <idArg column="ID" javaType="java.lang.Short" jdbcType="DECIMAL" />
+      <arg column="TYPE_NO" javaType="java.lang.String" jdbcType="VARCHAR" />
+      <arg column="TYPE_NAME" javaType="java.lang.String" jdbcType="VARCHAR" />
+      <arg column="PERIOD" javaType="java.lang.Short" jdbcType="DECIMAL" />
+      <arg column="REPAYMENT_METHOD_ID" javaType="java.lang.Short" jdbcType="DECIMAL" />
+      <arg column="MIN_AMOUNT" javaType="java.math.BigDecimal" jdbcType="DECIMAL" />
+      <arg column="MAX_AMOUNT" javaType="java.math.BigDecimal" jdbcType="DECIMAL" />
+      <arg column="DEBT_PERIOD" javaType="java.math.BigDecimal" jdbcType="DECIMAL" />
+    </constructor>
+  </resultMap>
+  <sql id="Base_Column_List">
+    ID, TYPE_NO, TYPE_NAME, PERIOD, REPAYMENT_METHOD_ID, MIN_AMOUNT, MAX_AMOUNT, DEBT_PERIOD
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Short" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from SUBJECT_MATTER_TYPE
+    where ID = #{id,jdbcType=DECIMAL}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Short">
+    delete from SUBJECT_MATTER_TYPE
+    where ID = #{id,jdbcType=DECIMAL}
+  </delete>
+  <insert id="insert" parameterType="com.zl.pojo.SubjectMatterType">
+    insert into SUBJECT_MATTER_TYPE (ID, TYPE_NO, TYPE_NAME, 
+      PERIOD, REPAYMENT_METHOD_ID, MIN_AMOUNT, 
+      MAX_AMOUNT, DEBT_PERIOD)
+    values (#{id,jdbcType=DECIMAL}, #{typeNo,jdbcType=VARCHAR}, #{typeName,jdbcType=VARCHAR}, 
+      #{period,jdbcType=DECIMAL}, #{repaymentMethodId,jdbcType=DECIMAL}, #{minAmount,jdbcType=DECIMAL}, 
+      #{maxAmount,jdbcType=DECIMAL}, #{debtPeriod,jdbcType=DECIMAL})
+  </insert>
+  <insert id="insertSelective" parameterType="com.zl.pojo.SubjectMatterType">
+    insert into SUBJECT_MATTER_TYPE
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        ID,
+      </if>
+      <if test="typeNo != null">
+        TYPE_NO,
+      </if>
+      <if test="typeName != null">
+        TYPE_NAME,
+      </if>
+      <if test="period != null">
+        PERIOD,
+      </if>
+      <if test="repaymentMethodId != null">
+        REPAYMENT_METHOD_ID,
+      </if>
+      <if test="minAmount != null">
+        MIN_AMOUNT,
+      </if>
+      <if test="maxAmount != null">
+        MAX_AMOUNT,
+      </if>
+      <if test="debtPeriod != null">
+        DEBT_PERIOD,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=DECIMAL},
+      </if>
+      <if test="typeNo != null">
+        #{typeNo,jdbcType=VARCHAR},
+      </if>
+      <if test="typeName != null">
+        #{typeName,jdbcType=VARCHAR},
+      </if>
+      <if test="period != null">
+        #{period,jdbcType=DECIMAL},
+      </if>
+      <if test="repaymentMethodId != null">
+        #{repaymentMethodId,jdbcType=DECIMAL},
+      </if>
+      <if test="minAmount != null">
+        #{minAmount,jdbcType=DECIMAL},
+      </if>
+      <if test="maxAmount != null">
+        #{maxAmount,jdbcType=DECIMAL},
+      </if>
+      <if test="debtPeriod != null">
+        #{debtPeriod,jdbcType=DECIMAL},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.zl.pojo.SubjectMatterType">
+    update SUBJECT_MATTER_TYPE
+    <set>
+      <if test="typeNo != null">
+        TYPE_NO = #{typeNo,jdbcType=VARCHAR},
+      </if>
+      <if test="typeName != null">
+        TYPE_NAME = #{typeName,jdbcType=VARCHAR},
+      </if>
+      <if test="period != null">
+        PERIOD = #{period,jdbcType=DECIMAL},
+      </if>
+      <if test="repaymentMethodId != null">
+        REPAYMENT_METHOD_ID = #{repaymentMethodId,jdbcType=DECIMAL},
+      </if>
+      <if test="minAmount != null">
+        MIN_AMOUNT = #{minAmount,jdbcType=DECIMAL},
+      </if>
+      <if test="maxAmount != null">
+        MAX_AMOUNT = #{maxAmount,jdbcType=DECIMAL},
+      </if>
+      <if test="debtPeriod != null">
+        DEBT_PERIOD = #{debtPeriod,jdbcType=DECIMAL},
+      </if>
+    </set>
+    where ID = #{id,jdbcType=DECIMAL}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.zl.pojo.SubjectMatterType">
+    update SUBJECT_MATTER_TYPE
+    set TYPE_NO = #{typeNo,jdbcType=VARCHAR},
+      TYPE_NAME = #{typeName,jdbcType=VARCHAR},
+      PERIOD = #{period,jdbcType=DECIMAL},
+      REPAYMENT_METHOD_ID = #{repaymentMethodId,jdbcType=DECIMAL},
+      MIN_AMOUNT = #{minAmount,jdbcType=DECIMAL},
+      MAX_AMOUNT = #{maxAmount,jdbcType=DECIMAL},
+      DEBT_PERIOD = #{debtPeriod,jdbcType=DECIMAL}
+    where ID = #{id,jdbcType=DECIMAL}
+  </update>
+  <resultMap id="BaseResultMap" type="com.zl.pojo.SubjectMatterType">
+    <constructor>
+      <idArg column="ID" javaType="java.math.BigDecimal" jdbcType="DECIMAL" />
+      <arg column="TYPE_NO" javaType="java.lang.String" jdbcType="VARCHAR" />
+      <arg column="TYPE_NAME" javaType="java.lang.String" jdbcType="VARCHAR" />
+      <arg column="PERIOD" javaType="java.math.BigDecimal" jdbcType="DECIMAL" />
+      <arg column="REPAYMENT_METHOD_ID" javaType="java.math.BigDecimal" jdbcType="DECIMAL" />
+      <arg column="MIN_AMOUNT" javaType="java.math.BigDecimal" jdbcType="DECIMAL" />
+      <arg column="MAX_AMOUNT" javaType="java.math.BigDecimal" jdbcType="DECIMAL" />
+      <arg column="DEBT_PERIOD" javaType="java.math.BigDecimal" jdbcType="DECIMAL" />
+    </constructor>
+  </resultMap>
+  <sql id="Base_Column_List">
+    ID, TYPE_NO, TYPE_NAME, PERIOD, REPAYMENT_METHOD_ID, MIN_AMOUNT, MAX_AMOUNT, DEBT_PERIOD
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.math.BigDecimal" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from SUBJECT_MATTER_TYPE
+    where ID = #{id,jdbcType=DECIMAL}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.math.BigDecimal">
+    delete from SUBJECT_MATTER_TYPE
+    where ID = #{id,jdbcType=DECIMAL}
+  </delete>
+  <insert id="insert" parameterType="com.zl.pojo.SubjectMatterType">
+    insert into SUBJECT_MATTER_TYPE (ID, TYPE_NO, TYPE_NAME, 
+      PERIOD, REPAYMENT_METHOD_ID, MIN_AMOUNT, 
+      MAX_AMOUNT, DEBT_PERIOD)
+    values (#{id,jdbcType=DECIMAL}, #{typeNo,jdbcType=VARCHAR}, #{typeName,jdbcType=VARCHAR}, 
+      #{period,jdbcType=DECIMAL}, #{repaymentMethodId,jdbcType=DECIMAL}, #{minAmount,jdbcType=DECIMAL}, 
+      #{maxAmount,jdbcType=DECIMAL}, #{debtPeriod,jdbcType=DECIMAL})
+  </insert>
+  <insert id="insertSelective" parameterType="com.zl.pojo.SubjectMatterType">
+    insert into SUBJECT_MATTER_TYPE
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        ID,
+      </if>
+      <if test="typeNo != null">
+        TYPE_NO,
+      </if>
+      <if test="typeName != null">
+        TYPE_NAME,
+      </if>
+      <if test="period != null">
+        PERIOD,
+      </if>
+      <if test="repaymentMethodId != null">
+        REPAYMENT_METHOD_ID,
+      </if>
+      <if test="minAmount != null">
+        MIN_AMOUNT,
+      </if>
+      <if test="maxAmount != null">
+        MAX_AMOUNT,
+      </if>
+      <if test="debtPeriod != null">
+        DEBT_PERIOD,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=DECIMAL},
+      </if>
+      <if test="typeNo != null">
+        #{typeNo,jdbcType=VARCHAR},
+      </if>
+      <if test="typeName != null">
+        #{typeName,jdbcType=VARCHAR},
+      </if>
+      <if test="period != null">
+        #{period,jdbcType=DECIMAL},
+      </if>
+      <if test="repaymentMethodId != null">
+        #{repaymentMethodId,jdbcType=DECIMAL},
+      </if>
+      <if test="minAmount != null">
+        #{minAmount,jdbcType=DECIMAL},
+      </if>
+      <if test="maxAmount != null">
+        #{maxAmount,jdbcType=DECIMAL},
+      </if>
+      <if test="debtPeriod != null">
+        #{debtPeriod,jdbcType=DECIMAL},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.zl.pojo.SubjectMatterType">
+    update SUBJECT_MATTER_TYPE
+    <set>
+      <if test="typeNo != null">
+        TYPE_NO = #{typeNo,jdbcType=VARCHAR},
+      </if>
+      <if test="typeName != null">
+        TYPE_NAME = #{typeName,jdbcType=VARCHAR},
+      </if>
+      <if test="period != null">
+        PERIOD = #{period,jdbcType=DECIMAL},
+      </if>
+      <if test="repaymentMethodId != null">
+        REPAYMENT_METHOD_ID = #{repaymentMethodId,jdbcType=DECIMAL},
+      </if>
+      <if test="minAmount != null">
+        MIN_AMOUNT = #{minAmount,jdbcType=DECIMAL},
+      </if>
+      <if test="maxAmount != null">
+        MAX_AMOUNT = #{maxAmount,jdbcType=DECIMAL},
+      </if>
+      <if test="debtPeriod != null">
+        DEBT_PERIOD = #{debtPeriod,jdbcType=DECIMAL},
+      </if>
+    </set>
+    where ID = #{id,jdbcType=DECIMAL}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.zl.pojo.SubjectMatterType">
+    update SUBJECT_MATTER_TYPE
+    set TYPE_NO = #{typeNo,jdbcType=VARCHAR},
+      TYPE_NAME = #{typeName,jdbcType=VARCHAR},
+      PERIOD = #{period,jdbcType=DECIMAL},
+      REPAYMENT_METHOD_ID = #{repaymentMethodId,jdbcType=DECIMAL},
+      MIN_AMOUNT = #{minAmount,jdbcType=DECIMAL},
+      MAX_AMOUNT = #{maxAmount,jdbcType=DECIMAL},
+      DEBT_PERIOD = #{debtPeriod,jdbcType=DECIMAL}
+    where ID = #{id,jdbcType=DECIMAL}
+  </update>
+</mapper>

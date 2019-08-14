@@ -1,0 +1,212 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zl.dao.RepaymentMethodMapper">
+  <resultMap id="BaseResultMap" type="com.zl.pojo.RepaymentMethod">
+    <constructor>
+      <idArg column="ID" javaType="java.math.BigDecimal" jdbcType="DECIMAL" />
+      <arg column="METHOD_NAME" javaType="java.lang.String" jdbcType="VARCHAR" />
+      <arg column="DESCRIPTION" javaType="java.lang.String" jdbcType="VARCHAR" />
+      <arg column="NORMAL_INTEREST_RATE" javaType="java.math.BigDecimal" jdbcType="DECIMAL" />
+      <arg column="OVERDUE_INTEREST_RATE" javaType="java.math.BigDecimal" jdbcType="DECIMAL" />
+      <arg column="PREPAYMENT_INTEREST_RATE" javaType="java.math.BigDecimal" jdbcType="DECIMAL" />
+    </constructor>
+  </resultMap>
+  <sql id="Base_Column_List">
+    ID, METHOD_NAME, DESCRIPTION, NORMAL_INTEREST_RATE, OVERDUE_INTEREST_RATE, PREPAYMENT_INTEREST_RATE
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.math.BigDecimal" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from REPAYMENT_METHOD
+    where ID = #{id,jdbcType=DECIMAL}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.math.BigDecimal">
+    delete from REPAYMENT_METHOD
+    where ID = #{id,jdbcType=DECIMAL}
+  </delete>
+  <insert id="insert" parameterType="com.zl.pojo.RepaymentMethod">
+    insert into REPAYMENT_METHOD (ID, METHOD_NAME, DESCRIPTION, 
+      NORMAL_INTEREST_RATE, OVERDUE_INTEREST_RATE, 
+      PREPAYMENT_INTEREST_RATE)
+    values (#{id,jdbcType=DECIMAL}, #{methodName,jdbcType=VARCHAR}, #{description,jdbcType=VARCHAR}, 
+      #{normalInterestRate,jdbcType=DECIMAL}, #{overdueInterestRate,jdbcType=DECIMAL}, 
+      #{prepaymentInterestRate,jdbcType=DECIMAL})
+  </insert>
+  <insert id="insertSelective" parameterType="com.zl.pojo.RepaymentMethod">
+    insert into REPAYMENT_METHOD
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        ID,
+      </if>
+      <if test="methodName != null">
+        METHOD_NAME,
+      </if>
+      <if test="description != null">
+        DESCRIPTION,
+      </if>
+      <if test="normalInterestRate != null">
+        NORMAL_INTEREST_RATE,
+      </if>
+      <if test="overdueInterestRate != null">
+        OVERDUE_INTEREST_RATE,
+      </if>
+      <if test="prepaymentInterestRate != null">
+        PREPAYMENT_INTEREST_RATE,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=DECIMAL},
+      </if>
+      <if test="methodName != null">
+        #{methodName,jdbcType=VARCHAR},
+      </if>
+      <if test="description != null">
+        #{description,jdbcType=VARCHAR},
+      </if>
+      <if test="normalInterestRate != null">
+        #{normalInterestRate,jdbcType=DECIMAL},
+      </if>
+      <if test="overdueInterestRate != null">
+        #{overdueInterestRate,jdbcType=DECIMAL},
+      </if>
+      <if test="prepaymentInterestRate != null">
+        #{prepaymentInterestRate,jdbcType=DECIMAL},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.zl.pojo.RepaymentMethod">
+    update REPAYMENT_METHOD
+    <set>
+      <if test="methodName != null">
+        METHOD_NAME = #{methodName,jdbcType=VARCHAR},
+      </if>
+      <if test="description != null">
+        DESCRIPTION = #{description,jdbcType=VARCHAR},
+      </if>
+      <if test="normalInterestRate != null">
+        NORMAL_INTEREST_RATE = #{normalInterestRate,jdbcType=DECIMAL},
+      </if>
+      <if test="overdueInterestRate != null">
+        OVERDUE_INTEREST_RATE = #{overdueInterestRate,jdbcType=DECIMAL},
+      </if>
+      <if test="prepaymentInterestRate != null">
+        PREPAYMENT_INTEREST_RATE = #{prepaymentInterestRate,jdbcType=DECIMAL},
+      </if>
+    </set>
+    where ID = #{id,jdbcType=DECIMAL}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.zl.pojo.RepaymentMethod">
+    update REPAYMENT_METHOD
+    set METHOD_NAME = #{methodName,jdbcType=VARCHAR},
+      DESCRIPTION = #{description,jdbcType=VARCHAR},
+      NORMAL_INTEREST_RATE = #{normalInterestRate,jdbcType=DECIMAL},
+      OVERDUE_INTEREST_RATE = #{overdueInterestRate,jdbcType=DECIMAL},
+      PREPAYMENT_INTEREST_RATE = #{prepaymentInterestRate,jdbcType=DECIMAL}
+    where ID = #{id,jdbcType=DECIMAL}
+  </update>
+  <resultMap id="BaseResultMap" type="com.zl.pojo.RepaymentMethod">
+    <constructor>
+      <idArg column="ID" javaType="java.lang.Short" jdbcType="DECIMAL" />
+      <arg column="METHOD_NAME" javaType="java.lang.String" jdbcType="VARCHAR" />
+      <arg column="DESCRIPTION" javaType="java.lang.String" jdbcType="VARCHAR" />
+      <arg column="NORMAL_INTEREST_RATE" javaType="java.math.BigDecimal" jdbcType="DECIMAL" />
+      <arg column="OVERDUE_INTEREST_RATE" javaType="java.math.BigDecimal" jdbcType="DECIMAL" />
+      <arg column="PREPAYMENT_INTEREST_RATE" javaType="java.math.BigDecimal" jdbcType="DECIMAL" />
+    </constructor>
+  </resultMap>
+  <sql id="Base_Column_List">
+    ID, METHOD_NAME, DESCRIPTION, NORMAL_INTEREST_RATE, OVERDUE_INTEREST_RATE, PREPAYMENT_INTEREST_RATE
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Short" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from REPAYMENT_METHOD
+    where ID = #{id,jdbcType=DECIMAL}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Short">
+    delete from REPAYMENT_METHOD
+    where ID = #{id,jdbcType=DECIMAL}
+  </delete>
+  <insert id="insert" parameterType="com.zl.pojo.RepaymentMethod">
+    insert into REPAYMENT_METHOD (ID, METHOD_NAME, DESCRIPTION, 
+      NORMAL_INTEREST_RATE, OVERDUE_INTEREST_RATE, 
+      PREPAYMENT_INTEREST_RATE)
+    values (#{id,jdbcType=DECIMAL}, #{methodName,jdbcType=VARCHAR}, #{description,jdbcType=VARCHAR}, 
+      #{normalInterestRate,jdbcType=DECIMAL}, #{overdueInterestRate,jdbcType=DECIMAL}, 
+      #{prepaymentInterestRate,jdbcType=DECIMAL})
+  </insert>
+  <insert id="insertSelective" parameterType="com.zl.pojo.RepaymentMethod">
+    insert into REPAYMENT_METHOD
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        ID,
+      </if>
+      <if test="methodName != null">
+        METHOD_NAME,
+      </if>
+      <if test="description != null">
+        DESCRIPTION,
+      </if>
+      <if test="normalInterestRate != null">
+        NORMAL_INTEREST_RATE,
+      </if>
+      <if test="overdueInterestRate != null">
+        OVERDUE_INTEREST_RATE,
+      </if>
+      <if test="prepaymentInterestRate != null">
+        PREPAYMENT_INTEREST_RATE,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=DECIMAL},
+      </if>
+      <if test="methodName != null">
+        #{methodName,jdbcType=VARCHAR},
+      </if>
+      <if test="description != null">
+        #{description,jdbcType=VARCHAR},
+      </if>
+      <if test="normalInterestRate != null">
+        #{normalInterestRate,jdbcType=DECIMAL},
+      </if>
+      <if test="overdueInterestRate != null">
+        #{overdueInterestRate,jdbcType=DECIMAL},
+      </if>
+      <if test="prepaymentInterestRate != null">
+        #{prepaymentInterestRate,jdbcType=DECIMAL},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.zl.pojo.RepaymentMethod">
+    update REPAYMENT_METHOD
+    <set>
+      <if test="methodName != null">
+        METHOD_NAME = #{methodName,jdbcType=VARCHAR},
+      </if>
+      <if test="description != null">
+        DESCRIPTION = #{description,jdbcType=VARCHAR},
+      </if>
+      <if test="normalInterestRate != null">
+        NORMAL_INTEREST_RATE = #{normalInterestRate,jdbcType=DECIMAL},
+      </if>
+      <if test="overdueInterestRate != null">
+        OVERDUE_INTEREST_RATE = #{overdueInterestRate,jdbcType=DECIMAL},
+      </if>
+      <if test="prepaymentInterestRate != null">
+        PREPAYMENT_INTEREST_RATE = #{prepaymentInterestRate,jdbcType=DECIMAL},
+      </if>
+    </set>
+    where ID = #{id,jdbcType=DECIMAL}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.zl.pojo.RepaymentMethod">
+    update REPAYMENT_METHOD
+    set METHOD_NAME = #{methodName,jdbcType=VARCHAR},
+      DESCRIPTION = #{description,jdbcType=VARCHAR},
+      NORMAL_INTEREST_RATE = #{normalInterestRate,jdbcType=DECIMAL},
+      OVERDUE_INTEREST_RATE = #{overdueInterestRate,jdbcType=DECIMAL},
+      PREPAYMENT_INTEREST_RATE = #{prepaymentInterestRate,jdbcType=DECIMAL}
+    where ID = #{id,jdbcType=DECIMAL}
+  </update>
+</mapper>

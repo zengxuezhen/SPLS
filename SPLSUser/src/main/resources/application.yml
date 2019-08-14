@@ -1,4 +1,4 @@
-#EurekaProduct客户端端口
+#SPLSUser客户端端口
 server:
   port: 8082
 #Eureka客户端相关配置

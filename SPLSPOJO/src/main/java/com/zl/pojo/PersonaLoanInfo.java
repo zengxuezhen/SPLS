@@ -22,8 +22,10 @@ public class PersonaLoanInfo implements Serializable {
     private BigDecimal maxAmount;
 //  可用额度
     private BigDecimal activeAmount;
+//  审核处理状态
+    private Integer status;
 
-    public PersonaLoanInfo(Long id, Long idId, String educationBackgroud, BigDecimal personalAssetsId, BigDecimal monthlyIncome, String maritalStatus, BigDecimal maxAmount, BigDecimal activeAmount) {
+    public PersonaLoanInfo(Long id, Long idId, String educationBackgroud, BigDecimal personalAssetsId, BigDecimal monthlyIncome, String maritalStatus, BigDecimal maxAmount, BigDecimal activeAmount, Integer status) {
         this.id = id;
         this.idId = idId;
         this.educationBackgroud = educationBackgroud;
@@ -31,6 +33,7 @@ public class PersonaLoanInfo implements Serializable {
         this.maritalStatus = maritalStatus;
         this.maxAmount=maxAmount;
         this.activeAmount=activeAmount;
+        this.status=status;
     }
 
     public PersonaLoanInfo() {
@@ -91,6 +94,14 @@ public class PersonaLoanInfo implements Serializable {
 
 	public void setActiveAmount(BigDecimal activeAmount) {
 		this.activeAmount = activeAmount;
+	}
+
+	public Integer getStatus() {
+		return status;
+	}
+
+	public void setStatus(Integer status) {
+		this.status = status;
 	}
 
     

@@ -9,11 +9,11 @@ public interface CreditorOrderRecordService {
 
     int insert(CreditorOrderRecord record);
 
-    int insertSelective(CreditorOrderRecord record);
+    //int insertSelective(CreditorOrderRecord record);
 
     CreditorOrderRecord selectByPrimaryKey(BigDecimal id);
 
-    int updateByPrimaryKeySelective(CreditorOrderRecord record);
+    //int updateByPrimaryKeySelective(CreditorOrderRecord record);
 
     int updateByPrimaryKey(CreditorOrderRecord record);
 }

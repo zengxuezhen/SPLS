@@ -5,15 +5,17 @@ server:
 #连接注册中心的配置
 eureka: 
   client:
-    service-url:
+    service-url: 
       defaultZone: http://localhost:8081/eureka/
 #该服务在注册中心的名称
 spring:
   application:
     name: credit-service
+  profiles:
+    active: dev
   #oracle数据库相关配置
   datasource:
-    url: jdbc:oracle:thin@//10.1.12.223:1521/P2P
+    url: jdbc:oracle:thin:@10.1.12.223:1521/orcl
     driver-class-name: oracle.jdbc.driver.OracleDriver
     username: p2p
     password: 123456

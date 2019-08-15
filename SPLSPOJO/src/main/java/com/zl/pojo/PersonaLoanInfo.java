@@ -1,52 +1,55 @@
 package com.zl.pojo;
 
+import java.io.Serializable;
 import java.math.BigDecimal;
+/*
+ * 贷款个人信息表实体类
+ * */
+public class PersonaLoanInfo implements Serializable {
 
-public class PersonaLoanInfo {
-    private BigDecimal id;
-
-    private BigDecimal idId;
-
+	private static final long serialVersionUID = 803733284729720111L;
+//	主键
+    private Long id;
+//	认证表外键
+    private Long idId;
+//	学历
     private String educationBackgroud;
-
-    private BigDecimal personalAssetsId;
-
+//	月收入
     private BigDecimal monthlyIncome;
-
+//  婚姻状态
     private String maritalStatus;
+//  贷款额度
+    private BigDecimal maxAmount;
+//  可用额度
+    private BigDecimal activeAmount;
 
-    private BigDecimal contact1;
-
-    private BigDecimal contact2;
-
-    public PersonaLoanInfo(BigDecimal id, BigDecimal idId, String educationBackgroud, BigDecimal personalAssetsId, BigDecimal monthlyIncome, String maritalStatus, BigDecimal contact1, BigDecimal contact2) {
+    public PersonaLoanInfo(Long id, Long idId, String educationBackgroud, BigDecimal personalAssetsId, BigDecimal monthlyIncome, String maritalStatus, BigDecimal maxAmount, BigDecimal activeAmount) {
         this.id = id;
         this.idId = idId;
         this.educationBackgroud = educationBackgroud;
-        this.personalAssetsId = personalAssetsId;
         this.monthlyIncome = monthlyIncome;
         this.maritalStatus = maritalStatus;
-        this.contact1 = contact1;
-        this.contact2 = contact2;
+        this.maxAmount=maxAmount;
+        this.activeAmount=activeAmount;
     }
 
     public PersonaLoanInfo() {
         super();
     }
 
-    public BigDecimal getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(BigDecimal id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
-    public BigDecimal getIdId() {
+    public Long getIdId() {
         return idId;
     }
 
-    public void setIdId(BigDecimal idId) {
+    public void setIdId(Long idId) {
         this.idId = idId;
     }
 
@@ -56,14 +59,6 @@ public class PersonaLoanInfo {
 
     public void setEducationBackgroud(String educationBackgroud) {
         this.educationBackgroud = educationBackgroud == null ? null : educationBackgroud.trim();
-    }
-
-    public BigDecimal getPersonalAssetsId() {
-        return personalAssetsId;
-    }
-
-    public void setPersonalAssetsId(BigDecimal personalAssetsId) {
-        this.personalAssetsId = personalAssetsId;
     }
 
     public BigDecimal getMonthlyIncome() {
@@ -82,19 +77,21 @@ public class PersonaLoanInfo {
         this.maritalStatus = maritalStatus == null ? null : maritalStatus.trim();
     }
 
-    public BigDecimal getContact1() {
-        return contact1;
-    }
+	public BigDecimal getMaxAmount() {
+		return maxAmount;
+	}
 
-    public void setContact1(BigDecimal contact1) {
-        this.contact1 = contact1;
-    }
+	public void setMaxAmount(BigDecimal maxAmount) {
+		this.maxAmount = maxAmount;
+	}
 
-    public BigDecimal getContact2() {
-        return contact2;
-    }
+	public BigDecimal getActiveAmount() {
+		return activeAmount;
+	}
 
-    public void setContact2(BigDecimal contact2) {
-        this.contact2 = contact2;
-    }
+	public void setActiveAmount(BigDecimal activeAmount) {
+		this.activeAmount = activeAmount;
+	}
+
+    
 }

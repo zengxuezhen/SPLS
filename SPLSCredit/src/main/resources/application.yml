@@ -1,4 +1,4 @@
-#EurekaProduct客户端端口
+﻿#SPLSCredit客户端端口
 server:
   port: 8084
 #Eureka客户端相关配置

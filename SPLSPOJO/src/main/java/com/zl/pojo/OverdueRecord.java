@@ -1,16 +1,32 @@
 package com.zl.pojo;
 
+import java.io.Serializable;
 import java.util.Date;
 
-public class OverdueRecord {
+import org.springframework.format.annotation.DateTimeFormat;
+
+import com.fasterxml.jackson.annotation.JsonFormat;
+/*
+ * 逾期记录表实体类
+ * 
+ * */
+public class OverdueRecord implements Serializable {
+	
+/**
+	 * 
+	 */
+	private static final long serialVersionUID = 4239904087589524200L;
+//	主键ID
     private Long id;
-
+//	标的表外键
     private Long subjectMatterId;
-
+//	第几期
     private Short term;
-
+//	逾期状态
     private Short overdueStatus;
-
+//	记录创建时间
+    @JsonFormat(pattern="yyyy-MM-dd HH-mm-ss")
+    @DateTimeFormat(pattern="yyyy-MM-dd HH-mm-ss")
     private Date createTime;
 
     public OverdueRecord(Long id, Long subjectMatterId, Short term, Short overdueStatus, Date createTime) {

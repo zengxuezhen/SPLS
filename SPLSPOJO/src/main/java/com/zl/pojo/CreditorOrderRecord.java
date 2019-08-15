@@ -4,6 +4,10 @@ import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.Date;
 
+import org.springframework.format.annotation.DateTimeFormat;
+
+import com.fasterxml.jackson.annotation.JsonFormat;
+
 /**
  * 债权人转让信息订单记录表
  * @author Administrator
@@ -13,25 +17,27 @@ public class CreditorOrderRecord implements Serializable {
     
 	private static final long serialVersionUID = -6713488017540259630L;
 	//主键
-	private Integer id;
+	private Long id;
 	//转让编号
     private Long recordNo;
     //买入债权用户
-    private Integer buyerUerId;
+    private Long buyerUerId;
     //转让金额
     private BigDecimal amount;
     //债权对应的原标
-    private Integer subjectMatterId;
+    private Long subjectMatterId;
     //合同借据路径
     private String contractUrl;
     //转让记录生成时间
+    @JsonFormat(pattern="yyyy-MM-dd HH-mm-ss")
+    @DateTimeFormat(pattern="yyyy-MM-dd HH-mm-ss")
     private Date createTime;
     //卖出债权用户
-    private Integer sellerUserId;
-    //
-    private Integer originSubjectMatterId;
+    private Long sellerUserId;
+    //原始标的ID
+    private Long originSubjectMatterId;
 
-    public CreditorOrderRecord(Integer id, Long recordNo, Integer buyerUerId, BigDecimal amount, Integer subjectMatterId, String contractUrl, Date createTime, Integer sellerUserId, Integer originSubjectMatterId) {
+    public CreditorOrderRecord(Long id, Long recordNo, Long buyerUerId, BigDecimal amount, Long subjectMatterId, String contractUrl, Date createTime, Long sellerUserId, Long originSubjectMatterId) {
         this.id = id;
         this.recordNo = recordNo;
         this.buyerUerId = buyerUerId;
@@ -47,11 +53,11 @@ public class CreditorOrderRecord implements Serializable {
         super();
     }
 
-    public Integer getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(Integer id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
@@ -63,11 +69,11 @@ public class CreditorOrderRecord implements Serializable {
         this.recordNo = recordNo;
     }
 
-    public Integer getBuyerUerId() {
+    public Long getBuyerUerId() {
         return buyerUerId;
     }
 
-    public void setBuyerUerId(Integer buyerUerId) {
+    public void setBuyerUerId(Long buyerUerId) {
         this.buyerUerId = buyerUerId;
     }
 
@@ -79,11 +85,11 @@ public class CreditorOrderRecord implements Serializable {
         this.amount = amount;
     }
 
-    public Integer getSubjectMatterId() {
+    public Long getSubjectMatterId() {
         return subjectMatterId;
     }
 
-    public void setSubjectMatterId(Integer subjectMatterId) {
+    public void setSubjectMatterId(Long subjectMatterId) {
         this.subjectMatterId = subjectMatterId;
     }
 
@@ -103,19 +109,19 @@ public class CreditorOrderRecord implements Serializable {
         this.createTime = createTime;
     }
 
-    public Integer getSellerUserId() {
+    public Long getSellerUserId() {
         return sellerUserId;
     }
 
-    public void setSellerUserId(Integer sellerUserId) {
+    public void setSellerUserId(Long sellerUserId) {
         this.sellerUserId = sellerUserId;
     }
 
-    public Integer getOriginSubjectMatterId() {
+    public Long getOriginSubjectMatterId() {
         return originSubjectMatterId;
     }
 
-    public void setOriginSubjectMatterId(Integer originSubjectMatterId) {
+    public void setOriginSubjectMatterId(Long originSubjectMatterId) {
         this.originSubjectMatterId = originSubjectMatterId;
     }
 }

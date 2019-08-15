@@ -63,7 +63,3 @@ hs_err_pid*
 .project
 .settings
 target
-/SPLSPOJO/.classpath
-/SPLSPOJO/.project
-/SPLSPOJO/target
-target

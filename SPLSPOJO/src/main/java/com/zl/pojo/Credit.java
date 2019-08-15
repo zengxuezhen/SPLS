@@ -12,19 +12,19 @@ public class Credit implements Serializable {
     
 	private static final long serialVersionUID = -5027863570074646330L;
 	//主键（自增）
-	private Integer id;
+	private Long id;
 	//债权表编号
     private String deptNo;
     //债权拥有者用户主键（债主）
-    private Integer debtorUserId;
+    private Long debtorUserId;
     //贷款人用户主键
-    private Integer creditorUserId;
+    private Long creditorUserId;
     //所属标的主键
-    private Integer loanId;
+    private Long loanId;
     //持有债权金额
     private BigDecimal amount;
     
-    public Credit(Integer id, String deptNo, Integer debtorUserId, Integer creditorUserId, Integer loanId, BigDecimal amount) {
+    public Credit(Long id, String deptNo, Long debtorUserId, Long creditorUserId, Long loanId, BigDecimal amount) {
         this.id = id;
         this.deptNo = deptNo;
         this.debtorUserId = debtorUserId;
@@ -37,11 +37,11 @@ public class Credit implements Serializable {
         super();
     }
 
-    public Integer getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(Integer id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
@@ -53,27 +53,27 @@ public class Credit implements Serializable {
         this.deptNo = deptNo == null ? null : deptNo.trim();
     }
 
-    public Integer getDebtorUserId() {
+    public Long getDebtorUserId() {
         return debtorUserId;
     }
 
-    public void setDebtorUserId(Integer debtorUserId) {
+    public void setDebtorUserId(Long debtorUserId) {
         this.debtorUserId = debtorUserId;
     }
 
-    public Integer getCreditorUserId() {
+    public Long getCreditorUserId() {
         return creditorUserId;
     }
 
-    public void setCreditorUserId(Integer creditorUserId) {
+    public void setCreditorUserId(Long creditorUserId) {
         this.creditorUserId = creditorUserId;
     }
 
-    public Integer getLoanId() {
+    public Long getLoanId() {
         return loanId;
     }
 
-    public void setLoanId(Integer loanId) {
+    public void setLoanId(Long loanId) {
         this.loanId = loanId;
     }
 

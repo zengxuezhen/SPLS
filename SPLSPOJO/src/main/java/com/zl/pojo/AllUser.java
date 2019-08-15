@@ -16,7 +16,7 @@ public class AllUser implements Serializable {
 	
 	private static final long serialVersionUID = -3999875067771931377L;
 	//主键
-    private Integer id;
+    private Long id;
     //用户名
     private String userName;
     //密码
@@ -28,13 +28,13 @@ public class AllUser implements Serializable {
     //邮箱
     private String email;
     //实名认证ID
-    private Integer verificationId;
+    private Long verificationId;
     //账号创建时间
     @JsonFormat(pattern="yyyy-MM-dd HH-mm-ss")
     @DateTimeFormat(pattern="yyyy-MM-dd HH-mm-ss")
     private Date createTime;
 
-    public AllUser(Integer id, String userName, String pwd, String telephone, String avater, String email, Integer verificationId, Date createTime) {
+    public AllUser(Long id, String userName, String pwd, String telephone, String avater, String email, Long verificationId, Date createTime) {
         this.id = id;
         this.userName = userName;
         this.pwd = pwd;
@@ -49,11 +49,11 @@ public class AllUser implements Serializable {
         super();
     }
 
-    public Integer getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(Integer id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
@@ -97,11 +97,11 @@ public class AllUser implements Serializable {
         this.email = email == null ? null : email.trim();
     }
 
-    public Integer getVerificationId() {
+    public Long getVerificationId() {
         return verificationId;
     }
 
-    public void setVerificationId(Integer verificationId) {
+    public void setVerificationId(Long verificationId) {
         this.verificationId = verificationId;
     }
 
@@ -112,4 +112,12 @@ public class AllUser implements Serializable {
     public void setCreateTime(Date createTime) {
         this.createTime = createTime;
     }
+
+	@Override
+	public String toString() {
+		return "AllUser [id=" + id + ", userName=" + userName + ", pwd=" + pwd + ", telephone=" + telephone
+				+ ", avater=" + avater + ", email=" + email + ", verificationId=" + verificationId + ", createTime="
+				+ createTime + "]";
+	}
+    
 }

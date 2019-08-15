@@ -13,7 +13,7 @@ public class SubjectMatter implements Serializable {
     
 	private static final long serialVersionUID = 3391937959367938881L;
 	//主键
-	private Integer id;
+	private Long id;
 	//标的编号
     private String matterNo;
     //标的状态
@@ -31,7 +31,7 @@ public class SubjectMatter implements Serializable {
     //此标对应的类型表主键
     private Integer typeId;
 
-    public SubjectMatter(Integer id, String matterNo, Integer status, Integer debtorUserId, BigDecimal loanAmount, Date createTime, String purpose, String title, Integer typeId) {
+    public SubjectMatter(Long id, String matterNo, Integer status, Integer debtorUserId, BigDecimal loanAmount, Date createTime, String purpose, String title, Integer typeId) {
         this.id = id;
         this.matterNo = matterNo;
         this.status = status;
@@ -47,11 +47,11 @@ public class SubjectMatter implements Serializable {
         super();
     }
 
-    public Integer getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(Integer id) {
+    public void setId(Long id) {
         this.id = id;
     }
 

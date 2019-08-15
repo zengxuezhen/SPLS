@@ -18,7 +18,7 @@ public class AccountInfo implements Serializable {
     
 	private static final long serialVersionUID = 1241499456142281802L;
 	//主键
-	private Integer id;
+	private Long id;
 	//平台账号编号
     private String accountNo;
     //平台账户可用余额
@@ -30,9 +30,9 @@ public class AccountInfo implements Serializable {
     @DateTimeFormat(pattern="yyyy-MM-dd HH-mm-ss")
     private Date createTime;
     //此账户对应用户主键
-    private Integer userId;
+    private Long userId;
 
-    public AccountInfo(Integer id, String accountNo, BigDecimal activeAmount, BigDecimal frozenAmount, Date createTime, Integer userId) {
+    public AccountInfo(Long id, String accountNo, BigDecimal activeAmount, BigDecimal frozenAmount, Date createTime, Long userId) {
         this.id = id;
         this.accountNo = accountNo;
         this.activeAmount = activeAmount;
@@ -41,11 +41,11 @@ public class AccountInfo implements Serializable {
         this.userId = userId;
     }
 
-    public Integer getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(Integer id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
@@ -81,11 +81,11 @@ public class AccountInfo implements Serializable {
         this.createTime = createTime;
     }
 
-    public Integer getUserId() {
+    public Long getUserId() {
         return userId;
     }
 
-    public void setUserId(Integer userId) {
+    public void setUserId(Long userId) {
         this.userId = userId;
     }
 

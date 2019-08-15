@@ -4,6 +4,10 @@ import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.Date;
 
+import org.springframework.format.annotation.DateTimeFormat;
+
+import com.fasterxml.jackson.annotation.JsonFormat;
+
 /**
  * 提现记录实体类
  * @author Administrator
@@ -17,6 +21,8 @@ public class WithdrawRecord implements Serializable {
     //提现记录编号
     private String recordNo;
     //提现时间
+    @JsonFormat(pattern="yyyy-MM-dd HH-mm-ss")
+    @DateTimeFormat(pattern="yyyy-MM-dd HH-mm-ss")
     private Date createTime;
     //提现金额
     private BigDecimal amount;

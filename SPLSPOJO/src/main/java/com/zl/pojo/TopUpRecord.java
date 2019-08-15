@@ -4,6 +4,10 @@ import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.Date;
 
+import org.springframework.format.annotation.DateTimeFormat;
+
+import com.fasterxml.jackson.annotation.JsonFormat;
+
 /**
  * 充值记录实体类
  * @author Administrator
@@ -13,19 +17,21 @@ public class TopUpRecord implements Serializable {
     
 	private static final long serialVersionUID = -8760818574711753324L;
 	//主键
-	private Integer id;
+	private Long id;
 	//充值记录编号
     private String topUpNo;
     //充值时间
+    @JsonFormat(pattern="yyyy-MM-dd HH-mm-ss")
+    @DateTimeFormat(pattern="yyyy-MM-dd HH-mm-ss")
     private Date createTime;
     //充值方式
     private String method;
     //充值金额
     private BigDecimal amount;
     //充值操作用户主键
-    private Integer userId;
+    private  Long userId;
 
-    public TopUpRecord(Integer id, String topUpNo, Date createTime, String method, BigDecimal amount, Integer userId) {
+    public TopUpRecord(Long id, String topUpNo, Date createTime, String method, BigDecimal amount, Long userId) {
         this.id = id;
         this.topUpNo = topUpNo;
         this.createTime = createTime;
@@ -38,11 +44,11 @@ public class TopUpRecord implements Serializable {
         super();
     }
 
-    public Integer getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(Integer id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
@@ -78,11 +84,11 @@ public class TopUpRecord implements Serializable {
         this.amount = amount;
     }
 
-    public Integer getUserId() {
+    public Long getUserId() {
         return userId;
     }
 
-    public void setUserId(Integer userId) {
+    public void setUserId(Long userId) {
         this.userId = userId;
     }
 }

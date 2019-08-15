@@ -3,6 +3,10 @@ package com.zl.pojo;
 import java.io.Serializable;
 import java.util.Date;
 
+import org.springframework.format.annotation.DateTimeFormat;
+
+import com.fasterxml.jackson.annotation.JsonFormat;
+
 /**
  * 操作日志记录实体类
  * @author Administrator
@@ -12,17 +16,19 @@ public class OperationLog implements Serializable {
     
 	private static final long serialVersionUID = -326241064260282496L;
 	//主键
-	private Integer id;
+	private Long id;
 	//操作用户主键
-    private Integer userId;
+    private Long userId;
     //操作类型
     private Integer typeId;
     //是否成功
-    private String isSuccess;
+    private Integer isSuccess;
     //操作时间
+    @JsonFormat(pattern="yyyy-MM-dd HH-mm-ss")
+    @DateTimeFormat(pattern="yyyy-MM-dd HH-mm-ss")
     private Date createTime;
     
-    public OperationLog(Integer id, Integer userId, Integer typeId, String isSuccess, Date createTime) {
+    public OperationLog(Long id, Long userId, Integer typeId, Integer isSuccess, Date createTime) {
         this.id = id;
         this.userId = userId;
         this.typeId = typeId;
@@ -34,19 +40,19 @@ public class OperationLog implements Serializable {
         super();
     }
 
-    public Integer getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(Integer id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
-    public Integer getUserId() {
+    public Long getUserId() {
         return userId;
     }
 
-    public void setUserId(Integer userId) {
+    public void setUserId(Long userId) {
         this.userId = userId;
     }
 
@@ -58,12 +64,12 @@ public class OperationLog implements Serializable {
         this.typeId = typeId;
     }
 
-    public String getIsSuccess() {
+    public Integer getIsSuccess() {
         return isSuccess;
     }
 
-    public void setIsSuccess(String isSuccess) {
-        this.isSuccess = isSuccess == null ? null : isSuccess.trim();
+    public void setIsSuccess(Integer isSuccess) {
+        this.isSuccess=isSuccess;
     }
 
     public Date getCreateTime() {

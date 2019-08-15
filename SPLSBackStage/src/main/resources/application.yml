@@ -1,4 +1,4 @@
-#EurekaProduct客户端端口
+#SPLSBackStage客户端端口
 server:
   port: 8085
 #Eureka客户端相关配置
@@ -13,7 +13,7 @@ spring:
     name: backStage-service
   #oracle数据库相关配置
   datasource:
-    url: jdbc:oracle:thin@//10.1.12.223:1521/P2P
+    url: jdbc:oracle:thin:@10.1.12.223:1521:orcl
     driver-class-name: oracle.jdbc.driver.OracleDriver
     username: p2p
     password: 123456

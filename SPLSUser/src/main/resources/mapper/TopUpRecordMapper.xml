@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zl.dao.TopUpRecordDao">
+	 
+	 <select id="selectTopUpRecordAll" resultType="topUpRecord">
+	 	select * from top_up_record
+	 </select>
+	 <select id="selectTopUpRecordByFenye" parameterType="com.zl.query.Fenye" resultType="topUpRecord">
+	 	select * from top_up_record where user_id=#{userId}
+	 </select>
+	 <select id="selectTopUpRecordCountByQuery" parameterType="com.zl.query.Query" resultType="int">
+	 	select count(id) from top_up_record where user_id=#{userId}
+	 </select>
+	 <insert id="insertTopUpRecord" parameterType="topUpRecord">
+	 	insert into top_up_record (top_up_no,create_time,method,amount,user_id) values (#{topUpNo},#{createTime},#{method},#{amount},#{userId})
+	 </insert>
+	 
+</mapper>

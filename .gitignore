@@ -59,6 +59,7 @@ springCloudMallZuul
 hs_err_pid*
 
 #ĞÂÔö
+.idea
 .classpath
 .project
 .settings

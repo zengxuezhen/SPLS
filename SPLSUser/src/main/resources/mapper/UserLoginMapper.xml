@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.zl.dao.UserLoginDao">
+    <select id="queryUserByTel" resultType="com.zl.pojo.AllUser" parameterType="string">
+        select ID id,TELEPHONE telephone,PWD pwd from ALL_USER where TELEPHONE=#{value}
+    </select>
+    <select id="findUserByEmail" resultType="com.zl.pojo.AllUser">
+        select ID id,EMAIL email,PWD pwd from ALL_USER where EMAIL=#{value}
+    </select>
+</mapper>

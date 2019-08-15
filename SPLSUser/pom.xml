@@ -79,6 +79,17 @@
   			<artifactId>ojdbc6</artifactId>
   			<version>11.2</version>   
 		</dependency>
+<!--用户验证shiro-->
+		<dependency>
+			<groupId>org.apache.shiro</groupId>
+			<artifactId>shiro-spring</artifactId>
+			<version>1.4.1</version>
+		</dependency>
+<!--邮件-->
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-mail</artifactId>
+		</dependency>
 	</dependencies>
 
 	<dependencyManagement>

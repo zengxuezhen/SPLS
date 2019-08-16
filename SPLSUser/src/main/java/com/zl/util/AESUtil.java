@@ -12,8 +12,11 @@ import javax.crypto.spec.SecretKeySpec;
  */
 
 public class AESUtil {
-	
+	//加密Key,必须为16的整数倍长度
 	private static final String key="p2p1111111111111p2p1111111111111";
+	/*
+	 * 加密方法
+	 */
     public static String setAesEncoder(String str){
     	
         String originalString=null;
@@ -32,6 +35,7 @@ public class AESUtil {
         return originalString;
         
     }
+    //解密方法
     public static String getAesDecoder(String str){
         String originalString=null;
         try {

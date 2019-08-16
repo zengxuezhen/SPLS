@@ -8,7 +8,7 @@ import org.springframework.context.annotation.ComponentScan;
 
 @SpringBootApplication
 @EnableEurekaClient
-@ComponentScan("com.zl")
+@ComponentScan("com")
 @MapperScan("com.zl.dao")
 public class SplsUserApplication {
 

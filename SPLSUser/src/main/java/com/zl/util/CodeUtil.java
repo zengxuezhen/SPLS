@@ -73,10 +73,11 @@ public class CodeUtil {
         }
         JSONObject json = JSONObject.parseObject(result.toString());
         String respCode = json.getString("respCode");
-        System.out.println("接口响应码：" + respCode);
-        String defaultRespCode = "00000";
+        //System.out.println("接口响应码：" + respCode);
+        String defaultRespCode = "0000";
         if (defaultRespCode.equals(respCode)) {
             return rod;
+            
         } else {
             return defaultRespCode;
         }

@@ -17,7 +17,7 @@ import org.springframework.web.bind.annotation.PostMapping;
  */
 @Controller
 public class UserLoginController {
-    @PostMapping(path = "/login")
+    @PostMapping("/login")
     public String userLogin(String name, String password, Model model){
         //1.获取Subject
         Subject subject = SecurityUtils.getSubject();

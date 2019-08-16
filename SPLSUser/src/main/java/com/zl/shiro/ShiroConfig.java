@@ -35,13 +35,13 @@ public class ShiroConfig {
         //filterMap.put("/add", "authc");
         filterMap.put("/update", "authc");
         filterMap.put("/login", "anon");
-
+        filterMap.put("/register","anon");
         filterMap.put("/add", "perms[0]");
         filterMap.put("/update", "perms[1]");
-        filterMap.put("/*", "authc");
+        //filterMap.put("/*", "authc");
 
         //修改调整的登录页面
-        shiroFilterFactoryBean.setLoginUrl("/toLogin");
+        //shiroFilterFactoryBean.setLoginUrl("/toLogin");
 
         shiroFilterFactoryBean.setFilterChainDefinitionMap(filterMap);
 

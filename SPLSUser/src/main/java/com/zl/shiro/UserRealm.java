@@ -70,7 +70,7 @@ public class UserRealm extends AuthorizingRealm {
         Subject subject = SecurityUtils.getSubject();
         Session session = subject.getSession();
         session.setAttribute("user", user);
-        ByteSource bytes = ByteSource.Util.bytes(String.valueOf(token.getUsername()));
+        ByteSource bytes = ByteSource.Util.bytes("uuid");
         //2.判断密码
         return new SimpleAuthenticationInfo(user, user.getPwd(), bytes, getName());
 

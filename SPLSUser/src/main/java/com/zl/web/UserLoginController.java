@@ -5,10 +5,9 @@ import org.apache.shiro.authc.IncorrectCredentialsException;
 import org.apache.shiro.authc.UnknownAccountException;
 import org.apache.shiro.authc.UsernamePasswordToken;
 import org.apache.shiro.subject.Subject;
+import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.PostMapping;
 
 /**
  * @ClassName UserLoginController
@@ -16,9 +15,9 @@ import org.springframework.web.bind.annotation.RestController;
  * @Date 2019/8/15 15:18
  * @Version 1.0
  */
-@RestController
+@Controller
 public class UserLoginController {
-    @RequestMapping(value = "/login", method = RequestMethod.POST)
+    @PostMapping(path = "/login")
     public String userLogin(String name, String password, Model model){
         //1.获取Subject
         Subject subject = SecurityUtils.getSubject();
@@ -29,7 +28,7 @@ public class UserLoginController {
 
             //登录成功
             //跳转到test.html
-            return "redirect:/testloginpage";
+            return "redirect:/testLoginPage";
         } catch (UnknownAccountException e) {
             //e.printStackTrace();
             //登录失败:用户名不存在

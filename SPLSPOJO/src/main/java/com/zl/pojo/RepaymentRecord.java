@@ -22,8 +22,8 @@ public class RepaymentRecord implements Serializable {
 //	第几期
     private Short term;
 //    记录创建时间
-    @JsonFormat(pattern="yyyy-MM-dd HH-mm-ss")
-    @DateTimeFormat(pattern="yyyy-MM-dd HH-mm-ss")
+    @JsonFormat(pattern="yyyy-MM-dd HH:mm:ss")
+    @DateTimeFormat(pattern="yyyy-MM-dd HH:mm:ss")
     private Date createTime;
 
     public RepaymentRecord(Long id, Long subjectMatterId, BigDecimal amount, Short term, Date createTime) {

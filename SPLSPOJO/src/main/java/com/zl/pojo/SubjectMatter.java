@@ -30,6 +30,8 @@ public class SubjectMatter implements Serializable {
     private String title;
     //此标对应的类型表主键
     private Integer typeId;
+    //关联标的类型
+    private SubjectMatterType subjectMatterType;
 
     public SubjectMatter(Long id, String matterNo, Integer status, Integer debtorUserId, BigDecimal loanAmount, Date createTime, String purpose, String title, Integer typeId) {
         this.id = id;
@@ -118,4 +120,14 @@ public class SubjectMatter implements Serializable {
     public void setTypeId(Integer typeId) {
         this.typeId = typeId;
     }
+
+	public SubjectMatterType getSubjectMatterType() {
+		return subjectMatterType;
+	}
+
+	public void setSubjectMatterType(SubjectMatterType subjectMatterType) {
+		this.subjectMatterType = subjectMatterType;
+	}
+
+	
 }

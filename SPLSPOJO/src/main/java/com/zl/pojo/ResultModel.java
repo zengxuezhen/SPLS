@@ -1,5 +1,7 @@
 package com.zl.pojo;
-
+/*
+ * json返回模型
+ */
 public class ResultModel {
 	private boolean success=false;
 	private Object data;

@@ -1,0 +1,145 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zl.dao.SubjectMatterMapper">
+  <resultMap id="BaseResultMap" type="com.zl.pojo.SubjectMatter">
+    <constructor>
+      <idArg column="ID" javaType="java.math.BigDecimal" jdbcType="DECIMAL" />
+      <arg column="MATTER_NO" javaType="java.math.BigDecimal" jdbcType="DECIMAL" />
+      <arg column="STATUS" javaType="java.math.BigDecimal" jdbcType="DECIMAL" />
+      <arg column="DEBTOR_USER_ID" javaType="java.math.BigDecimal" jdbcType="DECIMAL" />
+      <arg column="LOAN_AMOUNT" javaType="java.math.BigDecimal" jdbcType="DECIMAL" />
+      <arg column="CREATE_TIME" javaType="java.util.Date" jdbcType="TIMESTAMP" />
+      <arg column="PURPOSE" javaType="java.lang.String" jdbcType="VARCHAR" />
+      <arg column="TITLE" javaType="java.lang.String" jdbcType="VARCHAR" />
+      <arg column="TYPE_ID" javaType="java.math.BigDecimal" jdbcType="DECIMAL" />
+    </constructor>
+  </resultMap>
+  <sql id="Base_Column_List">
+    ID, MATTER_NO, STATUS, DEBTOR_USER_ID, LOAN_AMOUNT, CREATE_TIME, PURPOSE, TITLE, 
+    TYPE_ID
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.math.BigDecimal" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from SUBJECT_MATTER
+    where ID = #{id,jdbcType=DECIMAL}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.math.BigDecimal">
+    delete from SUBJECT_MATTER
+    where ID = #{id,jdbcType=DECIMAL}
+  </delete>
+  <insert id="insert" parameterType="com.zl.pojo.SubjectMatter">
+    insert into SUBJECT_MATTER (ID, MATTER_NO, STATUS, 
+      DEBTOR_USER_ID, LOAN_AMOUNT, CREATE_TIME, 
+      PURPOSE, TITLE, TYPE_ID
+      )
+    values (#{id,jdbcType=DECIMAL}, #{matterNo,jdbcType=DECIMAL}, #{status,jdbcType=DECIMAL}, 
+      #{debtorUserId,jdbcType=DECIMAL}, #{loanAmount,jdbcType=DECIMAL}, #{createTime,jdbcType=TIMESTAMP}, 
+      #{purpose,jdbcType=VARCHAR}, #{title,jdbcType=VARCHAR}, #{typeId,jdbcType=DECIMAL}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.zl.pojo.SubjectMatter">
+    insert into SUBJECT_MATTER
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        ID,
+      </if>
+      <if test="matterNo != null">
+        MATTER_NO,
+      </if>
+      <if test="status != null">
+        STATUS,
+      </if>
+      <if test="debtorUserId != null">
+        DEBTOR_USER_ID,
+      </if>
+      <if test="loanAmount != null">
+        LOAN_AMOUNT,
+      </if>
+      <if test="createTime != null">
+        CREATE_TIME,
+      </if>
+      <if test="purpose != null">
+        PURPOSE,
+      </if>
+      <if test="title != null">
+        TITLE,
+      </if>
+      <if test="typeId != null">
+        TYPE_ID,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=DECIMAL},
+      </if>
+      <if test="matterNo != null">
+        #{matterNo,jdbcType=DECIMAL},
+      </if>
+      <if test="status != null">
+        #{status,jdbcType=DECIMAL},
+      </if>
+      <if test="debtorUserId != null">
+        #{debtorUserId,jdbcType=DECIMAL},
+      </if>
+      <if test="loanAmount != null">
+        #{loanAmount,jdbcType=DECIMAL},
+      </if>
+      <if test="createTime != null">
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="purpose != null">
+        #{purpose,jdbcType=VARCHAR},
+      </if>
+      <if test="title != null">
+        #{title,jdbcType=VARCHAR},
+      </if>
+      <if test="typeId != null">
+        #{typeId,jdbcType=DECIMAL},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.zl.pojo.SubjectMatter">
+    update SUBJECT_MATTER
+    <set>
+      <if test="matterNo != null">
+        MATTER_NO = #{matterNo,jdbcType=DECIMAL},
+      </if>
+      <if test="status != null">
+        STATUS = #{status,jdbcType=DECIMAL},
+      </if>
+      <if test="debtorUserId != null">
+        DEBTOR_USER_ID = #{debtorUserId,jdbcType=DECIMAL},
+      </if>
+      <if test="loanAmount != null">
+        LOAN_AMOUNT = #{loanAmount,jdbcType=DECIMAL},
+      </if>
+      <if test="createTime != null">
+        CREATE_TIME = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="purpose != null">
+        PURPOSE = #{purpose,jdbcType=VARCHAR},
+      </if>
+      <if test="title != null">
+        TITLE = #{title,jdbcType=VARCHAR},
+      </if>
+      <if test="typeId != null">
+        TYPE_ID = #{typeId,jdbcType=DECIMAL},
+      </if>
+    </set>
+    where ID = #{id,jdbcType=DECIMAL}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.zl.pojo.SubjectMatter">
+    update SUBJECT_MATTER
+    set MATTER_NO = #{matterNo,jdbcType=DECIMAL},
+      STATUS = #{status,jdbcType=DECIMAL},
+      DEBTOR_USER_ID = #{debtorUserId,jdbcType=DECIMAL},
+      LOAN_AMOUNT = #{loanAmount,jdbcType=DECIMAL},
+      CREATE_TIME = #{createTime,jdbcType=TIMESTAMP},
+      PURPOSE = #{purpose,jdbcType=VARCHAR},
+      TITLE = #{title,jdbcType=VARCHAR},
+      TYPE_ID = #{typeId,jdbcType=DECIMAL}
+    where ID = #{id,jdbcType=DECIMAL}
+  </update>
+  
+</mapper>

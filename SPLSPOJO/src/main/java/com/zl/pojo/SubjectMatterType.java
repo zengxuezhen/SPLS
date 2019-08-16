@@ -12,23 +12,25 @@ public class SubjectMatterType implements Serializable {
     
 	private static final long serialVersionUID = 5004891905025626854L;
 	//主键
-	private Integer id;
+	private Short id;
 	//类型的编号
     private String typeNo;
     //类型名
     private String typeName;
     //标（产品）的成标期限
-    private Integer period;
+    private Short period;
     //该标对应的还款方式主键
-    private Integer repaymentMethodId;
+    private Short repaymentMethodId;
     //最低投资额
     private BigDecimal minAmount;
     //最高投资额
     private BigDecimal maxAmount;
     //借款期数（月）
-    private Integer debtPeriod;
+    private BigDecimal debtPeriod;
+    //关联还款方式
+    private RepaymentMethod repaymentMethod;
 
-    public SubjectMatterType(Integer id, String typeNo, String typeName, Integer period, Integer repaymentMethodId, BigDecimal minAmount, BigDecimal maxAmount, Integer debtPeriod) {
+    public SubjectMatterType(Short id, String typeNo, String typeName, Short period, Short repaymentMethodId, BigDecimal minAmount, BigDecimal maxAmount, BigDecimal debtPeriod) {
         this.id = id;
         this.typeNo = typeNo;
         this.typeName = typeName;
@@ -43,11 +45,11 @@ public class SubjectMatterType implements Serializable {
         super();
     }
 
-    public Integer getId() {
+    public Short getId() {
         return id;
     }
 
-    public void setId(Integer id) {
+    public void setId(Short id) {
         this.id = id;
     }
 
@@ -67,19 +69,19 @@ public class SubjectMatterType implements Serializable {
         this.typeName = typeName == null ? null : typeName.trim();
     }
 
-    public Integer getPeriod() {
+    public Short getPeriod() {
         return period;
     }
 
-    public void setPeriod(Integer period) {
+    public void setPeriod(Short period) {
         this.period = period;
     }
 
-    public Integer getRepaymentMethodId() {
+    public Short getRepaymentMethodId() {
         return repaymentMethodId;
     }
 
-    public void setRepaymentMethodId(Integer repaymentMethodId) {
+    public void setRepaymentMethodId(Short repaymentMethodId) {
         this.repaymentMethodId = repaymentMethodId;
     }
 
@@ -99,11 +101,19 @@ public class SubjectMatterType implements Serializable {
         this.maxAmount = maxAmount;
     }
 
-    public Integer getDebtPeriod() {
+    public BigDecimal getDebtPeriod() {
         return debtPeriod;
     }
 
-    public void setDebtPeriod(Integer debtPeriod) {
+    public void setDebtPeriod(BigDecimal debtPeriod) {
         this.debtPeriod = debtPeriod;
     }
+
+	public RepaymentMethod getRepaymentMethod() {
+		return repaymentMethod;
+	}
+
+	public void setRepaymentMethod(RepaymentMethod repaymentMethod) {
+		this.repaymentMethod = repaymentMethod;
+	}
 }

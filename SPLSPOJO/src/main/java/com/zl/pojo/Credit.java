@@ -14,9 +14,9 @@ public class Credit implements Serializable {
 	//主键（自增）
 	private Long id;
 	//债权表编号
-    private String deptNo;
+    private String creditNo;
     //债权拥有者用户主键（债主）
-    private Long debtorUserId;
+    private Long debitorUserId;
     //贷款人用户主键
     private Long creditorUserId;
     //所属标的主键
@@ -26,8 +26,8 @@ public class Credit implements Serializable {
     
     public Credit(Long id, String deptNo, Long debtorUserId, Long creditorUserId, Long loanId, BigDecimal amount) {
         this.id = id;
-        this.deptNo = deptNo;
-        this.debtorUserId = debtorUserId;
+        this.creditNo = deptNo;
+        this.debitorUserId = debtorUserId;
         this.creditorUserId = creditorUserId;
         this.loanId = loanId;
         this.amount = amount;
@@ -45,20 +45,20 @@ public class Credit implements Serializable {
         this.id = id;
     }
 
-    public String getDeptNo() {
-        return deptNo;
+    public String getCreditNo() {
+        return creditNo;
     }
 
-    public void setDeptNo(String deptNo) {
-        this.deptNo = deptNo == null ? null : deptNo.trim();
+    public void setDeptNo(String creditNo) {
+        this.creditNo = creditNo == null ? null : creditNo.trim();
     }
 
     public Long getDebtorUserId() {
-        return debtorUserId;
+        return debitorUserId;
     }
 
     public void setDebtorUserId(Long debtorUserId) {
-        this.debtorUserId = debtorUserId;
+        this.debitorUserId = debtorUserId;
     }
 
     public Long getCreditorUserId() {

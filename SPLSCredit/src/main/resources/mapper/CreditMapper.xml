@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zl.dao.CreditMapper">
+  <resultMap id="BaseResultMap" type="com.zl.pojo.Credit">
+    <constructor>
+      <idArg column="ID" javaType="java.lang.Long" jdbcType="DECIMAL" />
+      <arg column="DEPT_NO" javaType="java.lang.String" jdbcType="VARCHAR" />
+      <arg column="DEBTOR_USER_ID" javaType="java.lang.Long" jdbcType="DECIMAL" />
+      <arg column="CREDITOR_USER_ID" javaType="java.lang.Long" jdbcType="DECIMAL" />
+      <arg column="LOAN_ID" javaType="java.lang.Long" jdbcType="DECIMAL" />
+      <arg column="AMOUNT" javaType="java.math.BigDecimal" jdbcType="DECIMAL" />
+    </constructor>
+  </resultMap>
+  <sql id="Base_Column_List">
+    ID, DEPT_NO, DEBTOR_USER_ID, CREDITOR_USER_ID, LOAN_ID, AMOUNT
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from CREDIT
+    where ID = #{id,jdbcType=DECIMAL}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from CREDIT
+    where ID = #{id,jdbcType=DECIMAL}
+  </delete>
+  <insert id="insert" parameterType="com.zl.pojo.Credit">
+    insert into CREDIT (ID, DEPT_NO, DEBTOR_USER_ID, 
+      CREDITOR_USER_ID, LOAN_ID, AMOUNT
+      )
+    values (#{id,jdbcType=DECIMAL}, #{deptNo,jdbcType=VARCHAR}, #{debtorUserId,jdbcType=DECIMAL}, 
+      #{creditorUserId,jdbcType=DECIMAL}, #{loanId,jdbcType=DECIMAL}, #{amount,jdbcType=DECIMAL}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.zl.pojo.Credit">
+    insert into CREDIT
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        ID,
+      </if>
+      <if test="deptNo != null">
+        DEPT_NO,
+      </if>
+      <if test="debtorUserId != null">
+        DEBTOR_USER_ID,
+      </if>
+      <if test="creditorUserId != null">
+        CREDITOR_USER_ID,
+      </if>
+      <if test="loanId != null">
+        LOAN_ID,
+      </if>
+      <if test="amount != null">
+        AMOUNT,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=DECIMAL},
+      </if>
+      <if test="deptNo != null">
+        #{deptNo,jdbcType=VARCHAR},
+      </if>
+      <if test="debtorUserId != null">
+        #{debtorUserId,jdbcType=DECIMAL},
+      </if>
+      <if test="creditorUserId != null">
+        #{creditorUserId,jdbcType=DECIMAL},
+      </if>
+      <if test="loanId != null">
+        #{loanId,jdbcType=DECIMAL},
+      </if>
+      <if test="amount != null">
+        #{amount,jdbcType=DECIMAL},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.zl.pojo.Credit">
+    update CREDIT
+    <set>
+      <if test="deptNo != null">
+        DEPT_NO = #{deptNo,jdbcType=VARCHAR},
+      </if>
+      <if test="debtorUserId != null">
+        DEBTOR_USER_ID = #{debtorUserId,jdbcType=DECIMAL},
+      </if>
+      <if test="creditorUserId != null">
+        CREDITOR_USER_ID = #{creditorUserId,jdbcType=DECIMAL},
+      </if>
+      <if test="loanId != null">
+        LOAN_ID = #{loanId,jdbcType=DECIMAL},
+      </if>
+      <if test="amount != null">
+        AMOUNT = #{amount,jdbcType=DECIMAL},
+      </if>
+    </set>
+    where ID = #{id,jdbcType=DECIMAL}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.zl.pojo.Credit">
+    update CREDIT
+    set DEPT_NO = #{deptNo,jdbcType=VARCHAR},
+      DEBTOR_USER_ID = #{debtorUserId,jdbcType=DECIMAL},
+      CREDITOR_USER_ID = #{creditorUserId,jdbcType=DECIMAL},
+      LOAN_ID = #{loanId,jdbcType=DECIMAL},
+      AMOUNT = #{amount,jdbcType=DECIMAL}
+    where ID = #{id,jdbcType=DECIMAL}
+  </update>
+</mapper>

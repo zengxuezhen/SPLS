@@ -2,24 +2,33 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.zl.dao.CreditDao">
+	<!-- 插入债权信息 -->
 	<insert id="insertCredit" parameterType="creditOrderRecord">
 		insert into CREDIT (ID, CREDIT_NO, DEBITOR_USER_ID, 
-	      CREDITOR_USER_ID, LOAN_ID, AMOUNT
+	      CREDITOR_USER_ID, SUBJECT_ID, AMOUNT
 	      )
 	    values (#{id}, #{creditNo}, #{debitorUserId}, 
-	      #{creditorUserId}, #{loanId}, #{amount}
+	      #{creditorUserId}, #{subjectId}, #{amount}
 	      )
 	</insert>
+	<!-- 根据ID查询记录 -->
 	<select id="selectCreditById" resultType="credit">
 		select ID, CREDIT_NO, DEBITOR_USER_ID, 
-	      CREDITOR_USER_ID, LOAN_ID, AMOUNT
+	      CREDITOR_USER_ID, SUBJECT_ID, AMOUNT
 	    from CREDIT
 	    where ID=#{id}
 	</select>
+	<!-- 根据原始标的ID查询记录 -->
 	<select id="selectCreditBySubjectId" resultType="credit">
 		select ID, CREDIT_NO, DEBITOR_USER_ID, 
 	      CREDITOR_USER_ID, LOAN_ID, AMOUNT
 	    from CREDIT
 	    where SUBJECT_ID=#{subjectId}
 	</select>
+	<!-- 根据debtorUserId出借人ID和subjectId原始标的ID修改amount金额 -->
+	<update id="updateCreditAmount" parameterType="credit">
+		update CREDIT set AMOUNT=#{amount} 
+		where DEBITOR_USER_ID=#{buyerUserId}
+		and SUBJECT_ID=#{originSubjectMatterId}
+	</update>
 </mapper>

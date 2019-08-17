@@ -1,5 +1,6 @@
 package com.zl.web;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -11,19 +12,22 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.RestController;
 
+import com.fasterxml.jackson.core.JsonParseException;
+import com.fasterxml.jackson.databind.JsonMappingException;
 import com.zl.pojo.Credit;
 import com.zl.pojo.CreditorOrderRecord;
 import com.zl.service.CreditService;
 
-@Controller
+@RestController
 @RequestMapping("/credit")
 public class CreditController {
 	@Autowired
 	private CreditService cs;
 	@PostMapping(path="addCredit")
 	@ResponseBody
-	public Map<String, Object> addCredit(@RequestBody CreditorOrderRecord creditorOrderRecord){
+	public Map<String, Object> addCredit(@RequestBody CreditorOrderRecord creditorOrderRecord) throws JsonParseException, JsonMappingException, IOException{
 		
 		Map<String,Object> result=new HashMap<String,Object>();
 		cs.addCredit(creditorOrderRecord);

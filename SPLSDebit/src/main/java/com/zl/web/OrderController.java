@@ -25,12 +25,12 @@ public class OrderController {
 	private CreditorOrderRecordService cs;
 	@PostMapping(path="/makeOrderRecord")
 	//添加订单
-	public Map<String, Object> MakeOrder(@RequestBody CreditorOrderRecord orderRecord) throws JsonParseException, JsonMappingException, IOException {
+	public Map<String, Object> MakeOrder(@RequestBody CreditorOrderRecord creditorOrderRecord) throws JsonParseException, JsonMappingException, IOException {
 				
 		//调用service层接口，添加记录
 		Map<String,Object> result=new HashMap<String,Object>();
 		
-		cs.addCreditorOrderRecord(orderRecord);
+		cs.addCreditorOrderRecord(creditorOrderRecord);
 		//result.put("order", orderRecord);
 		//######################
 		return result;

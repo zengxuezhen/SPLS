@@ -19,7 +19,7 @@ public class SubjectMatter implements Serializable {
     //标的状态
     private Integer status;
     //发标的用户（贷款人）主键
-    private Integer debtorUserId;
+    private Long debtorUserId; 
     //贷款金额
     private BigDecimal loanAmount;
     //此标创建的时间
@@ -31,7 +31,7 @@ public class SubjectMatter implements Serializable {
     //此标对应的类型表主键
     private Integer typeId;
 
-    public SubjectMatter(Long id, String matterNo, Integer status, Integer debtorUserId, BigDecimal loanAmount, Date createTime, String purpose, String title, Integer typeId) {
+    public SubjectMatter(Long id, String matterNo, Integer status, Long debtorUserId, BigDecimal loanAmount, Date createTime, String purpose, String title, Integer typeId) {
         this.id = id;
         this.matterNo = matterNo;
         this.status = status;
@@ -71,11 +71,11 @@ public class SubjectMatter implements Serializable {
         this.status = status;
     }
 
-    public Integer getDebtorUserId() {
+    public Long getDebtorUserId() {
         return debtorUserId;
     }
 
-    public void setDebtorUserId(Integer debtorUserId) {
+    public void setDebtorUserId(Long debtorUserId) {
         this.debtorUserId = debtorUserId;
     }
 

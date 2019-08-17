@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zl.dao.CreditDao">
+	<insert id="insertCredit" parameterType="creditOrderRecord">
+		insert into CREDIT (ID, CREDIT_NO, DEBITOR_USER_ID, 
+	      CREDITOR_USER_ID, LOAN_ID, AMOUNT
+	      )
+	    values (#{id}, #{creditNo}, #{debitorUserId}, 
+	      #{creditorUserId}, #{loanId}, #{amount}
+	      )
+	</insert>
+	<select id="selectCreditById" resultType="credit">
+		select ID, CREDIT_NO, DEBITOR_USER_ID, 
+	      CREDITOR_USER_ID, LOAN_ID, AMOUNT
+	    from CREDIT
+	    where ID=#{id}
+	</select>
+	<select id="selectCreditBySubjectId" resultType="credit">
+		select ID, CREDIT_NO, DEBITOR_USER_ID, 
+	      CREDITOR_USER_ID, LOAN_ID, AMOUNT
+	    from CREDIT
+	    where SUBJECT_ID=#{subjectId}
+	</select>
+</mapper>

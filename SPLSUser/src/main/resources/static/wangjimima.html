@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<script type="text/javascript" src="js/vuejs-2.5.16.js"></script>
+<script type="text/javascript" src="js/axios.min.js"></script>
+
+
+</head>
+<body>
+ <div id="app">
+<input type="text" id="num" v-model="num"><P>
+ <input type="text" id="YZM"  value="验证码">
+   <button id="YZMID" @click="show()">发送验证码</button><p>
+ 	<button id="login" @click="sh()">完成</button>
+ 	</div>
+ 	
+ 	<script type="text/javascript">
+	var vm = new Vue({
+		el: "#app",
+		
+		data: {
+			num:''
+		},
+		methods:{
+			show(){
+				axios.post("../getPhoneNo",{
+					num:this.num
+				}).then(res=>{
+					if(res.data.code==200){
+						document.location="ktzh.html";
+					}
+				})
+			}
+			sh(){
+				
+			}
+		},
+	})
+
+</script>
+ 	
+</body>
+</html>

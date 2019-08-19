@@ -47,7 +47,7 @@ public class OrderController {
 		
 	}
 	//按原始标的外键查询订单表
-	@RequestMapping
+	@GetMapping
 	public Map<String, Object> getOrderRecordByOriginSubjectId(@RequestBody Long originSubjectId){
 		List<CreditorOrderRecord> orders=new ArrayList<CreditorOrderRecord>();
 		orders=cs.queryOrderRecordByOriginSubjectId(originSubjectId);

@@ -12,14 +12,14 @@
 	      )
 	</insert>
 	<!-- 根据ID查询记录 -->
-	<select id="selectCreditById" resultType="credit">
+	<select id="selectCreditById" resultType="credit" parameterType="java.lang.Long">
 		select ID, CREDIT_NO, DEBITOR_USER_ID, 
 	      CREDITOR_USER_ID, SUBJECT_ID, AMOUNT
 	    from CREDIT
 	    where ID=#{id}
 	</select>
 	<!-- 根据原始标的ID查询记录 -->
-	<select id="selectCreditBySubjectId" resultType="credit">
+	<select id="selectCreditBySubjectId" resultType="credit" parameterType="java.lang.Long">
 		select ID, CREDIT_NO, DEBITOR_USER_ID, 
 	      CREDITOR_USER_ID, LOAN_ID, AMOUNT
 	    from CREDIT

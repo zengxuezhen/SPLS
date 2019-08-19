@@ -14,4 +14,16 @@ public interface AccountInfoService {
 	 * @return
 	 */
 	AccountInfo queryAccountInfoByUserId(Long userId);
+	/**
+	 * 插入平台账户信息记录
+	 * @param accountInfo
+	 * @return
+	 */
+	int addAccountInfo(AccountInfo accountInfo);
+	/**
+	 * 根据用户ID修改平台账户信息
+	 * @param accountInfo
+	 * @return
+	 */
+	int modifyAccountInfoByUserId(AccountInfo accountInfo);
 }

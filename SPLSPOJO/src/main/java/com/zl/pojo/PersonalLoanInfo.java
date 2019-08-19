@@ -18,8 +18,6 @@ public class PersonalLoanInfo implements Serializable {
     private BigDecimal monthlyIncome;
 //  婚姻状态
     private String maritalStatus;
-//  贷款额度
-    private BigDecimal maxAmount;
 //  审核处理状态
     private Integer status;
 
@@ -29,7 +27,6 @@ public class PersonalLoanInfo implements Serializable {
         this.educationBackgroud = educationBackgroud;
         this.monthlyIncome = monthlyIncome;
         this.maritalStatus = maritalStatus;
-        this.maxAmount=maxAmount;
         this.status=status;
     }
 
@@ -76,14 +73,6 @@ public class PersonalLoanInfo implements Serializable {
     public void setMaritalStatus(String maritalStatus) {
         this.maritalStatus = maritalStatus == null ? null : maritalStatus.trim();
     }
-
-	public BigDecimal getMaxAmount() {
-		return maxAmount;
-	}
-
-	public void setMaxAmount(BigDecimal maxAmount) {
-		this.maxAmount = maxAmount;
-	}
 
 	public Integer getStatus() {
 		return status;

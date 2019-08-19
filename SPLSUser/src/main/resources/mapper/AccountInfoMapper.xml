@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zl.dao.AccountInfo">
+	<select id="selectAccountInfoByUserId" parameterType="java.lang.Long" resultType="com.zl.pojo.AccountInfo">
+		select ID, ACCOUNT_NO, ACTIVE_AMOUNT, 
+      		FROZEN_AMOUNT, CREATE_TIME, USER_ID, MAX_CREDIT_AMOUNT,ACTIVE_CREDIT_AMOUNT
+      	from ACCOUNTINFO where USER_ID=#{userId}
+	</select>
+	
+	<update id="updateAmount">
+		
+	</update>
+</mapper>

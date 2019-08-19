@@ -24,12 +24,12 @@ public class Credit implements Serializable {
     //持有债权金额
     private BigDecimal amount;
     //所属标的
-    public Credit(Long id, String deptNo, Long debtorUserId, Long creditorUserId, Long loanId, BigDecimal amount) {
+    public Credit(Long id, String deptNo, Long debtorUserId, Long creditorUserId, Long subjectId, BigDecimal amount) {
         this.id = id;
         this.creditNo = deptNo;
         this.debitorUserId = debtorUserId;
         this.creditorUserId = creditorUserId;
-        this.subjectId = loanId;
+        this.subjectId = subjectId;
         this.amount = amount;
     }
 

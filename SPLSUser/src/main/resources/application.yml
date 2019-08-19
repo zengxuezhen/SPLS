@@ -17,10 +17,26 @@ spring:
     driver-class-name: oracle.jdbc.driver.OracleDriver
     username: p2p
     password: 123456
+  mail:
+    host: smtp.qq.com #发送邮件服务器
+    username: 1665924315@qq.com #发送邮件的邮箱地址
+    password:  smhsnwxvqxbvchcc #客户端授权码，不是邮箱密码，这个在qq邮箱设置里面自动生成的
+    properties.mail.smtp.port: 465 #端口号465或587
+    from: 1665924315@qq.com # 发送邮件的地址，和上面username一致
+    #可以任意
+    properties.mail.smtp.starttls.enable: true
+    properties.mail.smtp.starttls.required: true
+    properties.mail.smtp.ssl.enable: true
+    default-encoding: utf-8
   #redis相关配置
-  redis: 
+  redis:
     host: 10.1.12.223
     port: 6379
+    lettuce:
+      pool:
+        max-active: 8
+        max-idle: 8
+        min-idle: 0
   freemarker:
     cache: false
     suffix: .html

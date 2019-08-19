@@ -25,8 +25,8 @@ public class OverdueRecord implements Serializable {
 //	逾期状态
     private Short overdueStatus;
 //	记录创建时间
-    @JsonFormat(pattern="yyyy-MM-dd HH-mm-ss")
-    @DateTimeFormat(pattern="yyyy-MM-dd HH-mm-ss")
+    @JsonFormat(pattern="yyyy-MM-dd")
+    @DateTimeFormat(pattern="yyyy-MM-dd")
     private Date createTime;
 
     public OverdueRecord(Long id, Long subjectMatterId, Short term, Short overdueStatus, Date createTime) {

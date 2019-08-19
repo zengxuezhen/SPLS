@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zl.dao.TradeRecordDao">
+	 
+	 <insert id="insertTradeRecord" parameterType="tradeRecord">
+	 	insert into trade_record (top_up_no,create_time,trade_type,amount,user_id) values (#{topUpNo},#{createTime},#{trade_type},#{amount},#{userId})
+	 </insert>
+	 <select id="selectTradeRecordAll" resultType="tradeRecord">
+	 	select * from trade_record
+	 </select>
+	 <select id="selectTradeRecordById" parameterType="java.lang.Integer" resultType="tradeRecord">
+	 	select * from trade_record where id=#{id}
+	 </select>
+	 <select id="selectTradeRecordByPaging" parameterType="com.zl.query.Paging" resultType="tradeRecord">
+	 	select * from (select tr.*,rownum rn from (select * from trade_record  
+	 		<if test="query!=null">
+	 			<where>
+	 			<if test="query.queryUserId!=null and query.queryUserId!=''">
+	 				and user_id=#{query.queryUserId} 
+	 			</if>
+	 			<if test="query.queryMethod!=null and query.queryMethod!=''">
+	 				and trade_type=#{query.queryMethod}
+	 			</if>
+	 			<if test="query.queryStartDate!=null">
+	 				and create_time>=#{query.queryStartDate}
+	 			</if>
+	 			<if test="query.queryStopDate!=null">
+	 				and create_time<![CDATA[<]]>=#{query.queryStopDate}
+	 			</if>
+	 			</where>
+	 		</if>
+	 	) tr order by id ASC) where rn>#{startRow} and rn<![CDATA[<]]>=#{endRow}
+	 </select>
+	 <select id="selectTradeRecordCountByQuery" parameterType="com.zl.query.Query" resultType="int">
+	 	select count(id) from trade_record
+	 		<where>
+	 			<if test="queryUserId!=null and queryUserId!=''">
+	 				and user_id=#{queryUserId} 
+	 			</if>
+	 			<if test="queryMethod!=null and queryMethod!=''">
+	 				and trade_type=#{queryMethod}
+	 			</if>
+	 			<if test="queryStartDate!=null">
+	 				and create_time>=#{queryStartDate}
+	 			</if>
+	 			<if test="queryStopDate!=null">
+	 				and create_time<![CDATA[<]]>=#{queryStopDate}
+	 			</if>
+	 		</where>
+	 </select>
+	 
+</mapper>

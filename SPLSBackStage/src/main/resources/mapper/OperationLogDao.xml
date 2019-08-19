@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zl.dao.OperationLogDao">
+	<insert id="insertOperationLog" parameterType="operationLog">
+		insert into OPERATION_LOG (ID, USER_ID, TYPE_ID, 
+	      IS_SUCCESS, CREATE_TIME)
+	    values (#{id}, #{userId}, #{typeId}, 
+	      #{isSuccess}, #{createTime})
+	</insert>
+	
+</mapper>

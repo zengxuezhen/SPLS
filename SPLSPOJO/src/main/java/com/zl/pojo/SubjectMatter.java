@@ -167,6 +167,4 @@ public class SubjectMatter implements Serializable {
 	public void setOverdueRecordList(List<OverdueRecord> overdueRecordList) {
 		this.overdueRecordList = overdueRecordList;
 	}
-
-	
 }

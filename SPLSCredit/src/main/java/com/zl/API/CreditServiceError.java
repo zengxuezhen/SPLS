@@ -6,6 +6,12 @@ import com.zl.pojo.Credit;
 @Component
 public class CreditServiceError implements CreditService {
 
+	@Override
+	public String getCreditBySubjectId(Long id) {
+		// TODO Auto-generated method stub
+		return "500";
+	}
+
 
 
 }

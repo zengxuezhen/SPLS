@@ -18,4 +18,6 @@ public interface OverdueRecordService {
     int updateByPrimaryKey(OverdueRecord record);
     
     List<OverdueRecord> selectOverdueRecordBySubjectMatterId(Long id);
+    
+    int subjectMatterOverdue();
 }

@@ -18,4 +18,6 @@ public interface RepaymentRecordService {
     int updateByPrimaryKey(RepaymentRecord record);
     
     List<RepaymentRecord> selectRepaymentRecordBySubjectMatterId(Long id);
+    
+    void  RepaymentRecordHandle() throws Exception;
 }

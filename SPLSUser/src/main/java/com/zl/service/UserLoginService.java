@@ -26,4 +26,6 @@ public interface UserLoginService {
      * @return com.zl.pojo.AllUser
      **/
     AllUser findUserByEmail(String email);
+    
+    AllUser selectByPrimaryKey(long id);
 }

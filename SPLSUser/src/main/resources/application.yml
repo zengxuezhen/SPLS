@@ -29,9 +29,14 @@ spring:
     properties.mail.smtp.ssl.enable: true
     default-encoding: utf-8
   #redis相关配置
-  redis: 
+  redis:
     host: 10.1.12.223
     port: 6379
+    lettuce:
+      pool:
+        max-active: 8
+        max-idle: 8
+        min-idle: 0
   freemarker:
     cache: false
     suffix: .html

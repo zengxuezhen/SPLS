@@ -3,6 +3,7 @@ package com.zl.service.impl;
 import com.zl.dao.UserRegisterDao;
 import com.zl.pojo.AllUser;
 import com.zl.service.UserRegisterService;
+import com.zl.util.AESUtil;
 import org.apache.commons.lang.RandomStringUtils;
 import org.apache.shiro.crypto.hash.SimpleHash;
 import org.apache.shiro.util.ByteSource;
@@ -32,7 +33,7 @@ public class UserRegisterServiceImpl implements UserRegisterService {
         AllUser allUser = new AllUser();
         allUser.setCreateTime(new Date());
         allUser.setUserName(RandomStringUtils.randomAlphanumeric(8));
-        allUser.setTelephone(user.getTelephone());
+        allUser.setTelephone(AESUtil.setAesEncoder(user.getTelephone()));
         String passwd = ShiroMd5(user.getPwd(),"uuid");
         allUser.setPwd(passwd);
         return urd.addUser(allUser);

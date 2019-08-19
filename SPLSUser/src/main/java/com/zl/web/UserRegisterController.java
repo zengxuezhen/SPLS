@@ -46,7 +46,7 @@ public class UserRegisterController {
 
             if (zipCode!=null) {
                 System.out.println(zipCode);
-                rts.opsForValue().set(telphone, zipCode, 5, TimeUnit.MINUTES);
+                rts.opsForValue().set(telphone, zipCode, 3, TimeUnit.MINUTES);
                 map.put("msg", true);
 
             }else {
@@ -66,7 +66,7 @@ public class UserRegisterController {
     public Object plogin(String telphone, String pcode){
         //System.out.println("username=" + telphone + ";pcode=" + pcode);
         Object code = rts.opsForValue().get(telphone);
-            if (pcode!=null&&code.equals(pcode)) {
+            if (code.equals(pcode)) {
                 return true;
             } else {
                 return false;

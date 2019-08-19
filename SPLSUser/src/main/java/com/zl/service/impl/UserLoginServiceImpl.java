@@ -3,6 +3,7 @@ package com.zl.service.impl;
 import com.zl.dao.UserLoginDao;
 import com.zl.pojo.AllUser;
 import com.zl.service.UserLoginService;
+import com.zl.util.AESUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -19,7 +20,7 @@ public class UserLoginServiceImpl implements UserLoginService {
 
     @Override
     public AllUser queryUserByTel(String telephone) {
-        return uld.queryUserByTel(telephone);
+        return uld.queryUserByTel(AESUtil.setAesEncoder(telephone));
     }
 
     @Override

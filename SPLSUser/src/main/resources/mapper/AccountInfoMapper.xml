@@ -4,11 +4,22 @@
 <mapper namespace="com.zl.dao.AccountInfo">
 	<select id="selectAccountInfoByUserId" parameterType="java.lang.Long" resultType="com.zl.pojo.AccountInfo">
 		select ID, ACCOUNT_NO, ACTIVE_AMOUNT, 
-      		FROZEN_AMOUNT, CREATE_TIME, USER_ID, MAX_CREDIT_AMOUNT,ACTIVE_CREDIT_AMOUNT
-      	from ACCOUNTINFO where USER_ID=#{userId}
+      		FROZEN_AMOUNT, CREATE_TIME, USER_ID, MAX_CREDIT_AMOUNT,ACTIVE_CREDIT_AMOUNT,PASSWORD
+      	from ACCOUNT_INFO where USER_ID=#{userId}
 	</select>
 	
-	<update id="updateAmount">
-		
+	<insert id="insertAccountInfo" parameterType="com.zl.pojo.AccountInfo">
+		insert into ACCOUNT_INFO (ID, ACCOUNT_NO, ACTIVE_AMOUNT, 
+      		FROZEN_AMOUNT, CREATE_TIME, USER_ID, MAX_CREDIT_AMOUNT,
+      		ACTIVE_CREDIT_AMOUNT,PASSWORD)
+      	values (#{id},#{accountNo},#{activeAmount},#{frozenAmount},#{createTime},
+      		#{userId},#{maxCreditAmount},#{activeCreditAmount},#{password})
+	</insert>
+	<update id="updateAmountByUserId" parameterType="java.lang.Long">
+		update ACCOUNT_INFO set ID=#{id},ACCOUNT_NO=#{accountNo},ACTIVE_AMOUNT=#{activeAmount},
+			FROZEN_AMOUNT=#{frozenAmount},CREATE_TIME=#{createTime},USER_ID=#{userId},
+			MAX_CREDIT_AMOUNT=#{maxCreditAmount},ACTIVE_CREDIT_AMOUNT=#{maxCreditAmount},
+			#{activeCreditAmount},#{password}
+		where USER_ID=#{id}
 	</update>
 </mapper>

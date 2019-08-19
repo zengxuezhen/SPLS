@@ -5,7 +5,7 @@ import java.math.BigDecimal;
 /*
  * 贷款个人信息表实体类
  * */
-public class PersonaLoanInfo implements Serializable {
+public class PersonalLoanInfo implements Serializable {
 
 	private static final long serialVersionUID = 803733284729720111L;
 //	主键
@@ -25,7 +25,7 @@ public class PersonaLoanInfo implements Serializable {
 //  审核处理状态
     private Integer status;
 
-    public PersonaLoanInfo(Long id, Long idId, String educationBackgroud, BigDecimal personalAssetsId, BigDecimal monthlyIncome, String maritalStatus, BigDecimal maxAmount, BigDecimal activeAmount, Integer status) {
+    public PersonalLoanInfo(Long id, Long idId, String educationBackgroud, BigDecimal personalAssetsId, BigDecimal monthlyIncome, String maritalStatus, BigDecimal maxAmount, BigDecimal activeAmount, Integer status) {
         this.id = id;
         this.idId = idId;
         this.educationBackgroud = educationBackgroud;
@@ -36,7 +36,7 @@ public class PersonaLoanInfo implements Serializable {
         this.status=status;
     }
 
-    public PersonaLoanInfo() {
+    public PersonalLoanInfo() {
         super();
     }
 

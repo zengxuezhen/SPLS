@@ -11,7 +11,7 @@ public class PersonalLoanInfo implements Serializable {
 //	主键
     private Long id;
 //	认证表外键
-    private Long idId;
+    private Long userId;
 //	学历
     private String educationBackgroud;
 //	月收入
@@ -20,19 +20,16 @@ public class PersonalLoanInfo implements Serializable {
     private String maritalStatus;
 //  贷款额度
     private BigDecimal maxAmount;
-//  可用额度
-    private BigDecimal activeAmount;
 //  审核处理状态
     private Integer status;
 
-    public PersonalLoanInfo(Long id, Long idId, String educationBackgroud, BigDecimal personalAssetsId, BigDecimal monthlyIncome, String maritalStatus, BigDecimal maxAmount, BigDecimal activeAmount, Integer status) {
+    public PersonalLoanInfo(Long id, Long userId, String educationBackgroud, BigDecimal personalAssetsId, BigDecimal monthlyIncome, String maritalStatus, BigDecimal maxAmount, BigDecimal activeAmount, Integer status) {
         this.id = id;
-        this.idId = idId;
+        this.userId = userId;
         this.educationBackgroud = educationBackgroud;
         this.monthlyIncome = monthlyIncome;
         this.maritalStatus = maritalStatus;
         this.maxAmount=maxAmount;
-        this.activeAmount=activeAmount;
         this.status=status;
     }
 
@@ -48,12 +45,12 @@ public class PersonalLoanInfo implements Serializable {
         this.id = id;
     }
 
-    public Long getIdId() {
-        return idId;
+    public Long getUserId() {
+        return userId;
     }
 
-    public void setIdId(Long idId) {
-        this.idId = idId;
+    public void setUserId(Long userId) {
+        this.userId = userId;
     }
 
     public String getEducationBackgroud() {
@@ -86,14 +83,6 @@ public class PersonalLoanInfo implements Serializable {
 
 	public void setMaxAmount(BigDecimal maxAmount) {
 		this.maxAmount = maxAmount;
-	}
-
-	public BigDecimal getActiveAmount() {
-		return activeAmount;
-	}
-
-	public void setActiveAmount(BigDecimal activeAmount) {
-		this.activeAmount = activeAmount;
 	}
 
 	public Integer getStatus() {

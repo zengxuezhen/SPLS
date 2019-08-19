@@ -27,18 +27,23 @@ public class CodeUtil {
     private static final String QUERY_PATH = "https://openapi.miaodiyun.com/distributor/sendSMS";
     private static final String ACCOUNT_SID = "85a0b0c866cc0aa46a27717dd54eedad";
     private static final String AUTH_TOKEN = "fd28fd2b82c92c8f4a9042f5c9c425fd";
-
+    
+    public static 
     /**
      * 根据相应的手机号发送验证码
      *
      * @param phone
      * @return
      */
-    public static String getCode(String phone) {
+    
+    public static String getCode(String phone,String msg) {
         String rod = smsCode();
         String timestamp = getTimestamp();
         String sig = getMD5(ACCOUNT_SID, AUTH_TOKEN, timestamp);
         String tamp = "【奥克斯】尊敬的用户，您好，您的验证码为" + rod + "，该验证码5分钟内有效。请勿泄漏于他人。";
+        if(msg!=null) {
+        	tamp=msg;
+        }
         OutputStreamWriter out = null;
         BufferedReader br = null;
         StringBuilder result = new StringBuilder();

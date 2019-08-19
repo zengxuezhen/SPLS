@@ -23,9 +23,17 @@ public class CalculationUtil {
 		BigDecimal a = new BigDecimal("0.5");
 		BigDecimal b = new BigDecimal("0.2");
 		System.out.println(a.divide(b,2,BigDecimal.ROUND_HALF_UP));
-		BigDecimal[] principalAndInterest=principalAndInterest(new BigDecimal("10000"),new BigDecimal("10.2"), 6,3);
+		BigDecimal[] principalAndInterest=principalAndInterest(new BigDecimal("10000"),new BigDecimal("10.2"), 6,1);
 		System.out.println(principalAndInterest[0].setScale(0,RoundingMode.CEILING)+"  ....    "+principalAndInterest[1].setScale(0,RoundingMode.CEILING));
 		
+	}
+	/*
+	 * 计算第几期的待收本金
+	 */
+	public static  BigDecimal principalAndInterestToBeReceived(BigDecimal monthlyRepayment,int term,int countTerm) {
+		BigDecimal principalAndInterestToBeReceived=monthlyRepayment.multiply(new BigDecimal(term))
+				.subtract(monthlyRepayment.multiply(new BigDecimal(countTerm)));
+		return principalAndInterestToBeReceived.setScale(0,RoundingMode.CEILING);
 	}
 	/*
 	 * 计算每月还款本息
@@ -41,15 +49,15 @@ public class CalculationUtil {
 		System.out.println(wholeInterestRate);
 		BigDecimal monthlyRepayment=loanAmount.multiply(monthInterestRate).multiply(wholeInterestRate)
 		.divide(wholeInterestRate.subtract(new BigDecimal("1")),mc);
-		return monthlyRepayment;
+		return monthlyRepayment.setScale(0,RoundingMode.CEILING);
 	}
 	
 	/*
 	 * 计算指定月数的本金和利息各多少
 	 */
 	public static BigDecimal[] principalAndInterest(BigDecimal loanAmount,BigDecimal annualInterestRate,int countTerm,int term) {
-		MathContext mc=new MathContext(5, RoundingMode.CEILING);
-		BigDecimal monthInterestRate=annualInterestRate.divide(new BigDecimal("100"),3,BigDecimal.ROUND_HALF_UP)
+		//MathContext mc=new MathContext(5, RoundingMode.CEILING);
+		BigDecimal monthInterestRate=annualInterestRate.divide(new BigDecimal("100"),5,BigDecimal.ROUND_HALF_UP)
 				.divide(new BigDecimal("12"),5,BigDecimal.ROUND_HALF_UP);
 		BigDecimal monthlyRepayment= monthlyRepayment(loanAmount,annualInterestRate,countTerm);
 		BigDecimal amount=loanAmount;
@@ -63,15 +71,22 @@ public class CalculationUtil {
 			double a = 0;
 			System.out.println(amount+".."+monthlyRepayment+".."+monthInterestRate);
 			for(int i=1;i<term;i++) {
-				amount=amount.subtract(monthlyRepayment.subtract(amount.multiply(monthInterestRate,mc)));
+				amount=amount.subtract(monthlyRepayment.subtract(amount.multiply(monthInterestRate)));
 				a=amount.doubleValue()-(1716-amount.doubleValue()*0.0085);
 			}
 			//利息
-			principalAndInterest[1]=amount.multiply(monthInterestRate);
+			principalAndInterest[1]=amount.multiply(monthInterestRate).setScale(2,RoundingMode.CEILING);
 			//本金
-			principalAndInterest[0]=monthlyRepayment.subtract(principalAndInterest[1]);
+			principalAndInterest[0]=monthlyRepayment.subtract(principalAndInterest[1]).setScale(0,RoundingMode.CEILING);
 		}
 		return principalAndInterest;
+	}
+	/*
+	 * 计算逾期费用
+	 */
+	public BigDecimal overdueCalculation() {
+		
+		return null;
 	}
 
 }

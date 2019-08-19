@@ -16,4 +16,6 @@ public interface RepaymentMethodService {
     int updateByPrimaryKeySelective(RepaymentMethod record);
 
     int updateByPrimaryKey(RepaymentMethod record);
+    
+ 
 }

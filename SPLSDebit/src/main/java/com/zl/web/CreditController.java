@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.fasterxml.jackson.core.JsonParseException;
@@ -47,7 +48,8 @@ public class CreditController {
 	}
 	//按标的ID获取Credit
 	@GetMapping(path="getCreditBySubjectId")
-	public Map<String, Object> getCreditBySubjectId(@RequestBody Long id){
+	@ResponseBody
+	public Map<String, Object> getCreditBySubjectId( Long id){
 		Map<String,Object> result=new HashMap<String,Object>();
 		List<Credit> credits=new ArrayList<Credit>();
 		credits=cs.queryCreditBySubjectId(id);

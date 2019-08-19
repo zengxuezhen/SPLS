@@ -1,5 +1,7 @@
 package com.zl.service;
 
+import java.util.List;
+
 import com.zl.pojo.OverdueRecord;
 
 public interface OverdueRecordService {
@@ -14,4 +16,6 @@ public interface OverdueRecordService {
     int updateByPrimaryKeySelective(OverdueRecord record);
 
     int updateByPrimaryKey(OverdueRecord record);
+    
+    List<OverdueRecord> selectOverdueRecordBySubjectMatterId(Long id);
 }

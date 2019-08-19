@@ -5,15 +5,15 @@ import java.math.BigDecimal;
 import com.zl.pojo.CreditorOrderRecord;
 
 public interface CreditorOrderRecordService {
-    int deleteByPrimaryKey(BigDecimal id);
+	 int deleteByPrimaryKey(BigDecimal id);
 
-    int insert(CreditorOrderRecord record);
+	    int insert(CreditorOrderRecord record);
 
-    //int insertSelective(CreditorOrderRecord record);
+	    int insertSelective(CreditorOrderRecord record);
 
-    CreditorOrderRecord selectByPrimaryKey(BigDecimal id);
+	    CreditorOrderRecord selectByPrimaryKey(BigDecimal id);
 
-    //int updateByPrimaryKeySelective(CreditorOrderRecord record);
+	    int updateByPrimaryKeySelective(CreditorOrderRecord record);
 
-    int updateByPrimaryKey(CreditorOrderRecord record);
+	    int updateByPrimaryKey(CreditorOrderRecord record);
 }

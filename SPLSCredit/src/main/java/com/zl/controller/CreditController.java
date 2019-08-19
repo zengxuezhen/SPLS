@@ -18,6 +18,9 @@ import com.zl.service.CreditService;
 public class CreditController {
 	@Autowired
 	private CreditService cs;
+	/*
+	 * 添加 
+	 */
 	@RequestMapping("/addCredit")
 	@ResponseBody
 	public String insert(Credit credit) {
@@ -30,6 +33,9 @@ public class CreditController {
 		}
 		
 	}
+	/*
+	 * 
+	 */
 	@RequestMapping("/queryCredit")
 	@ResponseBody
 	public String selectByPrimaryKey(long id) {

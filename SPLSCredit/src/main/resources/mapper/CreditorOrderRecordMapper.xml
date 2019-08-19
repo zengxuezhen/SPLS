@@ -29,11 +29,11 @@
     where ID = #{id,jdbcType=DECIMAL}
   </delete>
   <insert id="insert" parameterType="com.zl.pojo.CreditorOrderRecord">
-    insert into CREDITOR_ORDER_RECORD (ID, RECORD_NO, BUYER_UER_ID, 
+    insert into CREDITOR_ORDER_RECORD ( RECORD_NO, BUYER_UER_ID, 
       AMOUNT, SUBJECT_MATTER_ID, CONTRACT_URL, 
       CREATE_TIME, SELLER_USER_ID, ORIGIN_SUBJECT_MATTER_ID
       )
-    values (#{id,jdbcType=DECIMAL}, #{recordNo,jdbcType=DECIMAL}, #{buyerUerId,jdbcType=DECIMAL}, 
+    values ( #{recordNo,jdbcType=DECIMAL}, #{buyerUerId,jdbcType=DECIMAL}, 
       #{amount,jdbcType=DECIMAL}, #{subjectMatterId,jdbcType=DECIMAL}, #{contractUrl,jdbcType=VARCHAR}, 
       #{createTime,jdbcType=TIMESTAMP}, #{sellerUserId,jdbcType=DECIMAL}, #{originSubjectMatterId,jdbcType=DECIMAL}
       )

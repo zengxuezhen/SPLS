@@ -1,5 +1,7 @@
 package com.zl.dao;
 
+import java.util.List;
+
 import com.zl.pojo.OverdueRecord;
 
 public interface OverdueRecordMapper {
@@ -14,4 +16,6 @@ public interface OverdueRecordMapper {
     int updateByPrimaryKeySelective(OverdueRecord record);
 
     int updateByPrimaryKey(OverdueRecord record);
+    
+    List<OverdueRecord> selectOverdueRecordBySubjectMatterId(Long id);
 }

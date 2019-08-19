@@ -10,9 +10,20 @@
       <arg column="CREATE_TIME" javaType="java.util.Date" jdbcType="TIMESTAMP" />
     </constructor>
   </resultMap>
+  <resultMap id="ResultMap" type="com.zl.pojo.OverdueRecord">
+      <result property="id" column="ID" javaType="java.lang.Long" jdbcType="DECIMAL" />
+      <result property="subjectMatterId" column="SUBJECT_MATTER_ID" javaType="java.lang.Long" jdbcType="DECIMAL" />
+      <result property="term" column="TERM" javaType="java.lang.Short" jdbcType="DECIMAL" />
+      <result property="overdueStatus" column="OVERDUE_STATUS" javaType="java.lang.Short" jdbcType="DECIMAL" />
+      <result property="createTime" column="CREATE_TIME" javaType="java.util.Date" jdbcType="TIMESTAMP" />
+  </resultMap>
   <sql id="Base_Column_List">
-    ID, SUBJECT_MATTER_ID, TERM, OVERDUE_STATUS, CREATE_TIME
+   ID, SUBJECT_MATTER_ID, TERM, OVERDUE_STATUS, CREATE_TIME
   </sql>
+  <select id="selectOverdueRecordBySubjectMatterId" parameterType="java.lang.Long" resultMap="ResultMap">
+  	 select <include refid="Base_Column_List" />
+    from OVERDUE_RECORD  where SUBJECT_MATTER_ID=#{id}
+  </select>
   <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
     select 
     <include refid="Base_Column_List" />
@@ -24,9 +35,9 @@
     where ID = #{id,jdbcType=DECIMAL}
   </delete>
   <insert id="insert" parameterType="com.zl.pojo.OverdueRecord">
-    insert into OVERDUE_RECORD (ID, SUBJECT_MATTER_ID, TERM, 
+    insert into OVERDUE_RECORD ( SUBJECT_MATTER_ID, TERM, 
       OVERDUE_STATUS, CREATE_TIME)
-    values (#{id,jdbcType=DECIMAL}, #{subjectMatterId,jdbcType=DECIMAL}, #{term,jdbcType=DECIMAL}, 
+    values ( #{subjectMatterId,jdbcType=DECIMAL}, #{term,jdbcType=DECIMAL}, 
       #{overdueStatus,jdbcType=DECIMAL}, #{createTime,jdbcType=TIMESTAMP})
   </insert>
   <insert id="insertSelective" parameterType="com.zl.pojo.OverdueRecord">

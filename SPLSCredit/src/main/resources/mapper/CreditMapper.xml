@@ -25,10 +25,10 @@
     where ID = #{id,jdbcType=DECIMAL}
   </delete>
   <insert id="insert" parameterType="com.zl.pojo.Credit">
-    insert into CREDIT (ID, DEPT_NO, DEBTOR_USER_ID, 
+    insert into CREDIT ( DEPT_NO, DEBTOR_USER_ID, 
       CREDITOR_USER_ID, LOAN_ID, AMOUNT
       )
-    values (#{id,jdbcType=DECIMAL}, #{deptNo,jdbcType=VARCHAR}, #{debtorUserId,jdbcType=DECIMAL}, 
+    values ( #{deptNo,jdbcType=VARCHAR}, #{debtorUserId,jdbcType=DECIMAL}, 
       #{creditorUserId,jdbcType=DECIMAL}, #{loanId,jdbcType=DECIMAL}, #{amount,jdbcType=DECIMAL}
       )
   </insert>

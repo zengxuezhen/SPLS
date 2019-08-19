@@ -1,6 +1,10 @@
 package com.zl.service.impl;
 
 import java.math.BigDecimal;
+/**
+ * 
+ * 债权人订单服务
+ */
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -22,14 +26,24 @@ public class CreditorOrderRecordServiceImpl implements CreditorOrderRecordServic
     public  CreditorOrderRecord selectByPrimaryKey(BigDecimal id) {
 	    return cors.selectByPrimaryKey(id);
     }
-    public int updateByPrimaryKeySelective(CreditorOrderRecord record) {
-    	return cors.updateByPrimaryKey(record);
-    }
+   
 
 
 
 	@Override
 	public int updateByPrimaryKey(CreditorOrderRecord record) {
+		// TODO Auto-generated method stub
+		return  cors.updateByPrimaryKey(record);
+	}
+
+	@Override
+	public int insertSelective(CreditorOrderRecord record) {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	@Override
+	public int updateByPrimaryKeySelective(CreditorOrderRecord record) {
 		// TODO Auto-generated method stub
 		return 0;
 	}

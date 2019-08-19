@@ -3,7 +3,7 @@ package com.zl.service;
 import com.zl.pojo.Credit;
 
 public interface CreditService {
-    int deleteByPrimaryKey(Long id);
+	int deleteByPrimaryKey(Long id);
 
     int insert(Credit record);
 

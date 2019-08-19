@@ -25,10 +25,10 @@
     where ID = #{id,jdbcType=DECIMAL}
   </delete>
   <insert id="insert" parameterType="com.zl.pojo.RepaymentMethod">
-    insert into REPAYMENT_METHOD (ID, METHOD_NAME, DESCRIPTION, 
+    insert into REPAYMENT_METHOD ( METHOD_NAME, DESCRIPTION, 
       NORMAL_INTEREST_RATE, OVERDUE_INTEREST_RATE, 
       PREPAYMENT_INTEREST_RATE)
-    values (#{id,jdbcType=DECIMAL}, #{methodName,jdbcType=VARCHAR}, #{description,jdbcType=VARCHAR}, 
+    values ( #{methodName,jdbcType=VARCHAR}, #{description,jdbcType=VARCHAR}, 
       #{normalInterestRate,jdbcType=DECIMAL}, #{overdueInterestRate,jdbcType=DECIMAL}, 
       #{prepaymentInterestRate,jdbcType=DECIMAL})
   </insert>

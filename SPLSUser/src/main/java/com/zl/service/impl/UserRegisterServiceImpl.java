@@ -25,7 +25,8 @@ public class UserRegisterServiceImpl implements UserRegisterService {
 
     @Override
     public AllUser findTel(String tel) {
-        return urd.findTel(tel);
+
+        return urd.findTel(AESUtil.setAesEncoder(tel));
     }
 
     @Override

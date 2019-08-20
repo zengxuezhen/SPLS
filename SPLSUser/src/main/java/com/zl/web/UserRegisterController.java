@@ -11,10 +11,13 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.concurrent.TimeUnit;
+
+import static com.zl.web.CaptchaController.KEY_CAPTCHA;
 
 /**
  * @ClassName UserRegisterController
@@ -32,41 +35,43 @@ public class UserRegisterController {
     private RedisTemplate<Object, Object> rts;
     @PostMapping("/getCode")
     @ResponseBody
-    public Map<String, Object> findUserTel(String telphone){
-//        String regex = "^((13[0-9])|(14[5,7])|(15[0-3,5-9])|(17[0,3,5-8])|(18[0-9])|166|198|199|(147))\\d{8}$";
-//        Pattern p = Pattern.compile(regex, Pattern.CASE_INSENSITIVE);
-//        Matcher m = p.matcher(telphone);
-//        if (m.matches()==false){
-//
-//            return ;
-//        }
+    public Map<String, Object> findUserTel(String telephone, String verifCode, HttpServletRequest request) {
         Map<String, Object> map = new HashMap<>();
-        if (urs.findTel(telphone)==null){
-            String zipCode=CodeUtil.getCode(telphone);
+        if (telephone!=null&&!"".equals(telephone)&&verifCode!=null&&!"".equals(verifCode)){
+            HttpSession session = request.getSession();
+            String str=(String)session.getAttribute(KEY_CAPTCHA);
+            /*
+             * @Author chengpunan
+             * @Description 判断前台的验证码是否正确,手机号有没有存在数据库中
+             * @Date 14:19 2019/8/20
+             * @Param [telphone, verifCode, request]
+             * @return java.util.Map<java.lang.String,java.lang.Object>
+             */
+            if (urs.findTel(telephone) == null&&verifCode.equalsIgnoreCase(str)) {
+                String zipCode = CodeUtil.getCode(telephone);
+                if (zipCode != null) {
+                    System.out.println(zipCode);
+                    rts.opsForValue().set(telephone, zipCode, 3, TimeUnit.MINUTES);
+                    map.put("msg", true);
 
-            if (zipCode!=null) {
-                System.out.println(zipCode);
-                rts.opsForValue().set(telphone, zipCode, 3, TimeUnit.MINUTES);
-                map.put("msg", true);
+                } else {
+                    map.put("msg", false);
 
-            }else {
-                map.put("msg",false);
-
+                }
+            } else {
+                map.put("msg", false);
             }
-        }else {
-            map.put("msg",false);
         }
             return map;
-        }
-
+    }
 
 
     @RequestMapping("/userRegister")
     @ResponseBody
-    public Object plogin(String telphone, String pcode){
+    public Object plogin(String telephone, String mobileCode){
         //System.out.println("username=" + telphone + ";pcode=" + pcode);
-        Object code = rts.opsForValue().get(telphone);
-            if (code.equals(pcode)) {
+        Object code = rts.opsForValue().get(telephone);
+            if (code.equals(mobileCode)) {
                 return true;
             } else {
                 return false;
@@ -74,10 +79,10 @@ public class UserRegisterController {
     }
     @RequestMapping("/addToUser")
     @ResponseBody
-    public Object addToUser(String telphone, String password, HttpSession session){
+    public Object addToUser(String telephone, String password, HttpSession session){
         AllUser user = new AllUser();
-        if (telphone!= null&&!"".equals(telphone)&&password != null && !"".equals(password)){
-            user.setTelephone(telphone);
+        if (telephone!= null&&!"".equals(telephone)&&password != null && !"".equals(password)){
+            user.setTelephone(telephone);
             user.setPwd(password);
             urs.addUser(user);
             session.setAttribute("user", user);

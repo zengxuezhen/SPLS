@@ -3,6 +3,11 @@ package com.zl.pojo;
 import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.Date;
+import java.util.List;
+
+import org.springframework.format.annotation.DateTimeFormat;
+
+import com.fasterxml.jackson.annotation.JsonFormat;
 
 /**
  * 标（产品）的实体类
@@ -19,17 +24,37 @@ public class SubjectMatter implements Serializable {
     //标的状态
     private Integer status;
     //发标的用户（贷款人）主键
-    private Long debtorUserId; 
+    private Long debtorUserId;
     //贷款金额
     private BigDecimal loanAmount;
     //此标创建的时间
+    @JsonFormat(pattern="yyyy-MM-dd HH:mm:ss")
+    @DateTimeFormat(pattern="yyyy-MM-dd HH:mm:ss")
     private Date createTime;
+    //满标时间
+    @JsonFormat(pattern="yyyy-MM-dd HH:mm:ss")
+    @DateTimeFormat(pattern="yyyy-MM-dd HH:mm:ss")
+    private Date filledTime;
     //借款用途
     private String purpose;
     //标的名称
     private String title;
     //此标对应的类型表主键
     private Integer typeId;
+    //关联还款记录
+    private List<RepaymentRecord> repaymentRecordList;
+    public List<RepaymentRecord> getRepaymentRecordList() {
+		return repaymentRecordList;
+	}
+
+	public void setRepaymentRecordList(List<RepaymentRecord> repaymentRecordList) {
+		this.repaymentRecordList = repaymentRecordList;
+	}
+
+	//关联逾期记录
+    private List<OverdueRecord> overdueRecordList;
+    //关联标的类型
+    private SubjectMatterType subjectMatterType;
 
     public SubjectMatter(Long id, String matterNo, Integer status, Long debtorUserId, BigDecimal loanAmount, Date createTime, String purpose, String title, Integer typeId) {
         this.id = id;
@@ -118,4 +143,28 @@ public class SubjectMatter implements Serializable {
     public void setTypeId(Integer typeId) {
         this.typeId = typeId;
     }
+
+	public SubjectMatterType getSubjectMatterType() {
+		return subjectMatterType;
+	}
+
+	public void setSubjectMatterType(SubjectMatterType subjectMatterType) {
+		this.subjectMatterType = subjectMatterType;
+	}
+
+	public Date getFilledTime() {
+		return filledTime;
+	}
+
+	public void setFilledTime(Date filledTime) {
+		this.filledTime = filledTime;
+	}
+
+	public List<OverdueRecord> getOverdueRecordList() {
+		return overdueRecordList;
+	}
+
+	public void setOverdueRecordList(List<OverdueRecord> overdueRecordList) {
+		this.overdueRecordList = overdueRecordList;
+	}
 }

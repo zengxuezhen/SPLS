@@ -24,9 +24,9 @@
     where ID = #{id,jdbcType=DECIMAL}
   </delete>
   <insert id="insert" parameterType="com.zl.pojo.ReturnRecord">
-    insert into RETURN_RECORD (ID, CREDIT_ID, AMOUNT, 
+    insert into RETURN_RECORD ( CREDIT_ID, AMOUNT, 
       TERM, CREATE_TIME)
-    values (#{id,jdbcType=DECIMAL}, #{creditId,jdbcType=DECIMAL}, #{amount,jdbcType=DECIMAL}, 
+    values ( #{creditId,jdbcType=DECIMAL}, #{amount,jdbcType=DECIMAL}, 
       #{term,jdbcType=DECIMAL}, #{createTime,jdbcType=TIMESTAMP})
   </insert>
   <insert id="insertSelective" parameterType="com.zl.pojo.ReturnRecord">

@@ -13,6 +13,16 @@
       <arg column="DEBT_PERIOD" javaType="java.math.BigDecimal" jdbcType="DECIMAL" />
     </constructor>
   </resultMap>
+  <resultMap type="com.zl.pojo.SubjectMatterType" id="SubjectMatterTypeAndRepaymentMethod">
+  	<association property="repaymentMethod" column="REPAYMENT_METHOD_ID" javaType="com.zl.pojo.RepaymentMethod" select="com.zl.dao.RepaymentMethodMapper.selectByPrimaryKey"></association>
+  
+  </resultMap>
+  <select id="selectSubjectMatterTypeAndRepaymentMethod" parameterType="java.lang.Short" resultMap="SubjectMatterTypeAndRepaymentMethod">
+  	select 
+    <include refid="Base_Column_List" />
+    from SUBJECT_MATTER_TYPE
+    where ID = #{id,jdbcType=DECIMAL}
+  </select>
   <sql id="Base_Column_List">
     ID, TYPE_NO, TYPE_NAME, PERIOD, REPAYMENT_METHOD_ID, MIN_AMOUNT, MAX_AMOUNT, DEBT_PERIOD
   </sql>

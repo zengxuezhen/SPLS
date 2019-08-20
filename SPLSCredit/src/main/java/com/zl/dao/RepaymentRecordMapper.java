@@ -1,5 +1,7 @@
 package com.zl.dao;
 
+import java.util.List;
+
 import com.zl.pojo.RepaymentRecord;
 
 public interface RepaymentRecordMapper {
@@ -14,4 +16,6 @@ public interface RepaymentRecordMapper {
     int updateByPrimaryKeySelective(RepaymentRecord record);
 
     int updateByPrimaryKey(RepaymentRecord record);
+    
+    List<RepaymentRecord> selectRepaymentRecordBySubjectMatterId(Long id);
 }

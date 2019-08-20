@@ -10,89 +10,114 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 
 /**
  * 平台账户信息实体类
- * @author Administrator
- * 映射数据库表ACCOUNT_INFO
+ * 
+ * @author Administrator 映射数据库表ACCOUNT_INFO
  */
 
 public class AccountInfo implements Serializable {
-    
+
 	private static final long serialVersionUID = 1241499456142281802L;
-	//主键
+	// 主键
 	private Long id;
-	//平台账号编号
-    private String accountNo;
-    //平台账户可用余额
-    private BigDecimal activeAmount;
-    //平台账户冻结金额
-    private BigDecimal frozenAmount;
-    //平台账户开通时间
-    @JsonFormat(pattern="yyyy-MM-dd HH-mm-ss")
-    @DateTimeFormat(pattern="yyyy-MM-dd HH-mm-ss")
-    private Date createTime;
-    //此账户对应用户主键
-    private Long userId;
+	// 平台账号编号
+	private String accountNo;
+	// 平台账户可用余额
+	private BigDecimal activeAmount;
+	// 平台账户冻结金额
+	private BigDecimal frozenAmount;
+	// 平台账户开通时间
+	@JsonFormat(pattern = "yyyy-MM-dd HH-mm-ss")
+	@DateTimeFormat(pattern = "yyyy-MM-dd HH-mm-ss")
+	private Date createTime;
+	// 此账户对应用户主键
+	private Long userId;
+	// 平台账户最大额度
+	private BigDecimal maxAmount;
+	// 平台账户交易密码
+	private String password;
+	
+	public AccountInfo(Long id, String accountNo, BigDecimal activeAmount, BigDecimal frozenAmount, Date createTime,
+			Long userId) {
+		this.id = id;
+		this.accountNo = accountNo;
+		this.activeAmount = activeAmount;
+		this.frozenAmount = frozenAmount;
+		this.createTime = createTime;
+		this.userId = userId;
+	}
 
-    public AccountInfo(Long id, String accountNo, BigDecimal activeAmount, BigDecimal frozenAmount, Date createTime, Long userId) {
-        this.id = id;
-        this.accountNo = accountNo;
-        this.activeAmount = activeAmount;
-        this.frozenAmount = frozenAmount;
-        this.createTime = createTime;
-        this.userId = userId;
-    }
+	public AccountInfo() {
+		super();
+	}
 
-    public Long getId() {
-        return id;
-    }
+	public BigDecimal getMaxAmount() {
+		return maxAmount;
+	}
 
-    public void setId(Long id) {
-        this.id = id;
-    }
+	public void setMaxAmount(BigDecimal maxAmount) {
+		this.maxAmount = maxAmount;
+	}
 
-    public String getAccountNo() {
-        return accountNo;
-    }
+	public Long getId() {
+		return id;
+	}
 
-    public void setAccountNo(String accountNo) {
-        this.accountNo = accountNo == null ? null : accountNo.trim();
-    }
+	public void setId(Long id) {
+		this.id = id;
+	}
 
-    public BigDecimal getActiveAmount() {
-        return activeAmount;
-    }
+	public String getAccountNo() {
+		return accountNo;
+	}
 
-    public void setActiveAmount(BigDecimal activeAmount) {
-        this.activeAmount = activeAmount;
-    }
+	public void setAccountNo(String accountNo) {
+		this.accountNo = accountNo == null ? null : accountNo.trim();
+	}
 
-    public BigDecimal getFrozenAmount() {
-        return frozenAmount;
-    }
+	public BigDecimal getActiveAmount() {
+		return activeAmount;
+	}
 
-    public void setFrozenAmount(BigDecimal frozenAmount) {
-        this.frozenAmount = frozenAmount;
-    }
+	public void setActiveAmount(BigDecimal activeAmount) {
+		this.activeAmount = activeAmount;
+	}
 
-    public Date getCreateTime() {
-        return createTime;
-    }
+	public BigDecimal getFrozenAmount() {
+		return frozenAmount;
+	}
 
-    public void setCreateTime(Date createTime) {
-        this.createTime = createTime;
-    }
+	public void setFrozenAmount(BigDecimal frozenAmount) {
+		this.frozenAmount = frozenAmount;
+	}
 
-    public Long getUserId() {
-        return userId;
-    }
+	public Date getCreateTime() {
+		return createTime;
+	}
 
-    public void setUserId(Long userId) {
-        this.userId = userId;
-    }
+	public void setCreateTime(Date createTime) {
+		this.createTime = createTime;
+	}
+
+	public Long getUserId() {
+		return userId;
+	}
+
+	public void setUserId(Long userId) {
+		this.userId = userId;
+	}
+
+	public String getPassword() {
+		return password;
+	}
+
+	public void setPassword(String password) {
+		this.password = password;
+	}
 
 	@Override
 	public String toString() {
 		return "AccountInfo [id=" + id + ", accountNo=" + accountNo + ", activeAmount=" + activeAmount
 				+ ", frozenAmount=" + frozenAmount + ", createTime=" + createTime + ", userId=" + userId + "]";
 	}
-    
+
 }

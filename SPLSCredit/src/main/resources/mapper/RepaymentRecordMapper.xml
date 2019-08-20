@@ -10,6 +10,19 @@
       <arg column="CREATE_TIME" javaType="java.util.Date" jdbcType="TIMESTAMP" />
     </constructor>
   </resultMap>
+  <resultMap id="ResultMap" type="com.zl.pojo.RepaymentRecord">
+    
+      <id property="id" column="ID" javaType="java.lang.Long" jdbcType="DECIMAL" />
+      <result property="subjectMatterId" column="SUBJECT_MATTER_ID" javaType="java.lang.Long" jdbcType="DECIMAL" />
+      <result property="amount" column="AMOUNT" javaType="java.math.BigDecimal" jdbcType="DECIMAL" />
+      <result property="term" column="TERM" javaType="java.lang.Short" jdbcType="DECIMAL" />
+      <result property="createTime" column="CREATE_TIME" javaType="java.util.Date" jdbcType="TIMESTAMP" />
+  
+  </resultMap>
+  <select id="selectRepaymentRecordBySubjectMatterId" parameterType="java.lang.Long" resultMap="ResultMap">
+  	select <include refid="Base_Column_List" />
+    from REPAYMENT_RECORD where SUBJECT_MATTER_ID=#{id}
+  </select>
   <sql id="Base_Column_List">
     ID, SUBJECT_MATTER_ID, AMOUNT, TERM, CREATE_TIME
   </sql>
@@ -24,9 +37,9 @@
     where ID = #{id,jdbcType=DECIMAL}
   </delete>
   <insert id="insert" parameterType="com.zl.pojo.RepaymentRecord">
-    insert into REPAYMENT_RECORD (ID, SUBJECT_MATTER_ID, AMOUNT, 
+    insert into REPAYMENT_RECORD ( SUBJECT_MATTER_ID, AMOUNT, 
       TERM, CREATE_TIME)
-    values (#{id,jdbcType=DECIMAL}, #{subjectMatterId,jdbcType=DECIMAL}, #{amount,jdbcType=DECIMAL}, 
+    values ( #{subjectMatterId,jdbcType=DECIMAL}, #{amount,jdbcType=DECIMAL}, 
       #{term,jdbcType=DECIMAL}, #{createTime,jdbcType=TIMESTAMP})
   </insert>
   <insert id="insertSelective" parameterType="com.zl.pojo.RepaymentRecord">

@@ -1,5 +1,7 @@
 package com.zl.service;
 
+import java.util.List;
+
 import com.zl.pojo.RepaymentRecord;
 
 public interface RepaymentRecordService {
@@ -14,4 +16,8 @@ public interface RepaymentRecordService {
     int updateByPrimaryKeySelective(RepaymentRecord record);
 
     int updateByPrimaryKey(RepaymentRecord record);
+    
+    List<RepaymentRecord> selectRepaymentRecordBySubjectMatterId(Long id);
+    
+    void  RepaymentRecordHandle() throws Exception;
 }

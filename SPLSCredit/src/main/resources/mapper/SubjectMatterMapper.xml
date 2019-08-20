@@ -1,24 +1,94 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.zl.dao.SubjectMatterMapper">
-  <resultMap id="BaseResultMap" type="com.zl.pojo.SubjectMatter">
-    <constructor>
-      <idArg column="ID" javaType="java.math.BigDecimal" jdbcType="DECIMAL" />
-      <arg column="MATTER_NO" javaType="java.math.BigDecimal" jdbcType="DECIMAL" />
-      <arg column="STATUS" javaType="java.math.BigDecimal" jdbcType="DECIMAL" />
-      <arg column="DEBTOR_USER_ID" javaType="java.math.BigDecimal" jdbcType="DECIMAL" />
-      <arg column="LOAN_AMOUNT" javaType="java.math.BigDecimal" jdbcType="DECIMAL" />
-      <arg column="CREATE_TIME" javaType="java.util.Date" jdbcType="TIMESTAMP" />
-      <arg column="PURPOSE" javaType="java.lang.String" jdbcType="VARCHAR" />
-      <arg column="TITLE" javaType="java.lang.String" jdbcType="VARCHAR" />
-      <arg column="TYPE_ID" javaType="java.math.BigDecimal" jdbcType="DECIMAL" />
-    </constructor>
+   <resultMap id="subjectMatterAndType" type="com.zl.pojo.SubjectMatter">
+   	<id column="ID" property="id"/>
+   	<result property="matterNo" column="MATTER_NO" />
+   	<result property="status" column="STATUS"/>
+   	<result column="DEBTOR_USER_ID" property="debtorUserId"/>
+   	<result column="LOAN_AMOUNT" property="loanAmount"></result>
+   	<result column="CREATE_TIME" property="createTime" ></result>
+   	<result  column="PURPOSE" property="purpose"></result>
+   	<result column="TITLE" property="title"></result>
+   	<result column="TYPE_ID" property="typeId"></result>
+   	<result column="FILLED_TIME" property="filledTime"></result>
+    	 <association property="subjectMatterType" column="TYPE_ID" javaType="com.zl.pojo.SubjectMatterType" select="com.zl.dao.SubjectMatterTypeMapper.selectSubjectMatterTypeAndRepaymentMethod"></association>
   </resultMap>
+  <resultMap id="subjectMatterAndOverdueRecord" type="com.zl.pojo.SubjectMatter">
+   	<result property="matterNo" column="MATTER_NO" />
+   	<result property="status" column="STATUS"/>
+   	<result column="DEBTOR_USER_ID" property="debtorUserId"/>
+   	<result column="LOAN_AMOUNT" property="loanAmount"></result>
+   	<result column="CREATE_TIME" property="createTime" ></result>
+   	<result  column="PURPOSE" property="purpose"></result>
+   	<result column="TITLE" property="title"></result>
+   	<result column="TYPE_ID" property="typeId"></result>
+   	<result column="FILLED_TIME" property="filledTime"></result>
+    	 <collection  property="overdueRecordList" column="ID"   select="com.zl.dao.OverdueRecordMapper.selectOverdueRecordBySubjectMatterId" ></collection>
+  </resultMap>
+  <resultMap id="subjectMatterAndRepaymentRecord" type="com.zl.pojo.SubjectMatter">
+  	<id property="id" column="ID"/>
+   	<result property="matterNo" column="MATTER_NO" />
+   	<result property="status" column="STATUS"/>
+   	<result column="DEBTOR_USER_ID" property="debtorUserId"/>
+   	<result column="LOAN_AMOUNT" property="loanAmount"></result>
+   	<result column="CREATE_TIME" property="createTime" ></result>
+   	<result  column="PURPOSE" property="purpose"></result>
+   	<result column="TITLE" property="title"></result>
+   	<result column="TYPE_ID" property="typeId"></result>
+   	<result column="FILLED_TIME" property="filledTime"></result>
+    	 <collection  property="repaymentRecordList" column="ID"  select="com.zl.dao.RepaymentRecordMapper.selectRepaymentRecordBySubjectMatterId"></collection>
+  </resultMap>
+  <select id="selectSubjectMatterByUserId" parameterType="long" resultMap="subjectMatterAndType">
+  	select  <include refid="Base_Column_List" />
+  	from SUBJECT_MATTER where DEBTOR_USER_ID=#{id}
+  </select>
+  <select id="selectSubjectMatterAndRepaymentRecord" parameterType="long"  resultMap="subjectMatterAndRepaymentRecord">
+  	select  <include refid="Base_Column_List" />
+  	 from SUBJECT_MATTER where ID=#{id}
+  </select>
+  <select id="selectSubjectMatterAndOverdueRecord" parameterType="long"   resultMap="subjectMatterAndOverdueRecord">
+  	select  <include refid="Base_Column_List" />
+  	 from SUBJECT_MATTER  where ID=#{id}
+  </select>
+  
+  <select id="selectAllSubjectMatterAndRepaymentRecord"  resultMap="subjectMatterAndRepaymentRecord">
+  	select  <include refid="Base_Column_List" />
+  	 from SUBJECT_MATTER  where status=4 or status=5
+  </select>
+   
+  <select id="selectNoFullMark"  resultMap="subjectMatterAndType">
+  	select  <include refid="Base_Column_List" />
+  	 from SUBJECT_MATTER where status=0 and CREATE_TIME>=trunc(sysdate)-8 
+     and CREATE_TIME&lt;=trunc(sysdate)
+  </select>
+  <select id="selectFullMark"  resultMap="subjectMatterAndType">
+  	select  <include refid="Base_Column_List" />
+  	 from SUBJECT_MATTER where status=4
+  </select>
+  <select id="selectAll"  resultMap="subjectMatterAndType">
+  	select  <include refid="Base_Column_List" />
+  	 from SUBJECT_MATTER where status=3 and CREATE_TIME>=trunc(sysdate)
+     and CREATE_TIME&lt;=trunc(sysdate)+1 order by CREATE_TIME desc  
+  </select>
+  <select id="selectSubjectMatterAndType" parameterType="java.math.BigDecimal" resultMap="subjectMatterAndType">
+  	select  <include refid="Base_Column_List" />
+  	 from SUBJECT_MATTER sm where ID=#{id}
+  </select>
+  <select id="selectAllCount" resultType="int">
+  	Select count(1) count
+     from SUBJECT_MATTER 
+  </select>
+  <select id="selectAllFy" parameterType="fenYe" resultType="com.zl.pojo.SubjectMatter">
+  	Select * from(select a.*,rownum r from(select  <include refid="Base_Column_List" />
+     from SUBJECT_MATTER where status=0  order by CREATE_TIME desc)a) where 
+     r>=#{rowStart} and r&lt;=#{rowEnd}
+  </select>
   <sql id="Base_Column_List">
-    ID, MATTER_NO, STATUS, DEBTOR_USER_ID, LOAN_AMOUNT, CREATE_TIME, PURPOSE, TITLE, 
+    ID, MATTER_NO, STATUS, DEBTOR_USER_ID, LOAN_AMOUNT, CREATE_TIME,FILLED_TIME, PURPOSE, TITLE, 
     TYPE_ID
   </sql>
-  <select id="selectByPrimaryKey" parameterType="java.math.BigDecimal" resultMap="BaseResultMap">
+  <select id="selectByPrimaryKey" parameterType="java.math.BigDecimal" resultType="com.zl.pojo.SubjectMatter">
     select 
     <include refid="Base_Column_List" />
     from SUBJECT_MATTER
@@ -29,11 +99,11 @@
     where ID = #{id,jdbcType=DECIMAL}
   </delete>
   <insert id="insert" parameterType="com.zl.pojo.SubjectMatter">
-    insert into SUBJECT_MATTER (ID, MATTER_NO, STATUS, 
+    insert into SUBJECT_MATTER ( MATTER_NO, STATUS, 
       DEBTOR_USER_ID, LOAN_AMOUNT, CREATE_TIME, 
       PURPOSE, TITLE, TYPE_ID
       )
-    values (#{id,jdbcType=DECIMAL}, #{matterNo,jdbcType=DECIMAL}, #{status,jdbcType=DECIMAL}, 
+    values ( #{matterNo,jdbcType=DECIMAL}, #{status,jdbcType=DECIMAL}, 
       #{debtorUserId,jdbcType=DECIMAL}, #{loanAmount,jdbcType=DECIMAL}, #{createTime,jdbcType=TIMESTAMP}, 
       #{purpose,jdbcType=VARCHAR}, #{title,jdbcType=VARCHAR}, #{typeId,jdbcType=DECIMAL}
       )
@@ -125,6 +195,9 @@
       </if>
       <if test="typeId != null">
         TYPE_ID = #{typeId,jdbcType=DECIMAL},
+      </if>
+      <if test="filledTime!=null">
+        FILLED_TIME = #{filledTime}
       </if>
     </set>
     where ID = #{id,jdbcType=DECIMAL}

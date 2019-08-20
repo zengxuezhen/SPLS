@@ -16,7 +16,7 @@ public class RepaymentRecord implements Serializable {
 //	主键
     private Long id;
 //	标的表外键
-    private Long subjectMatterId;
+    private Long  subjectMatterId;
 //    还款金额
     private BigDecimal amount;
 //	第几期
@@ -26,7 +26,7 @@ public class RepaymentRecord implements Serializable {
     @DateTimeFormat(pattern="yyyy-MM-dd HH:mm:ss")
     private Date createTime;
 
-    public RepaymentRecord(Long id, Long subjectMatterId, BigDecimal amount, Short term, Date createTime) {
+    public RepaymentRecord(Long id, Long  subjectMatterId, BigDecimal amount, Short term, Date createTime) {
         this.id = id;
         this.subjectMatterId = subjectMatterId;
         this.amount = amount;
@@ -46,11 +46,11 @@ public class RepaymentRecord implements Serializable {
         this.id = id;
     }
 
-    public Long getSubjectMatterId() {
+    public Long  getSubjectMatterId() {
         return subjectMatterId;
     }
 
-    public void setSubjectMatterId(Long subjectMatterId) {
+    public void setSubjectMatterId(Long  subjectMatterId) {
         this.subjectMatterId = subjectMatterId;
     }
 

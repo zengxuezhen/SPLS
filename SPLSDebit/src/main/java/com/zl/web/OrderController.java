@@ -38,8 +38,8 @@ public class OrderController {
 	}
 
 	//按ID查询订单记录表
-	@GetMapping
-	public Map<String, Object> TotalAmount(@RequestBody Long id){
+	@GetMapping(path="getTotalAmount")
+	public Map<String, Object> getTotalAmount(@RequestBody Long id){
 		CreditorOrderRecord creditorOrderRecord=cs.queryOrderRecordById(id);
 		Map<String,Object> result=new HashMap<String,Object>();
 		result.put("creditorOrderRecord", creditorOrderRecord);
@@ -47,7 +47,7 @@ public class OrderController {
 		
 	}
 	//按原始标的外键查询订单表
-	@GetMapping
+	@GetMapping(path="getOrderRecordByOriginSubjectId")
 	public Map<String, Object> getOrderRecordByOriginSubjectId(@RequestBody Long originSubjectId){
 		List<CreditorOrderRecord> orders=new ArrayList<CreditorOrderRecord>();
 		orders=cs.queryOrderRecordByOriginSubjectId(originSubjectId);

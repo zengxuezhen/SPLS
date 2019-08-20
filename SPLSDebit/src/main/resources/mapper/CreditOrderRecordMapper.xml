@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="CreditOrderRecordOrder">
+<mapper namespace="com.zl.dao.CreditOrderRecord">
 	<!-- 插入订单记录 -->	
-	<insert id="insertCreditOrderRecord" parameterType="creditOrderRecordOrder">
+	<insert id="insertCreditOrderRecord" parameterType="com.zl.pojo.CreditorOrderRecord">
 		insert into CREDITOR_ORDER_RECORD (ID, RECORD_NO, BUYER_USER_ID, 
 	      AMOUNT, SUBJECT_MATTER_ID, CONTRACT_URL, 
 	      CREATE_TIME, SELLER_USER_ID, ORIGIN_SUBJECT_MATTER_ID
@@ -14,14 +14,14 @@
 	      )
 	</insert>
 	<!-- 按ID查询订单记录 -->
-	<select id="selectOrderRecordById" parameterType="java.lang.Long" resultType="creditOrderRecordOrder">
+	<select id="selectOrderRecordById" parameterType="java.lang.Long" resultType="com.zl.pojo.CreditorOrderRecord">
 		select D, RECORD_NO, BUYER_USER_ID, 
 	      AMOUNT, SUBJECT_MATTER_ID, CONTRACT_URL, 
 	      CREATE_TIME, SELLER_USER_ID, ORIGIN_SUBJECT_MATTER_ID
 	    where ID=#{id}
 	</select>
 	<!-- 按原始标的ID查询订单记录 -->
-	<select id="selectOrderRecordByOriginSubjectId" parameterType="java.lang.Long" resultType="creditOrderRecordOrder">
+	<select id="selectOrderRecordByOriginSubjectId" parameterType="java.lang.Long" resultType="com.zl.pojo.CreditorOrderRecord">
 		select D, RECORD_NO, BUYER_USER_ID, 
 	      AMOUNT, SUBJECT_MATTER_ID, CONTRACT_URL, 
 	      CREATE_TIME, SELLER_USER_ID, ORIGIN_SUBJECT_MATTER_ID

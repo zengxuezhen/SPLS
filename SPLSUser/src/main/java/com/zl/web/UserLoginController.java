@@ -1,13 +1,23 @@
 package com.zl.web;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authc.IncorrectCredentialsException;
 import org.apache.shiro.authc.UnknownAccountException;
 import org.apache.shiro.authc.UsernamePasswordToken;
 import org.apache.shiro.subject.Subject;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.ResponseBody;
+
+import com.zl.service.UserLoginService;
+import com.zl.util.AESUtil;
+import com.zl.util.CodeUtil;
 
 /**
  * @ClassName UserLoginController
@@ -17,6 +27,8 @@ import org.springframework.web.bind.annotation.PostMapping;
  */
 @Controller
 public class UserLoginController {
+	@Autowired
+	private UserLoginService uls;
     @PostMapping("/login")
     public String userLogin(String name, String password, Model model){
         //1.获取Subject
@@ -41,6 +53,15 @@ public class UserLoginController {
             return "login";
         }
 
+    }
+    @PostMapping("/sendUserTelphoneMessage")
+    @ResponseBody
+    public Map<String,Object> sendUserTelphoneMessage(@RequestBody long id,@RequestBody String msg){
+    	Map<String,Object> map=new HashMap();
+    	AllUser user=uls.selectByPrimaryKey(id);
+    	boolean code=CodeUtil.sendTelephoneMsg(AESUtil.getAesDecoder(user.getTelephone()),msg);
+    	map.put("success",code);
+    	return map;
     }
 
 }

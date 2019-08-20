@@ -7,7 +7,6 @@ import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -38,7 +37,7 @@ public class CreditController {
 	}
 	
 	//按ID获取Credit
-	@GetMapping
+	@GetMapping(path="getCreditById")
 	public Map<String, Object> getCreditById(@RequestBody Long id){
 		Map<String,Object> result=new HashMap<String,Object>();
 		Credit credit=cs.queryCreditById(id);
@@ -48,8 +47,9 @@ public class CreditController {
 		
 	}
 	//按标的ID获取Credit
-	@GetMapping
-	public Map<String, Object> getCreditBySubjectId(@RequestBody Long id){
+	@GetMapping(path="getCreditBySubjectId")
+	@ResponseBody
+	public Map<String, Object> getCreditBySubjectId( Long id){
 		Map<String,Object> result=new HashMap<String,Object>();
 		List<Credit> credits=new ArrayList<Credit>();
 		credits=cs.queryCreditBySubjectId(id);

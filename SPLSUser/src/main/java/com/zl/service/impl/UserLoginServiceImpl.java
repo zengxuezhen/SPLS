@@ -27,4 +27,12 @@ public class UserLoginServiceImpl implements UserLoginService {
     public AllUser findUserByEmail(String email) {
         return uld.findUserByEmail(email);
     }
+
+	
+
+	@Override
+	public AllUser selectByPrimaryKey(long id) {
+		// TODO Auto-generated method stub
+		return uld.selectByPrimaryKey(id);
+	}
 }

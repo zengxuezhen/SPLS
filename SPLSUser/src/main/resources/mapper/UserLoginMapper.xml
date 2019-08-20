@@ -7,4 +7,13 @@
     <select id="findUserByEmail" resultType="com.zl.pojo.AllUser">
         select ID id,EMAIL email,PWD pwd from ALL_USER where EMAIL=#{value}
     </select>
+    <sql id="Base_Column_List">
+    ID, USER_NAME, PWD, TELEPHONE, AVATER, EMAIL, VERIFICATION_ID, CREATE_TIME
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="long" resultType="com.zl.pojo.AllUser">
+    select 
+    <include refid="Base_Column_List" />
+    from ALL_USER
+    where ID = #{id,jdbcType=DECIMAL}
+  </select>
 </mapper>

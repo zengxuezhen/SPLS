@@ -155,4 +155,18 @@ public class SubjectMatterController {
 		}
 		return rm;
 	}
+	//逾期还款申请
+	@RequestMapping("/applicationForOverdueRepayment")
+	@ResponseBody
+	public Object applicationForOverdueRepayment() {
+		
+		return null;
+	}
+	//提前还款申请
+	@RequestMapping("/applicationForAdvancePayment")
+	@ResponseBody
+	public Object applicationForAdvancePayment() {
+		
+		return null;
+	}
 }

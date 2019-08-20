@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import com.zl.dao.PersonalLoanInfoDao;
 import com.zl.pojo.PersonalLoanInfo;
@@ -14,6 +15,7 @@ import com.zl.service.PersonalLoanInfoService;
  * @author Administrator
  *
  */
+@Service
 public class PersonalLoanInfoServiceImpl implements PersonalLoanInfoService{
 	@Autowired
 	private PersonalLoanInfoDao pd;

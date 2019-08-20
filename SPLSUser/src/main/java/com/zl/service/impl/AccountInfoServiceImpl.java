@@ -1,11 +1,12 @@
 package com.zl.service.impl;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import com.zl.dao.AccountInfoDao;
 import com.zl.pojo.AccountInfo;
 import com.zl.service.AccountInfoService;
-
+@Service
 public class AccountInfoServiceImpl implements AccountInfoService{
 	@Autowired
 	private AccountInfoDao ad;

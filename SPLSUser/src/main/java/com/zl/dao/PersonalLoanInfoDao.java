@@ -15,6 +15,33 @@ public interface PersonalLoanInfoDao {
 	 * @return
 	 */
 	int insertPersonalLoanInfo(PersonalLoanInfo personalLoanInfo);
+	
+	/**
+	 * 根据ID查询个人贷款信息
+	 * @param id
+	 * @return
+	 */
 	PersonalLoanInfo selectPersonalLoanInfoById(Long id);
-	List<PersonalLoanInfo> selectPernalLoanInfoByUserId(Long userId,Paging paging);
+	
+	/**
+	 * 根据用户ID查询个人贷款信息
+	 * @param userId
+	 * @return
+	 */
+	PersonalLoanInfo selectPersonalLoanInfoByUserId(Long userId);
+	
+	/**
+	 * 根据状态查询个人贷款信息
+	 * @param status
+	 * @param paging
+	 * @return
+	 */
+	List<PersonalLoanInfo> selectPersonnalLoanInfoByStatus(Integer status);
+	
+	/**
+	 * 根据ID修改个人贷款信息表状态
+	 * @param personalLoanInfo
+	 * @return
+	 */
+	int updatePersonalLoanInfoStatusById(PersonalLoanInfo personalLoanInfo);
 }

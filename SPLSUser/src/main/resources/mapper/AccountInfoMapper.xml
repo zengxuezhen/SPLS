@@ -15,11 +15,16 @@
       	values (#{id},#{accountNo},#{activeAmount},#{frozenAmount},#{createTime},
       		#{userId},#{maxCreditAmount},#{activeCreditAmount},#{password})
 	</insert>
-	<update id="updateAmountByUserId" parameterType="java.lang.Long">
-		update ACCOUNT_INFO set ID=#{id},ACCOUNT_NO=#{accountNo},ACTIVE_AMOUNT=#{activeAmount},
-			FROZEN_AMOUNT=#{frozenAmount},CREATE_TIME=#{createTime},USER_ID=#{userId},
-			MAX_CREDIT_AMOUNT=#{maxCreditAmount},ACTIVE_CREDIT_AMOUNT=#{maxCreditAmount},
-			#{activeCreditAmount},#{password}
-		where USER_ID=#{id}
+	<update id="updateAccountInfoActiveAmountByUserId" parameterType="com.zl.pojo.AccountInfo">
+		update ACCOUNT_INFO ACTIVE_AMOUNT=#{activeAmount},
+			FROZEN_AMOUNT=#{frozenAmount}
+		where USER_ID=#{useId}
 	</update>
+	
+	<update id="updateAccountInfoMaxAmountById" parameterType="com.zl.pojo.AccountInfo">
+		update ACCOUNT_INFO MAX_CREDIT_AMOUNT=#{maxCreditAmount},
+			ACTIVE_CREDIT_AMOUNT=#{activeCreditAmount}
+		where USER_ID=#{useId}
+	</update>
+	
 </mapper>

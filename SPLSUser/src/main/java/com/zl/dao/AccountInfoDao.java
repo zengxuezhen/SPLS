@@ -1,12 +1,34 @@
 package com.zl.dao;
+
+import com.zl.pojo.AccountInfo;
 /**
  * 个人账户信息表Dao层接口
  * @author Administrator
  *
  */
-
-import com.zl.pojo.AccountInfo;
-
 public interface AccountInfoDao {
+	/**
+	 * 根据用户ID查询平台账户信息表
+	 * @param userId
+	 * @return
+	 */
 	AccountInfo selectAccountInfoByUserId(Long userId);
+	/**
+	 * 向平台账户信息表插入数据
+	 * @param accountInfo
+	 * @return
+	 */
+	int insertAccountInfo(AccountInfo accountInfo);
+	/**
+	 * 根据用户ID修改平台账户信息
+	 * @param accountInfo
+	 * @return
+	 */
+	int updateAccountInfoActiveAmountByUserId(AccountInfo accountInfo);
+	/**
+	 * 根据用户ID修改平台账户贷款额度
+	 * @param accountInfo
+	 * @return
+	 */
+	int updateAccountInfoMaxAmountByUserId(AccountInfo accountInfo);
 }

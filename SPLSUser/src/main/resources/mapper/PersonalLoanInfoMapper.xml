@@ -4,27 +4,31 @@
 <mapper namespace="com.zl.dao.PersonalLoanInfoDao">
 	<insert id="insertPersonalLoanInfo" parameterType="com.zl.pojo.PersonalLoanInfo">
 		insert into PERSONAL_LOAN_INFO (ID, USER_ID, EDUCATION_BACKGROUD, 
-	      MONTHLY_INCOME, MARITAL_STATUS, MAX_AMOUNT,STATUS)
+	      MONTHLY_INCOME, MARITAL_STATUS, STATUS)
 	    values (#{id}, #{userId}, #{educationBackgroud}, 
 	      #{monthlyIncome}, #{maritalStatus}, 
 	      #{maxAmount}, #{status})
 	</insert>
 	
 	<select id="selectPersonalLoanInfoById" parameterType="java.lang.Long" resultType="com.zl.pojo.PersonalLoanInfo">
-		select ID, ID_ID, EDUCATION_BACKGROUD, 
-	      MONTHLY_INCOME, MARITAL_STATUS, MAX_AMOUNT,STATUS
+		select ID, USER_ID, EDUCATION_BACKGROUD, 
+	      MONTHLY_INCOME, MARITAL_STATUS, STATUS
 	    from PERSONAL_LOAN_INFO where ID=#{id}
 	</select>
 	
 	<select id="selectPersonalLoanInfoByUserId" parameterType="java.lang.Long" resultType="com.zl.pojo.PersonalLoanInfo">
-		select ID, ID_ID, EDUCATION_BACKGROUD, 
-	      MONTHLY_INCOME, MARITAL_STATUS, MAX_AMOUNT,STATUS
+		select ID, USER_ID, EDUCATION_BACKGROUD, 
+	      MONTHLY_INCOME, MARITAL_STATUS, STATUS
 	    from PERSONAL_LOAN_INFO where USER_ID=#{userId}
 	</select>
 	
 	<select id="selectPersonalLoanInfoByStatus" parameterType="int" resultType="com.zl.pojo.PersonalLoanInfo">
 		select ID, ID_ID, EDUCATION_BACKGROUD, 
-	      MONTHLY_INCOME, MARITAL_STATUS, MAX_AMOUNT,STATUS
+	      MONTHLY_INCOME, MARITAL_STATUS, STATUS
 	    from PERSONAL_LOAN_INFO where STATUS=#{status}
 	</select>
+	
+	<update id="updatePersonalLoanInfoStatusById" parameterType="com.zl.pojo.PersonalLoanInfo">
+		update PERSONAL_LOAN_INFO set STATUS=#{status} where id=#{id}
+	</update>
 </mapper>

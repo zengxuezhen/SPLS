@@ -75,7 +75,7 @@ public class CalculationUtil {
 				a=amount.doubleValue()-(1716-amount.doubleValue()*0.0085);
 			}
 			//利息
-			principalAndInterest[1]=amount.multiply(monthInterestRate).setScale(2,RoundingMode.CEILING);
+			principalAndInterest[1]=amount.multiply(monthInterestRate).setScale(0,RoundingMode.CEILING);
 			//本金
 			principalAndInterest[0]=monthlyRepayment.subtract(principalAndInterest[1]).setScale(0,RoundingMode.CEILING);
 		}

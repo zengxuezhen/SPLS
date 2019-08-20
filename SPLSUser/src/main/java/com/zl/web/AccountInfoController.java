@@ -33,7 +33,7 @@ public class AccountInfoController {
 		
 	}
 	
-	@PostMapping(path="addAccountInfo")
+	@PostMapping(path="/addAccountInfo")
 	/**
 	 * 添加平台账户信息
 	 * @param accountInfo 平台账户对象
@@ -47,15 +47,29 @@ public class AccountInfoController {
 		
 	}
 	
-	@PutMapping(path="modifyAccountInfoByUserId")
+	@PutMapping(path="/modifyActiveAmount")
 	/**
-	 * 根据UserID修改AccountInfo平台个人账户信息
+	 * 根据UserID修改AccountInfo平台个人账户可用金额
 	 * @param accountInfo
 	 * @return 影响行数
 	 */
-	public Map<String, Object> modifyAccountInfo(@RequestBody AccountInfo accountInfo ){
+	public Map<String, Object> modifyActiveAmount(@RequestBody AccountInfo accountInfo ){
 		Map<String, Object> result= new HashMap<String,Object>();
-		int line= as.modifyAccountInfoByUserId(accountInfo);
+		int line= as.modifyAccountInfoActiveAmountByUserId(accountInfo);
+		result.put("line", line);
+		return result;
+		
+	}
+	
+	@PutMapping(path="/modifyMaxAmount")
+	/**
+	 * 根据UserID修改AccountInfo平台个人贷款额度
+	 * @param accountInfo
+	 * @return
+	 */
+	public Map<String, Object> modifyMaxAmount(@RequestBody AccountInfo accountInfo ){
+		Map<String, Object> result= new HashMap<String,Object>();
+		int line= as.modifyAccountInfoMaxAmountByUserId(accountInfo);
 		result.put("line", line);
 		return result;
 		

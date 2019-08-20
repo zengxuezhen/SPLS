@@ -1,7 +1,5 @@
 package com.zl.dao;
 
-
-import com.alipay.api.domain.Account;
 import com.zl.pojo.AccountInfo;
 /**
  * 个人账户信息表Dao层接口
@@ -26,5 +24,11 @@ public interface AccountInfoDao {
 	 * @param accountInfo
 	 * @return
 	 */
-	int updateAccountInfoById(AccountInfo accountInfo);
+	int updateAccountInfoActiveAmountByUserId(AccountInfo accountInfo);
+	/**
+	 * 根据用户ID修改平台账户贷款额度
+	 * @param accountInfo
+	 * @return
+	 */
+	int updateAccountInfoMaxAmountByUserId(AccountInfo accountInfo);
 }

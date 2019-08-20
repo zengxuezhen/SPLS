@@ -24,10 +24,16 @@ public class AccountInfoServiceImpl implements AccountInfoService{
 	}
 	
 	@Override
-	public int modifyAccountInfoByUserId(AccountInfo accountInfo) {
+	public int modifyAccountInfoActiveAmountByUserId(AccountInfo accountInfo) {
 		
-		int line=ad.updateAccountInfoById(accountInfo);
+		int line=ad.updateAccountInfoActiveAmountByUserId(accountInfo);
 		
+		return line;
+	}
+
+	@Override
+	public int modifyAccountInfoMaxAmountByUserId(AccountInfo accountInfo) {
+		int line=ad.updateAccountInfoMaxAmountByUserId(accountInfo);
 		return line;
 	}
 	

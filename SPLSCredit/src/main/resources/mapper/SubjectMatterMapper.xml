@@ -77,11 +77,11 @@
   </select>
   <select id="selectAllCount" resultType="int">
   	Select count(1) count
-     from SUBJECT_MATTER 
+     from SUBJECT_MATTER  where status=0 or status=2 or status=4 
   </select>
   <select id="selectAllFy" parameterType="fenYe" resultMap="subjectMatterAndType">
   	Select * from(select a.*,rownum r from(select  <include refid="Base_Column_List" />
-     from SUBJECT_MATTER  order by CREATE_TIME desc)a) where 
+     from SUBJECT_MATTER where status=0 or status=2 or status=4  order by CREATE_TIME desc)a) where 
      r>=#{rowStart} and r&lt;=#{rowEnd}
   </select>
   <sql id="Base_Column_List">

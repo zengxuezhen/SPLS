@@ -9,8 +9,11 @@ import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.zl.API.CreditService;
+import com.zl.API.CreditorOrderRecordService;
 import com.zl.pojo.FenYe;
 import com.zl.pojo.ResultModel;
 import com.zl.pojo.SubjectMatter;
@@ -23,6 +26,14 @@ import com.zl.service.SubjectMatterService;
 public class SubjectMatterController {
 	@Autowired
 	private SubjectMatterService sm;
+	@Autowired
+	private CreditService cs;
+	
+	@RequestMapping("/credit/getCreditBySubjectId")
+	@ResponseBody
+	public String getCreditBySubjectId(Long id) {
+		return cs.getCreditBySubjectId(id);
+	}
 	/*
 	 *查询所有未满标的标的
 	 */

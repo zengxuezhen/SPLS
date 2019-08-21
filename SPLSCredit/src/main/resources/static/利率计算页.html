@@ -29,6 +29,7 @@
   <title>投资计算器-超人贷官网</title> 
   <link rel="shortcut icon" type="image/x-icon" href="css/favicon-rrd.ico"> 
   <link rel="stylesheet" type="text/css" href="css/base_02fd8b5.css"> 
+  <!--  
   <script type="text/javascript">
             (function(){
                 var userAgent = navigator.userAgent.toLowerCase();
@@ -45,12 +46,15 @@
     gio('init', 'bf0acacc0a738790', {});
     gio('setUserId', tplConf.user.userId);
     gio('send');
-</script> 
+</script> -->
 <script type="text/javascript" src="/js/jquery-2.1.4/jquery-2.1.4.min.js"></script>
 	<script type="text/javascript">
+		
+		$("#calcResult").css({"display":"none"});
 		$(function(){
+			$(".error").css({"display":"block"});
 			$("#calcResult").css({"display":"none"});
-			$("#calcbt").click(function(){
+			$("#calculation").click(function(){
 				console.log("click");
 				var loanAmount=$("#loanAmount").val();
 				var annualInterestRate=$("#annualInterestRate").val();
@@ -64,6 +68,7 @@
 					data:{"loanAmount":loanAmount,"annualInterestRate":annualInterestRate,
 						"term":term},
 					success:function(data){
+						$(".error").css({"display":"none"});
 						console.log(data);
 						$("#repaymentRecordList").html("");
 						//总的利息
@@ -76,7 +81,7 @@
 							totalInterest=totalInterest+parseInt(data.Interest);
 							var index=i+1;
 							var flag=i%2==0?"2":"1";
-							appendStr+="<tr class=\"text-center color-time-tr"+flag+"\" data-reactid=\".0.1.1.1.$row"+index+">"
+							appendStr+="<tr class=\"text-center color-time-tr"+flag+"\" data-reactid=\".0.1.1.1.$row"+index+"\">"
 							+"<td data-reactid=\".0.1.1.1.$row"+index+".0\">"+index+"月</td>"
 							+"<td data-reactid=\".0.1.1.1.$row"+index+".1\">"+data.monthAmount+"</td>"
 							+"<td data-reactid=\".0.1.1.1.$row"+index+".2\">"+data.principal+"</td>"
@@ -392,7 +397,7 @@
           <div class="fn-left w240 ui-form-item ui-form-item-nolabel last"> 
            <input class="ui-input w110 new-input" type="text" id="annualInterestRate" name="yearRate" data-is="isOneDecimal isRateOver" maxlength="10"> 
            <p class="unit">%</p> 
-           <label for="yearRate" id="yearRate-error-label" class="error" style="display: none;">您输入的借款年利率超出范围，请重新输入！</label> 
+           <label for="yearRate" id="yearRate-error-label" class="error" style="display: none;">年利率范围，5%-24%</label> 
           </div> 
          </div> 
          <div class="fn-clear input-div"> 
@@ -417,13 +422,13 @@
           <div class="fn-left submit-wrap"> 
            <input type="checkbox" id="isShowTable" name="isShowTable" checked value="true"> 
            <input type="hidden" name="mgmtAmount" value="0.3"> 
-           <input id="calcbt" type="submit" class="ui-button ui-button-mid j-btn j-btn-blue" value="开始计算"> 
+           <button id="calculation"  class="ui-button ui-button-mid j-btn j-btn-blue" value="">开始计算</button> 
           </div> 
          </div> 
         </form> 
         <!--计算结果-->
         <div class="page-section result-con  j-card">
-	    <div id="calcResult" class=""><div data-reactid=".0">
+	    <div id="calcResult" class="" style="display:none;"><div data-reactid=".0">
 	    	<div class="calculator-info " data-reactid=".0.0">
 	    		<div class="ui-box-title-new fn-clear" data-reactid=".0.0.0">
 	    			<h2 class="section-title bd-bottom" data-reactid=".0.0.0.0">收益描述 </h2>
@@ -597,7 +602,7 @@
    </div> 
   
   </div> 
-  
+  <!--  -->
   <script>
             var _hmt = _hmt || [];
             (function() {
@@ -661,6 +666,7 @@
 !function() {
     require(["common:widget/werenrendai-home/footer/footer"], function(){});
 }();
+<!---->
 !function() {
         require(["p2p:page/calculator/calculator.js"], function(calc){
             calc.init();

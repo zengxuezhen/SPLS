@@ -55,6 +55,8 @@ public class SubjectMatter implements Serializable {
     private List<OverdueRecord> overdueRecordList;
     //关联标的类型
     private SubjectMatterType subjectMatterType;
+    
+    private List<Credit> creditList;
 
     public SubjectMatter(Long id, String matterNo, Integer status, Long debtorUserId, BigDecimal loanAmount, Date createTime, String purpose, String title, Integer typeId) {
         this.id = id;
@@ -166,5 +168,13 @@ public class SubjectMatter implements Serializable {
 
 	public void setOverdueRecordList(List<OverdueRecord> overdueRecordList) {
 		this.overdueRecordList = overdueRecordList;
+	}
+
+	public List<Credit> getCreditList() {
+		return creditList;
+	}
+
+	public void setCreditList(List<Credit> creditList) {
+		this.creditList = creditList;
 	}
 }

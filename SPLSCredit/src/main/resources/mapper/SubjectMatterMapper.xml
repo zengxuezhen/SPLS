@@ -12,6 +12,7 @@
    	<result column="TITLE" property="title"></result>
    	<result column="TYPE_ID" property="typeId"></result>
    	<result column="FILLED_TIME" property="filledTime"></result>
+   	<result column="IS_CREDIT" property="isCredit"/>
     	 <association property="subjectMatterType" column="TYPE_ID" javaType="com.zl.pojo.SubjectMatterType" select="com.zl.dao.SubjectMatterTypeMapper.selectSubjectMatterTypeAndRepaymentMethod"></association>
   </resultMap>
   <resultMap id="subjectMatterAndOverdueRecord" type="com.zl.pojo.SubjectMatter">
@@ -24,6 +25,7 @@
    	<result column="TITLE" property="title"></result>
    	<result column="TYPE_ID" property="typeId"></result>
    	<result column="FILLED_TIME" property="filledTime"></result>
+   	<result column="IS_CREDIT" property="isCredit"/>
     	 <collection  property="overdueRecordList" column="ID"   select="com.zl.dao.OverdueRecordMapper.selectOverdueRecordBySubjectMatterId" ></collection>
   </resultMap>
   <resultMap id="subjectMatterAndRepaymentRecord" type="com.zl.pojo.SubjectMatter">
@@ -37,6 +39,7 @@
    	<result column="TITLE" property="title"></result>
    	<result column="TYPE_ID" property="typeId"></result>
    	<result column="FILLED_TIME" property="filledTime"></result>
+   	<result column="IS_CREDIT" property="isCredit"/>
     	 <collection  property="repaymentRecordList" column="ID"  select="com.zl.dao.RepaymentRecordMapper.selectRepaymentRecordBySubjectMatterId"></collection>
   </resultMap>
   <select id="selectSubjectMatterByUserId" parameterType="long" resultMap="subjectMatterAndType">
@@ -85,7 +88,7 @@
      r>=#{rowStart} and r&lt;=#{rowEnd}
   </select>
   <sql id="Base_Column_List">
-    ID, MATTER_NO, STATUS, DEBTOR_USER_ID, LOAN_AMOUNT, CREATE_TIME,FILLED_TIME, PURPOSE, TITLE, 
+    ID, IS_CREDIT, MATTER_NO, STATUS, DEBTOR_USER_ID, LOAN_AMOUNT, CREATE_TIME,FILLED_TIME, PURPOSE, TITLE, 
     TYPE_ID
   </sql>
   <select id="selectByPrimaryKey" parameterType="java.math.BigDecimal" resultType="com.zl.pojo.SubjectMatter">

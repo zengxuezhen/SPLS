@@ -180,4 +180,12 @@ public class SubjectMatterController {
 		
 		return null;
 	}
+	//查询所有债权转让标的
+	@RequestMapping("/queryAllFySubjectMatterAndCredit")
+	@ResponseBody
+	public Object selectAllFySubjectMatterAndCredit(FenYe fenYe) {
+		Map<String,Object>map=new HashMap();
+		map.put("SubjectMatterAndCredit", sm.selectAllFySubjectMatterAndCredit(fenYe));
+		return map;
+	}
 }

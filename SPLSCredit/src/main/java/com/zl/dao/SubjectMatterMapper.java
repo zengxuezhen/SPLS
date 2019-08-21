@@ -41,4 +41,8 @@ public interface SubjectMatterMapper {
     List<SubjectMatter>  selectSubjectMatterByUserId(long id);
     //
     List<SubjectMatter> selectAllSubjectMatterAndRepaymentRecord();
+    
+    List<SubjectMatter> selectAllFySubjectMatterAndCredit(FenYe fenYe);
+
+    int selectAllCountFySubjectMatterAndCredit();
 }

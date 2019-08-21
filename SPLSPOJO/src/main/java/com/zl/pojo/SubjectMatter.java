@@ -27,6 +27,8 @@ public class SubjectMatter implements Serializable {
     private Long debtorUserId;
     //贷款金额
     private BigDecimal loanAmount;
+    //0:不是债权转让标的 1：是债权转让标的
+    private String isCredit;
     //此标创建的时间
     @JsonFormat(pattern="yyyy-MM-dd HH:mm:ss")
     @DateTimeFormat(pattern="yyyy-MM-dd HH:mm:ss")
@@ -176,5 +178,13 @@ public class SubjectMatter implements Serializable {
 
 	public void setCreditList(List<Credit> creditList) {
 		this.creditList = creditList;
+	}
+
+	public String getIsCredit() {
+		return isCredit;
+	}
+
+	public void setIsCredit(String isCredit) {
+		this.isCredit = isCredit;
 	}
 }

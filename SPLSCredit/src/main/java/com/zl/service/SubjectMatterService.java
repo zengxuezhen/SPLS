@@ -35,4 +35,6 @@ public interface SubjectMatterService {
     List<SubjectMatter> selectNoFullMark();
     
     List<SubjectMatter> selectFullMark();
+    
+    List<SubjectMatter> selectAllFySubjectMatterAndCredit(FenYe fenYe);
 }

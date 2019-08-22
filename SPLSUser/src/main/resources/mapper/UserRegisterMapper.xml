@@ -7,4 +7,7 @@
     <insert id="addUser" parameterType="com.zl.pojo.AllUser">
         insert into ALL_USER (user_name, pwd, telephone,create_time) values (#{userName},#{pwd},#{telephone},#{createTime})
     </insert>
+    <update id="updateUser" parameterType="com.zl.pojo.AllUser">
+        update ALL_USER set PWD=#{pwd} where USER_NAME=#{userName}
+    </update>
 </mapper>

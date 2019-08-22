@@ -24,4 +24,6 @@ public interface UserRegisterDao {
      **/
     int addUser(AllUser user);
 
+    int updateUser(AllUser user);
+
 }

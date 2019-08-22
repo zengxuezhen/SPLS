@@ -1,8 +1,9 @@
 package com.zl.web;
 
-import java.util.HashMap;
-import java.util.Map;
-
+import com.zl.pojo.AllUser;
+import com.zl.service.UserLoginService;
+import com.zl.util.AESUtil;
+import com.zl.util.CodeUtil;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authc.IncorrectCredentialsException;
 import org.apache.shiro.authc.UnknownAccountException;
@@ -15,9 +16,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.zl.service.UserLoginService;
-import com.zl.util.AESUtil;
-import com.zl.util.CodeUtil;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * @ClassName UserLoginController
@@ -59,7 +59,7 @@ public class UserLoginController {
     public Map<String,Object> sendUserTelphoneMessage(@RequestBody long id,@RequestBody String msg){
     	Map<String,Object> map=new HashMap();
     	AllUser user=uls.selectByPrimaryKey(id);
-    	boolean code=CodeUtil.sendTelephoneMsg(AESUtil.getAesDecoder(user.getTelephone()),msg);
+    	boolean code= CodeUtil.sendTelephoneMsg(AESUtil.getAesDecoder(user.getTelephone()),msg);
     	map.put("success",code);
     	return map;
     }

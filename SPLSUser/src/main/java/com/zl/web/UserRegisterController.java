@@ -3,13 +3,12 @@ package com.zl.web;
 import com.zl.pojo.AllUser;
 import com.zl.service.UserRegisterService;
 import com.zl.util.CodeUtil;
+import com.zl.util.RandomCharacterAndNumber;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -26,6 +25,8 @@ import static com.zl.web.CaptchaController.KEY_CAPTCHA;
  * @Version 1.0
  */
 @Controller
+@RequestMapping("/register")
+@CrossOrigin(origins = "*")
 public class UserRegisterController {
     @Autowired
     private UserRegisterService urs;
@@ -33,10 +34,13 @@ public class UserRegisterController {
     @Qualifier("redisTemplate")
     //实例化
     private RedisTemplate<Object, Object> rts;
-    @PostMapping("/getCode")
+    @RequestMapping(value="/getCode",method = RequestMethod.POST)
     @ResponseBody
-    public Map<String, Object> findUserTel(String telephone, String verifCode, HttpServletRequest request) {
+    public Map<String, Object> findUserTel(@RequestBody Map<String, String> ma, HttpServletRequest request) {
         Map<String, Object> map = new HashMap<>();
+        System.out.println(ma);
+        String telephone = ma.get("telephone");
+        String verifCode = ma.get("verifCode");
         if (telephone!=null&&!"".equals(telephone)&&verifCode!=null&&!"".equals(verifCode)){
             HttpSession session = request.getSession();
             String str=(String)session.getAttribute(KEY_CAPTCHA);
@@ -50,45 +54,64 @@ public class UserRegisterController {
             if (urs.findTel(telephone) == null&&verifCode.equalsIgnoreCase(str)) {
                 String zipCode = CodeUtil.getCode(telephone);
                 if (zipCode != null) {
-                    System.out.println(zipCode);
+                    System.out.println(zipCode+"666666");
                     rts.opsForValue().set(telephone, zipCode, 3, TimeUnit.MINUTES);
-                    map.put("msg", true);
-
+                    map.put("code", "200");
+                    return map;
                 } else {
-                    map.put("msg", false);
-
+                    map.put("code", "401");
+                    return map;
                 }
             } else {
-                map.put("msg", false);
+                map.put("code", "401");
+                return map;
             }
         }
-            return map;
+        return map;
     }
 
 
-    @RequestMapping("/userRegister")
+    @RequestMapping(value = "/userRegister", method = RequestMethod.POST)
     @ResponseBody
-    public Object plogin(String telephone, String mobileCode){
-        //System.out.println("username=" + telphone + ";pcode=" + pcode);
+    public Map<String, Object> addUser(@RequestBody Map<String, String> ma, HttpSession session){
+        RandomCharacterAndNumber rca = new RandomCharacterAndNumber();
+        Map<String, Object> map = new HashMap<>();
+        String telephone = ma.get("telephone");
+        String mobileCode = ma.get("mobileCode");
         Object code = rts.opsForValue().get(telephone);
+        System.out.println(code);
+        System.out.println(mobileCode);
             if (code.equals(mobileCode)) {
-                return true;
+                map.put("code","200");
+                AllUser user = new AllUser();
+                user.setTelephone(telephone);
+                String userName = rca.getRandomCode();
+                user.setUserName(userName);
+                urs.addUser(user);
+                session.setAttribute("user", user);
+                map.put("name",userName);
+                return map;
             } else {
-                return false;
+                map.put("code","401");
+                return map;
             }
     }
-    @RequestMapping("/addToUser")
+    @RequestMapping(value = "/addToUser", method = RequestMethod.POST)
     @ResponseBody
-    public Object addToUser(String telephone, String password, HttpSession session){
-        AllUser user = new AllUser();
-        if (telephone!= null&&!"".equals(telephone)&&password != null && !"".equals(password)){
-            user.setTelephone(telephone);
+    public Map<String, Object> updateUser(@RequestBody Map<String, String> ma){
+        Map<String, Object> map = new HashMap<>();
+        String userName = ma.get("userName");
+        String password = ma.get("password");
+        if (userName!=null&&!"".equals(userName)&&password != null && !"".equals(password)){
+            AllUser user = new AllUser();
+            user.setUserName(userName);
             user.setPwd(password);
-            urs.addUser(user);
-            session.setAttribute("user", user);
-            return true;
+            urs.updateUser(user);
+            map.put("code", "200");
+            return map;
         }
-        return false;
+        map.put("code", "401");
+        return map;
     }
 
 

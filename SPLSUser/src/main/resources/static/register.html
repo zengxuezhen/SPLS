@@ -1,0 +1,237 @@
+<!doctype html>
+
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="renderer" content="webkit">
+    <title>登录/注册 - 超人贷官网</title>
+
+    <link rel="stylesheet" type="text/css" href="css/base_02fd8b5.css">
+    <link rel="stylesheet" href="css/common_wdg_5724504.css"/>
+    <link rel="stylesheet" href="css/common_nm_2a02658.css"/>
+    <link rel="stylesheet" href="css/passport_wdg_4bd8b6e.css"/>
+    <link rel="stylesheet" href="css/home_425674e.css"/>
+    <script type="text/javascript" src="js/vuejs-2.5.16.js"></script>
+    <script src="js/axios.min.js" type="text/javascript" charset="utf-8"></script>
+    <script src="js/vue-router.js" type="text/javascript" charset="utf-8"></script>
+    <script src="js/jquery.min.js" type="text/javascript" charset="utf-8"></script>
+</head>
+
+<body>
+
+
+<div class="wdg-second-header-lg">
+    <div class="main-section">
+
+        <a href="##" class="brand-logo mt15 rrd-log-img">
+            <img src="img/logo01.png" alt="logo超人贷官方网站">
+        </a>
+
+    </div>
+</div>
+
+
+<div class="main-content">
+
+
+    <div class="login-index" data-risk-dialog="false">
+
+        <div class="car-center">
+            <div class="spot">
+
+            </div>
+
+            <div class="data-show">
+                <div id="form-login" class="form-login show">
+                    <div class="login-register">
+                        <div class="borrower-change">
+                            <span>登录/注册</span>
+
+                        </div>
+                        <ul>
+                            <li class="">
+                                <input class="mobile" type="phone" placeholder="手机号" name="telephone"
+                                       v-model="telephone" maxlength="13"
+                                       @change="tel"/>
+
+                                <div class="error-info mobile-error" :style="stylechg">请输入正确的手机号</div>
+                            </li>
+                            <li class="image_code_show" style="display: list-item">
+                                <input class="code" name="verifCode" v-model="verifCode" type="text"
+                                       placeholder="图形验证码"/>
+                                <div class="error-info code-error" :style="verifystyle">验证码错误</div>
+                                <a href="javascript:void(0)" class="rand-code"><img id="reg-rand-image"
+                                                                                    align="absmiddle" name="randImage"
+                                                                                    src="http://localhost:8082/Captcha.jpg"
+                                                                                    onclick="refreshVcode();"
+                                                                                    alt="验证码"/></a>
+                            </li>
+                            <li class="last-li">
+                                <input class="mobile_code" name="mobileCode" v-model="mobileCode" type="text"
+                                       placeholder="验证码"/>
+                                <span class="verification is_validate" v-show="show" @click="getCode()">获取验证码</span>
+                                <span v-show="!show" class="verification is_validate">{{count}}</span>
+                                <div class="error-info last-error" :style="mobilestyle">手机验证码错误</div>
+                            </li>
+                        </ul>
+                        <div class="button-submit">
+                            <button class="is-allow" :disabled="!telephone || !verifCode || !mobileCode" @click="reg()">
+                                确定
+                            </button>
+                        </div>
+                        <div class="forget-password lend-login">
+                            <div class="borrower-entrance">
+                                <div class="text">我是出借人</div>
+                                <img src="img/change_0f76ab6.png"/>
+                            </div>
+                            <span tab="2" class="tab-password" style="display:block"><a href="login.html">密码登录</a></span>
+                        </div>
+                        <div class="reg-agree">
+                            <label><span class="agree">登录注册即表明您已阅读并同意<a href="user.rrd_reg"
+                                                                                         target="_blank">《超人贷注册服务协议》</a><a
+                                    href="user.rrd_privacy" target="_blank">《超人贷隐私权政策》</a></span></label>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+        <ul class="login-carousel">
+            <li>
+                <span><img src="img/WechatIMG144.jpg" alt="登录的轮播图"/></span>
+            </li>
+        </ul>
+    </div>
+
+
+</div>
+
+
+<div class="login-footer">
+    <ul class="lg-footer-ul">
+
+
+        <li><span>© 2019 超人贷 All rights reserved</span><i></i></li>
+        <li><span>超人贷(深圳)有限公司</span><i></i></li>
+        <li><span>深公网安备11010502020657</span><i></i></li>
+        <li><span>深ICP备12025643号-1</span><i></i></li>
+        <li><span>网贷有风险，出借需谨慎<em> 按扣费后年利率计算的利息不代表对实际获得利息的承诺，风险自担</em></span></li>
+    </ul>
+</div>
+
+<script type="text/javascript">
+    const vm = new Vue({
+        el: '#form-login',
+        data: {
+            show: true,
+            count: '',
+            timer: null,
+            telephone: '',
+            verifCode: '',
+            mobileCode: '',
+            stylechg: {
+                display: 'none'
+            },
+            verifystyle:{
+                display: 'none'
+            },
+            mobilestyle: {
+                display: 'none'
+            }
+
+        },
+        watch: {
+            telephone(newValue, oldValue) {
+                this.telephone = newValue.length > oldValue.length ? newValue.replace(/\s/g, '').replace(
+                    /(\d{3})(\d{0,4})(\d{0,4})/, '$1 $2 $3') : this.telephone.trim()
+            }
+        },
+        methods: {
+            tel: function () {
+                const zphone = this.telephone.replace(/\ +/g, "");
+                if (!/^1[345789]\d{9}$/.test(zphone)) {
+                    this.stylechg = {
+                        display: 'list-item'
+                    };
+                } else {
+                    this.stylechg = {
+                        display: 'none'
+                    };
+                }
+            },
+            getCode() {
+                axios.post("/register/getCode", {
+                       telephone: this.telephone.replace(/\ +/g, ""),
+                       verifCode: this.verifCode
+                }).then(res => {
+                    if(res.data.code==200) {
+                    const TIME_COUNT = 180;
+                    if (!this.timer) {
+                        this.count = TIME_COUNT;
+                        this.show = false;
+                        this.timer = setInterval(() => {
+                            if(this.count > 0 && this.count <= TIME_COUNT
+                    )
+                        {
+                            this.count--;
+                        }
+                    else
+                        {
+                            this.show = true;
+                            clearInterval(this.timer);
+                            this.timer = null;
+                        }
+                    },
+                        1000
+                    )
+                    }
+                }
+                    if (res.data.code==401){
+                        this.verifystyle={
+                            display: 'block'
+                        }
+                    }
+
+            })
+            },
+            reg() {
+                axios.post("/register/userRegister",{
+                    telephone: this.telephone.replace(/\ +/g, ""),
+                    mobileCode: this.mobileCode
+                }).then(res => {
+                    if(res.data.code==200) {
+                        sessionStorage.obj = JSON.stringify(res.data);
+                        window.location.href = "setpassword.html"
+                    }
+                    else if (res.data.code==401) {
+                        mobilestyle: {
+                            display: 'block'
+                        }
+                    }
+                })
+            }
+        }
+    });
+</script>
+
+
+<script type="text/javascript">
+    function refreshVcode() {
+        $("#reg-rand-image").attr("src", "http://localhost:8082/Captcha.jpg?" + Math.random())
+    }
+</script>
+<div id="zhichiBtnBox"
+     style="position: fixed; z-index: 2147483583; box-shadow: rgba(15, 66, 76, 0.25) 0px 0px 14px 0px; width: 60px; height: 60px; border-radius: 50%; background-color: rgb(9, 174, 176); background-image: url(&quot;//www.sobot.com/chat/frame/imgs/icon.png&quot;); background-repeat: no-repeat; background-position: 18px -58px; right: 40px; bottom: 20px;">
+    <a hidefocus="" id="zhichiBtn"
+       style="position:relative;text-decoration: none; outline: none; font-family: Microsoft Yahei, Arial, Helvetica; color: #fff; font-size: 16px; display: inline-block; margin: 0; padding: 0; border: none; line-height:43px; float:none;width:100%;height:100%;border-radius:50%;"><span
+            class="zc-advice-icon-btn-title"
+            style="box-shadow: rgba(107, 113, 114, 0.15) 0px 2px 4px 0px; border: 1px solid rgb(235, 239, 240); font-family: &quot;Microsoft Yahei&quot;, Arial, Helvetica; color: rgb(85, 85, 86); font-size: 13px; margin: 0px; text-align: right; background: rgb(255, 255, 255); position: absolute; top: 15px; right: 70px; text-overflow: ellipsis; white-space: nowrap; word-break: normal; display: none; border-radius: 3px; padding: 0px 5px; height: 30px; line-height: 30px;">咨询在线客服</span></a><i
+        style="position:absolute;top:0px;right:0px;padding:1px;line-height:20px;text-align:center;color:#fff;font-weight:bold;height:18px;min-width:18px;background-color:#ed5c5c;border-radius:18px;font-size:12px;display:none;font-style:normal;"
+        id="zhichiCount"></i>
+</div>
+</body>
+
+</html>

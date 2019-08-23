@@ -5,7 +5,7 @@ import com.zl.pojo.TradeType;
 
 /**
  * 前端显示的交易记录对象
- * @author Administrator
+ * @author 王静
  *
  */
 public class TradeRecordView {

@@ -4,7 +4,7 @@
 <mapper namespace="com.zl.dao.TradeRecordDao">
 	 
 	 <insert id="insertTradeRecord" parameterType="tradeRecord">
-	 	insert into trade_record (top_up_no,create_time,trade_type,amount,user_id) values (#{topUpNo},#{createTime},#{trade_type},#{amount},#{userId})
+	 	insert into trade_record (top_up_no,create_time,trade_type,amount,user_id) values (#{topUpNo},#{createTime},#{tradeType},#{amount},#{userId})
 	 </insert>
 	 <select id="selectTradeRecordAll" resultType="tradeRecord">
 	 	select * from trade_record

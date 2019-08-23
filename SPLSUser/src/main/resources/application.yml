@@ -47,3 +47,16 @@ mybatis:
   #开启自动下划线转驼峰命名
   configuration:
     map-underscore-to-camel-case: true
+#连接外部服务超时配置    
+ribbon: 
+  ReadTimeout: 4000
+  ConnectTimeout: 4000
+hystrix: 
+  command: 
+    default:
+      execution:
+        timeout: 
+          enabled: true
+        isolation: 
+          thread: 
+            timeoutInMilliseconds: 5000

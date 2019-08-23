@@ -1,0 +1,187 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<script src="vuejs/vuejs-2.5.16.js"></script>
+<script src="vuejs/axios-0.18.0.js"></script>
+<script src="js/jquery-1.8.3.min.js"></script>
+<script>
+			window._jHeadStart = ( new Date() ).getTime();
+            window.tplConf = {
+                user : {
+                    userId : 'null'
+                },
+                pageKey : '',
+                autoPV : true,
+                autoIdentify : true,
+                we_renrendai_host: 'https://www.chaorendai.com',
+                _isWeCom: 'false',
+                target: '_self',
+                isProduction : true,
+                pbId : ''
+            };
+        </script>
+<script>
+		$(document).ready(function(){
+			new Vue({
+				el:'#app', //表示当前vue对象接管了div区域
+				data:{//
+					user:{id:"",userNo:"",userName:"",password:"",phoneNo:"",nickName:"",avatar:"",email:"",region:"",provinceId:"",cityId:"",districtId:"",role:"",companyOrSelfEmployed:"",registerDate:""}//注意不要写分号结尾
+				},
+				methods: {
+					findUser:function(){
+						var _this = this;
+						axios.get("/", {
+							params: {
+								
+							}
+						}).then(function (response) {
+							_this.user = response.data;
+						}).catch(function (err) {
+						});
+					}
+				},
+				created(){
+					this.findUser();
+					}
+			});
+		})
+	</script>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="renderer" content="webkit">
+<meta name="google-site-verification"
+	content="oQXrGa_mTgxg7joO0himE0QuFeqOVmm-SDC1H2dzT4c">
+<meta name="baidu-site-verification" content="wibJopuIuI">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="keywords" content="超人贷财富,p2p,互联网金融,网络借贷">
+
+<title>超人贷</title>
+<link rel="shortcut icon" type="image/x-icon" href="css/favicon-rrd.ico">
+<link rel="stylesheet" type="text/css" href="css/base_02fd8b5.css">
+<link rel="stylesheet" href="css/common_wdg_5724504.css">
+<link rel="stylesheet" href="css/common_nm_2a02658.css">
+<link rel="stylesheet" href="css/home_wdg_9474dcb.css">
+<link rel="stylesheet" href="css/index_4629d44.css">
+</head>
+<body>
+
+	<div id="app">
+		<div class="wdg-werenrendai-second-header">
+			<div class="main-section current-channel-index">
+				<a href="首页.html" class="brand-logo mt15"> <!--首页对logo添加h1标签-->
+
+					<h1 class="rrd-logo">超人贷</h1>
+				</a>
+				<ul class="site-nav">
+					<li class="user-item fn-clear" num="">
+
+						<div class="denglu">
+							<a target="_self" rel="nofollow"
+								href="/passport/index/register?registerSource=web_top&amp;wpFromPos=topHeader">注册</a>
+							/ <a target="_self" rel="nofollow" href="/login">登录</a>
+						</div>
+					</li>
+					<li class="channel-item "><a rel="nofollow"
+						href="/disclosure/information/index">信息披露</a></li>
+					<li class="channel-item" style="width: 144px;"><a
+						href="/credit" target="_blank">我要借款/还款</a></li>
+					<li class="channel-item  can-lend"><a href="我要出借首页.html">我要出借</a>
+					</li>
+					<li class="channel-item active-channel"><a href="首页.html">首页</a></li>
+				</ul>
+			</div>
+		</div>
+		<div id="header-helper" style="display: none;">
+			<span id="header-helper-authenticated"> false </span>
+		</div>
+		<div class="main-content">
+			<div class="carousel">
+				<div class="car-center">
+					<div class="spot">
+						<span class="active"></span> <span></span> <span></span> <span></span>
+						<span></span>
+					</div>
+					<div class="data-show">
+						<p class="desc">超人贷平台累计成交额超过</p>
+						<div class="money">
+							<div class="money-cen">
+								<div class="money-l">
+									<div class="float">
+										<span>9</span> <span>2</span>
+									</div>
+								</div>
+								<div class="money-r">万元</div>
+							</div>
+						</div>
+						<a class="red" target="_blank"
+							href="/passport/index/register?registerSource=web_top&amp;wpFromPos=topHeader">注册</a>
+						<p class="real-time">( 数据来源超人贷内部统计，实时更新 )</p>
+					</div>
+				</div>
+				<ul>
+					<li><a href="" target="_blank"><img src="images/PCLB.jpg"
+							alt="88财富节"></a></li>
+					<li><a href="" target="_blank"><img src="images/PCLB2.jpg"
+							alt="邀请好友"></a></li>
+					<li><a href="" target="_blank"><img src="images/PCLB1.jpg"
+							alt="优选转固"></a></li>
+					<li><a href="" target="_blank"><img
+							src="images/0726-BNB-PCLB.jpg" alt="半年报"></a></li>
+					<li><a href="" target="_blank"><img
+							src="images/0807-7YHG-PCLB.jpg" alt="7月合规"></a></li>
+				</ul>
+			</div>
+			<div class="newbee">
+				<div class="new-center">
+					<ul>
+						<li><a href="/about/safeguard.html#blank" target="_blank">
+								<img src="images/newbee_1_92baa2b.png">
+								<div class="label-box">
+									<em>银行存管</em>
+									<p class="label-desc blank_data">
+										交易金额通过中国银行托管<br>平台无法触碰资金
+									</p>
+								</div> <i></i>
+						</a></li>
+						<li><a href="/about/safeguard.html" target="_blank"> <img
+								src="images/newbee_2_4c56e5c.png">
+								<div class="label-box">
+									<em>多重优势</em>
+									<p class="label-desc risk_data">
+										借款人资金三重审核<br>逾期率行业最低
+									</p>
+								</div> <i></i>
+						</a></li>
+						<li><a href="/about/operate/dataReveal" target="_blank">
+								<img src="images/newbee_3_f69a139.png">
+								<div class="label-box">
+									<em>数据披露</em>
+									<p class="label-desc">
+										累计出借人数144,318<br>累计出借人赚取133,109万元
+									</p>
+								</div>
+						</a></li>
+					</ul>
+					<div class="notice" name="">
+						<div class="list">
+							<div class="notice-l">
+								<img src="images/horn_3e41e41.png">
+								<p>
+									<span>绑卡充值操作指南</span> <em>2019-07-18</em>
+								</p>
+							</div>
+							<div class="notice-r hover">
+								<a class="tu" href="/about/pa/1" target="_blank"> <img
+									src="images/more_1_c39c4fa.png">
+								</a> <a class="zi" href="/about/pa/1" target="_blank">查看更多</a>
+							</div>
+						</div>
+						<div class="info"></div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</body>
+</html>

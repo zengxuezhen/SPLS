@@ -69,6 +69,7 @@ public class SubjectMatterController {
 	public Map<String,Object>  selectSubjectMatterAndType(BigDecimal id){
 		SubjectMatter s=sm.selectSubjectMatterAndType(id);
 		Map<String,Object> map=new HashMap();
+		System.out.println(s.getCreditList());
 		map.put("SubjectMatterAndType", s);
 		return map;
 	}

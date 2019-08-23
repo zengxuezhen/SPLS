@@ -6,7 +6,7 @@ import com.zl.pojo.TradeType;
 
 /**
  * 对交易类型名的相关业务操作
- * @author Administrator
+ * @author 王静
  *
  */
 public interface TradeTypeService {

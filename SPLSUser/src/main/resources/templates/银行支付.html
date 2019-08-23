@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>银行支付信息确认页面</title>
+</head>
+<body>
+<form action="/user/trade/payBank" method="post">
+	<input type="hidden" name="userId" value="${user.id}">
+	银行卡号：<input type="text" name="cardNo" value="${bank.cardNo}"><br>
+	充值金额：<input type="text" name="amount" value="${amount}"><br>
+	银行预留手机号：<span id="phone">${bank.telephone}</span><button id="sendCode">发送验证码</button><br>
+	验证码：<input type="text" name="code" value="123456"><br>
+	<input type="submit" value="确认">
+</form>
+</body>
+</html>

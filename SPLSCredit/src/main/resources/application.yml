@@ -34,7 +34,7 @@ mybatis:
   #开启自动下划线转驼峰命名
   configuration:
     map-underscore-to-camel-case: true
-  
+
 #超时配置    
 ribbon: 
   ReadTimeout: 4000

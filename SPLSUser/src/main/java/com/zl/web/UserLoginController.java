@@ -1,8 +1,9 @@
 package com.zl.web;
 
-import java.util.HashMap;
-import java.util.Map;
-
+import com.zl.pojo.AllUser;
+import com.zl.service.UserLoginService;
+import com.zl.util.AESUtil;
+import com.zl.util.CodeUtil;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authc.IncorrectCredentialsException;
 import org.apache.shiro.authc.UnknownAccountException;
@@ -10,14 +11,17 @@ import org.apache.shiro.authc.UsernamePasswordToken;
 import org.apache.shiro.subject.Subject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 
+<<<<<<< HEAD
+import java.util.HashMap;
+import java.util.Map;
+=======
+import com.zl.pojo.AllUser;
 import com.zl.service.UserLoginService;
 import com.zl.util.AESUtil;
 import com.zl.util.CodeUtil;
+>>>>>>> 69d4b5b439400e86a2cb56347120d163b68459c7
 
 /**
  * @ClassName UserLoginController
@@ -26,11 +30,17 @@ import com.zl.util.CodeUtil;
  * @Version 1.0
  */
 @Controller
+@RequestMapping("/login")
 public class UserLoginController {
 	@Autowired
 	private UserLoginService uls;
-    @PostMapping("/login")
-    public String userLogin(String name, String password, Model model){
+    @RequestMapping(value = "/toLogin", method = RequestMethod.POST)
+    @ResponseBody
+    public Map<String,Object> userLogin(@RequestBody Map<String,String> ma){
+        System.out.println(ma);
+        String name = ma.get("userName");
+        String password = ma.get("password");
+        Map<String,Object> map = new HashMap<> ();
         //1.获取Subject
         Subject subject = SecurityUtils.getSubject();
         //2.封装用户数据
@@ -40,17 +50,21 @@ public class UserLoginController {
 
             //登录成功
             //跳转到test.html
-            return "redirect:/testLoginPage";
+            map.put("code", "200");
+            System.out.println(map);
+            return map;
         } catch (UnknownAccountException e) {
             //e.printStackTrace();
             //登录失败:用户名不存在
-            model.addAttribute("msg", "用户名不存在");
-            return "login";
+            map.put("msg", "401");
+            System.out.println(map);
+            return map;
         }catch (IncorrectCredentialsException e) {
             //e.printStackTrace();
             //登录失败:密码错误
-            model.addAttribute("msg", "密码错误");
-            return "login";
+            map.put("msg", "403");
+            System.out.println(map);
+            return map;
         }
 
     }
@@ -59,7 +73,7 @@ public class UserLoginController {
     public Map<String,Object> sendUserTelphoneMessage(@RequestBody long id,@RequestBody String msg){
     	Map<String,Object> map=new HashMap();
     	AllUser user=uls.selectByPrimaryKey(id);
-    	boolean code=CodeUtil.sendTelephoneMsg(AESUtil.getAesDecoder(user.getTelephone()),msg);
+    	boolean code= CodeUtil.sendTelephoneMsg(AESUtil.getAesDecoder(user.getTelephone()),msg);
     	map.put("success",code);
     	return map;
     }

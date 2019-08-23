@@ -1,12 +1,18 @@
 package com.zl.query;
 
+import java.io.Serializable;
+
 /**
  * 分页对象
- * @author Administrator
+ * @author 王静
  *
  */
-public class Paging {
+public class Paging implements Serializable {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 959773576507684022L;
 	private Integer pageSize;//每页记录数
 	private Integer rowCount;			//总记录数
 	private Integer pageIndex;			//当前页码
@@ -29,7 +35,7 @@ public class Paging {
 	}
 	//获取总页数
 	public Integer getPageTotal() {
-		if(getRowCount()>0) {
+		if(getRowCount()!=null && getRowCount()>0) {
 			if(getRowCount()%getPageSize()==0) {
 				pageTotal=getRowCount()/getPageSize();
 			}else {

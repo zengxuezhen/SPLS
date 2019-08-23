@@ -216,7 +216,7 @@
     <div class="recharge-view quick-recharge-box" style="display: block;">
         
 
-<div class="wgt-cmbc-recharge-box">
+<div id="app" class="wgt-cmbc-recharge-box">
     
     <div class="quick-recharge-form recharge-without-valid-card fn-hide">
         <div class="operate-tip-box">
@@ -263,11 +263,12 @@
     </form>
 
     
-    <form class="quick-recharge-form recharge-with-valid-cmbc-card fn-hide" method="post" name="CMBCPayForm" action="/user/trade/CMBCQuickRecharge" style="display: block;">
-        <input type="hidden" name="cardNo" class="quick-recharge-bank-card-input" value="622700*********8311">
+    <form class="quick-recharge-form recharge-with-valid-cmbc-card fn-hide" method="post" name="CMBCPayForm" action="/user/trade/toConfirmBankOrder" style="display: block;">
+        <input type="hidden" name="cardNo" class="quick-recharge-bank-card-input" value="${bankNo}">
+        <input type="hidden" name="userId" value="${user.id}">
         <div class="input-box">
             <p class="input-title">账户余额</p>
-            <p class="input-info warning">0元</p>
+            <p class="input-info warning">${info.activeAmount}元</p>
         </div>
         <div class="input-box">
             <p class="input-title"><label>充值金额</label></p>
@@ -280,14 +281,21 @@
         <div class="input-box">
             <p class="input-title">充值银行</p>
             <p class="input-info">
-                <i class="small-bank-icon small-bank-CCB small-bank-03"></i> 中国建设银行 <em class="card-last-num">(6227 00** **** ***8 311)</em>
+                <i class="small-bank-icon small-bank-CCB small-bank-03"></i> ${bankBranch} <em class="card-last-num">(${bankNo})</em>
                 <span class="bank-tip">单笔充值限额 <em class="warning">5万元</em> 单日充值限额 <em class="warning">20万元</em> </span>
+            </p>
+        </div>
+        <div class="input-box">
+            <p class="input-title">交易密码</p>
+            <p class="input-info">
+            	<input class="recharge-input" type="password" name="tradePswd" maxlength="6">
+            	<span class="unit">限制输错3次</span>
             </p>
         </div>
         <p class="submit-tip"></p>
         <div class="input-box submit-box">
             <p class="input-info">
-                <button class="btn-recharge-with-form-card" id="btn-recharge-bind-valid-cmbc-card" title="充值">充值</button>
+                <button type="button" class="btn-recharge-with-form-card" id="btn-recharge-bind-valid-cmbc-card" title="充值">充值</button>
             </p>
         </div>
     </form>
@@ -436,7 +444,7 @@
         <div id="hasBindCardWrap" class="fn-hide"></div>
         <div class="account-balance">
             <span class="title">账户余额</span>
-            <em class="account-balance-num" id="rechargeRemain">0元</em>
+            <em class="account-balance-num" id="rechargeRemain">${info.activeAmount}元</em>
         </div>
         <div class="recharge-input-box">
             <span class="title">充值金额</span>
@@ -482,17 +490,17 @@
         <div id="hasBindCardWrap" class="fn-hide"></div>
         <div class="account-balance">
             <span class="title">账户余额</span>
-            <em class="account-balance-num" id="rechargeRemain">99999元</em>
+            <em class="account-balance-num" id="rechargeRemain">${info.activeAmount}元</em>
         </div>
         <div class="recharge-input-box">
             <span class="title">充值金额</span>
-            <input class="recharge-input" type="text" name="amount" maxlength="9" id="rechargeAmount" data-is="isAmount">
+            <input class="recharge-input" type="text" name="amount" maxlength="9" id="rechargeAmount" data-is="isAmount" readonly="readonly">
             <span class="j-input-unit">元</span>
         </div>
         <p class="input-error" id="input-error"></p>
         <input type="hidden" name="userBankId" id="userBankId">
         <input type="hidden" name="bankId" id="bankId" value="4">
-        <input id="sub-recharge" class="j-btn j-btn-orange j-btn-big recharge-btn" type="submit" value="下一步">
+        <input id="sub-recharge" class="j-btn j-btn-orange j-btn-big recharge-btn" disabled="disabled" type="submit" value="暂未开放">
     </form>
 	
 		</div>
@@ -761,8 +769,42 @@ require(["user:page/trade/recharge/recharge.js"] , function(recharge){
 });
 }();</script>
 
+<script type="text/javascript" src="/js/jquery.min.js"></script>
+<script type="text/javascript">
+$(function(){
+	$("#btn-recharge-bind-valid-cmbc-card").click(function(){
+		var temp=$("[name='tradePswd']").val();
+		if(temp.length==6){
+			$.ajax({
+				url:"/user/trade/checkPwd",
+				type:"post",
+				data:{"tradePswd":$("[name='tradePswd']").val(),
+					"userId":$("[name='userId']").val()},
+				dataType:"json",
+				success:function(result){
+					if(result.code==200){
+						$("[name='CMBCPayForm']").submit();
+					}else if(result.code==400){
+						alert(result.message);
+					}else if(result.code==401){
+						alert(result.message);
+					}
+				},
+				error:function(result){
+					alert("请求失败");
+				}
+			});
+		}else{
+			alert("请输入6位交易密码...");
+		}
+	});
+});
+</script>
+
 
 <div class="j-dialog" style="display: none; width: 350px; z-index: 9999;"><header class="j-dialog-title-con" style="height: 0px;"><h1 class="j-dialog-title"></h1><span class="j-dialog-close-btn">×</span></header><div class="j-dialog-header" style="display: none;"></div><div class="j-dialog-content"><div id="weixin-content" class="p20 text-center">
         <img alt="人人贷微信二维码" src="%E5%85%85%E5%80%BC%20-%20%E8%B4%A6%E6%88%B7%E6%80%BB%E8%A7%88%20-%20%E6%88%91%E7%9A%84%E8%B4%A6%E6%88%B7%20-%20%E4%BA%BA%E4%BA%BA%E8%B4%B7%20-%20%E4%B8%93%E4%B8%9A%E5%80%BC%E5%BE%97%E4%BF%A1%E8%B5%96%E7%9A%84%E7%BD%91%E7%BB%9C%E5%80%9F%E8%B4%B7%E4%BF%A1%E6%81%AF%E4%B8%AD%E4%BB%8B%E5%B9%B3%E5%8F%B0_files/rrd-fuwuhao.png" style="width:210px; height: auto; margin: 20px auto">
         <p>微信扫一扫，人人贷财富动态全知道！</p>
-    </div></div><div class="j-dialog-btn-con" style="display: none;"></div><div class="j-dialog-footer" style="display: none;"></div></div><div id="zhichiBtnBox" style="position: fixed; z-index: 2147483583; box-shadow: rgba(15, 66, 76, 0.25) 0px 0px 14px 0px; width: 60px; height: 60px; border-radius: 50%; background-color: rgb(9, 174, 176); background-image: url(&quot;//www.sobot.com/chat/frame/imgs/icon.png&quot;); background-repeat: no-repeat; background-position: 18px -58px; right: 40px; bottom: 20px; display: none;"><a hidefocus="" id="zhichiBtn" style="position:relative;text-decoration: none; outline: none; font-family: Microsoft Yahei, Arial, Helvetica; color: #fff; font-size: 16px; display: inline-block; margin: 0; padding: 0; border: none; line-height:43px; float:none;width:100%;height:100%;border-radius:50%;"><span class="zc-advice-icon-btn-title" style="box-shadow: rgba(107, 113, 114, 0.15) 0px 2px 4px 0px; border: 1px solid rgb(235, 239, 240); font-family: Microsoft Yahei, Arial, Helvetica; color: rgb(85, 85, 86); font-size: 13px; margin: 0px; text-align: right; background: rgb(255, 255, 255) none repeat scroll 0% 0%; position: absolute; top: 15px; right: 70px; text-overflow: ellipsis; white-space: nowrap; word-break: normal; display: none; border-radius: 3px; padding: 0px 5px; height: 30px; line-height: 30px;">咨询在线客服</span></a><i style="position:absolute;top:0px;right:0px;padding:1px;line-height:20px;text-align:center;color:#fff;font-weight:bold;height:18px;min-width:18px;background-color:#ed5c5c;border-radius:18px;font-size:12px;display:none;font-style:normal;" id="zhichiCount"></i></div></body></html>
+    </div></div><div class="j-dialog-btn-con" style="display: none;"></div><div class="j-dialog-footer" style="display: none;"></div></div><div id="zhichiBtnBox" style="position: fixed; z-index: 2147483583; box-shadow: rgba(15, 66, 76, 0.25) 0px 0px 14px 0px; width: 60px; height: 60px; border-radius: 50%; background-color: rgb(9, 174, 176); background-image: url(&quot;//www.sobot.com/chat/frame/imgs/icon.png&quot;); background-repeat: no-repeat; background-position: 18px -58px; right: 40px; bottom: 20px; display: none;"><a hidefocus="" id="zhichiBtn" style="position:relative;text-decoration: none; outline: none; font-family: Microsoft Yahei, Arial, Helvetica; color: #fff; font-size: 16px; display: inline-block; margin: 0; padding: 0; border: none; line-height:43px; float:none;width:100%;height:100%;border-radius:50%;"><span class="zc-advice-icon-btn-title" style="box-shadow: rgba(107, 113, 114, 0.15) 0px 2px 4px 0px; border: 1px solid rgb(235, 239, 240); font-family: Microsoft Yahei, Arial, Helvetica; color: rgb(85, 85, 86); font-size: 13px; margin: 0px; text-align: right; background: rgb(255, 255, 255) none repeat scroll 0% 0%; position: absolute; top: 15px; right: 70px; text-overflow: ellipsis; white-space: nowrap; word-break: normal; display: none; border-radius: 3px; padding: 0px 5px; height: 30px; line-height: 30px;">咨询在线客服</span></a><i style="position:absolute;top:0px;right:0px;padding:1px;line-height:20px;text-align:center;color:#fff;font-weight:bold;height:18px;min-width:18px;background-color:#ed5c5c;border-radius:18px;font-size:12px;display:none;font-style:normal;" id="zhichiCount"></i></div>
+    </body>
+    </html>

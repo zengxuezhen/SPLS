@@ -6,8 +6,8 @@ import com.zl.pojo.TradeType;
 
 /**
  * 对交易类型表的增删改查
- * @author Administrator
- * trade_record
+ * @author 王静
+ * 映射数据库表trade_record
  */
 public interface TradeTypeDao {
 	/**

@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zl.dao.PersonalAssetDao">
+	 
+	 <insert id="insertPersonalAsset" parameterType="personalAsset">
+	 	insert into personal_asset (PERSONAL_LOAN_INFO_ID,ASSET_TYPE,ASSET_DESCRIPTION,ASSET_VALUE) values (#{personalLoanInfoId},#{assetType},#{assetDescription},#{assetValue})
+	 </insert>
+	 <select id="selectPersonalAssetByInfoId" parameterType="java.lang.Long" resultType="personalAsset">
+	 	select * from personal_asset where PERSONAL_LOAN_INFO_ID=#{personalLoanInfoId}
+	 </select>
+	 
+</mapper>

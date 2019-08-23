@@ -3,6 +3,7 @@ package com.zl.web;
 
 import com.zl.pojo.AllUser;
 import com.zl.service.PersonalInfoService;
+import com.zl.util.CodeUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.stereotype.Controller;

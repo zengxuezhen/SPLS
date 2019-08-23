@@ -17,7 +17,7 @@ public class RandomCharacterAndNumber {
             int rand = (int) (Math.random() * st.length());
             rands[i] = st.charAt(rand);
         }
-        return str.toString() + String.valueOf(rands);
+        return String.valueOf(rands)+str.toString();
     }
 
 

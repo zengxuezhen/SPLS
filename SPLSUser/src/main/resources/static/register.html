@@ -54,7 +54,7 @@
                             <li class="">
                                 <input class="mobile" type="phone" placeholder="手机号" name="telephone"
                                        v-model="telephone" maxlength="13"
-                                       @change="tel"/>
+                                       @change="tel()"/>
 
                                 <div class="error-info mobile-error" :style="stylechg">请输入正确的手机号</div>
                             </li>
@@ -77,7 +77,7 @@
                             </li>
                         </ul>
                         <div class="button-submit">
-                            <button class="is-allow" :disabled="!telephone || !verifCode || !mobileCode" @click="reg()">
+                            <button :class="(telephone!=''&&verifCode!=''&&mobileCode!='')?'is_allow':''" :disabled="!telephone || !verifCode || !mobileCode" @click="reg()">
                                 确定
                             </button>
                         </div>
@@ -150,7 +150,7 @@
             }
         },
         methods: {
-            tel: function () {
+            tel(){
                 const zphone = this.telephone.replace(/\ +/g, "");
                 if (!/^1[345789]\d{9}$/.test(zphone)) {
                     this.stylechg = {
@@ -203,7 +203,8 @@
                     mobileCode: this.mobileCode
                 }).then(res => {
                     if(res.data.code==200) {
-                        sessionStorage.obj = JSON.stringify(res.data);
+                        //localStorage.setItem("name",JSON.stringify(res.data.name));
+                        sessionStorage.setItem("name",JSON.stringify(res.data.name))
                         window.location.href = "setpassword.html"
                     }
                     else if (res.data.code==401) {

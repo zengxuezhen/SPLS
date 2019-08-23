@@ -54,7 +54,6 @@ public class UserRegisterController {
             if (urs.findTel(telephone) == null&&verifCode.equalsIgnoreCase(str)) {
                 String zipCode = CodeUtil.getCode(telephone);
                 if (zipCode != null) {
-                    System.out.println(zipCode+"666666");
                     rts.opsForValue().set(telephone, zipCode, 3, TimeUnit.MINUTES);
                     map.put("code", "200");
                     return map;
@@ -82,13 +81,13 @@ public class UserRegisterController {
         System.out.println(code);
         System.out.println(mobileCode);
             if (code.equals(mobileCode)) {
-                map.put("code","200");
                 AllUser user = new AllUser();
                 user.setTelephone(telephone);
                 String userName = rca.getRandomCode();
                 user.setUserName(userName);
                 urs.addUser(user);
                 session.setAttribute("user", user);
+                map.put("code","200");
                 map.put("name",userName);
                 return map;
             } else {

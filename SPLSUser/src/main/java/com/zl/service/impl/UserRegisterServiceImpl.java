@@ -4,8 +4,7 @@ import com.zl.dao.UserRegisterDao;
 import com.zl.pojo.AllUser;
 import com.zl.service.UserRegisterService;
 import com.zl.util.AESUtil;
-import org.apache.shiro.crypto.hash.SimpleHash;
-import org.apache.shiro.util.ByteSource;
+import com.zl.util.ShiroUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -22,6 +21,7 @@ public class UserRegisterServiceImpl implements UserRegisterService {
     @Autowired
     private UserRegisterDao urd;
 
+
     @Override
     public AllUser findTel(String tel) {
 
@@ -34,19 +34,17 @@ public class UserRegisterServiceImpl implements UserRegisterService {
         allUser.setUserName(user.getUserName());
         allUser.setCreateTime(new Date());
         allUser.setTelephone(AESUtil.setAesEncoder(user.getTelephone()));
-        String passwd = ShiroMd5(user.getPwd(),"uuid");
-        allUser.setPwd(passwd);
         return urd.addUser(allUser);
     }
 
     @Override
     public int updateUser(AllUser user) {
-
-        return urd.updateUser(user);
-    }
-
-    public static String ShiroMd5(String password,String uuid) {
-        Object salt= ByteSource.Util.bytes(uuid);
-        return new SimpleHash("MD5", password,salt, 24).toString();
+        ShiroUtils su=new ShiroUtils();
+        AllUser allUser = new AllUser();
+        String passwd = su.ShiroMd5(user.getPwd(),"uuid");
+        System.out.println(passwd);
+        allUser.setPwd(passwd);
+        allUser.setUserName(user.getUserName());
+        return urd.updateUser(allUser);
     }
 }

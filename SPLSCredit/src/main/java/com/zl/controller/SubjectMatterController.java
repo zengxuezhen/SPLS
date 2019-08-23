@@ -8,9 +8,13 @@ import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.zl.API.CreditService;
+import com.zl.API.CreditorOrderRecordService;
 import com.zl.pojo.FenYe;
 import com.zl.pojo.ResultModel;
 import com.zl.pojo.SubjectMatter;
@@ -23,6 +27,14 @@ import com.zl.service.SubjectMatterService;
 public class SubjectMatterController {
 	@Autowired
 	private SubjectMatterService sm;
+	@Autowired
+	private CreditService cs;
+	
+	@RequestMapping("/credit/getCreditBySubjectId")
+	@ResponseBody
+	public String getCreditBySubjectId(Long id) {
+		return cs.getCreditBySubjectId(id);
+	}
 	/*
 	 *查询所有未满标的标的
 	 */
@@ -154,5 +166,40 @@ public class SubjectMatterController {
 			rm.setData(list);
 		}
 		return rm;
+	}
+	//逾期还款申请
+	@RequestMapping("/applicationForOverdueRepayment")
+	@ResponseBody
+	public Object applicationForOverdueRepayment() {
+		
+		return null;
+	}
+	//提前还款申请
+	@RequestMapping("/applicationForAdvancePayment")
+	@ResponseBody
+	public Object applicationForAdvancePayment() {
+		
+		return null;
+	}
+	//查询所有债权转让标的
+	@RequestMapping("/queryAllFySubjectMatterAndCredit")
+	@ResponseBody
+	public Object selectAllFySubjectMatterAndCredit(FenYe fenYe) {
+		Map<String,Object>map=new HashMap();
+		map.put("SubjectMatterAndCredit", sm.selectAllFySubjectMatterAndCredit(fenYe));
+		return map;
+	}
+	
+	
+	/**
+	 * 进入显示单个标的信息页
+	 * @param id
+	 * @return
+	 */
+	@RequestMapping("/showSubjectMatterItem/{id}")
+	@ResponseBody
+	public SubjectMatter showSubjectMatterItem(@PathVariable Long id) {
+		SubjectMatter subItem=sm.selectByPrimaryKey(new BigDecimal(id));
+		return subItem;
 	}
 }

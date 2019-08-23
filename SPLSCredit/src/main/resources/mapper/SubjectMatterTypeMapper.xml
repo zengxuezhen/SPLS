@@ -14,6 +14,14 @@
     </constructor>
   </resultMap>
   <resultMap type="com.zl.pojo.SubjectMatterType" id="SubjectMatterTypeAndRepaymentMethod">
+  	<id column="ID" property="id"/>
+  	<result column="TYPE_NO" property="typeNo"/>
+  	<result column="TYPE_NAME" property="typeName"/>
+  	<result column="PERIOD" property="period"/>
+  	<result column="REPAYMENT_METHOD_ID" property="repaymentMethodId"/>
+  	<result column="MIN_AMOUNT" property="minAmount"/>
+  	<result column="MAX_AMOUNT" property="maxAmount"/>
+  	<result column="DEBT_PERIOD" property="debtPeriod"/>
   	<association property="repaymentMethod" column="REPAYMENT_METHOD_ID" javaType="com.zl.pojo.RepaymentMethod" select="com.zl.dao.RepaymentMethodMapper.selectByPrimaryKey"></association>
   
   </resultMap>

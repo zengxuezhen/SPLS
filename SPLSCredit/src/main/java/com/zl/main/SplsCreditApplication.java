@@ -3,7 +3,9 @@ package com.zl.main;
 import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.cloud.client.circuitbreaker.EnableCircuitBreaker;
 import org.springframework.cloud.netflix.eureka.EnableEurekaClient;
+import org.springframework.cloud.openfeign.EnableFeignClients;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.scheduling.annotation.EnableScheduling;
 import org.springframework.session.data.redis.config.annotation.web.http.EnableRedisHttpSession;
@@ -13,6 +15,8 @@ import org.springframework.session.data.redis.config.annotation.web.http.EnableR
 @EnableEurekaClient
 @ComponentScan("com.zl")
 @EnableRedisHttpSession(maxInactiveIntervalInSeconds=300)
+@EnableCircuitBreaker
+@EnableFeignClients("com.zl.API")
 @EnableScheduling //定时器
 //@EnableDistributedTransaction//开启分布式事务
 public class SplsCreditApplication {

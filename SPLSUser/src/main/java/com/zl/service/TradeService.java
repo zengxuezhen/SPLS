@@ -11,14 +11,14 @@ import com.zl.query.Paging;
 import com.zl.view.TradeRecordView;
 
 /**
- * 充值记录相关业务操作
- * @author Administrator
+ * 交易【充值提现】和记录相关业务操作
+ * @author 王静
  *
  */
-public interface TradeRecordService {
+public interface TradeService {
 
 	/**
-	 * 查询用户所有的充值记录并分页条件显示:封装显示记录对象TradeRecordView
+	 * 查询用户所有的充值提现记录并分页条件显示:封装显示记录对象TradeRecordView
 	 * @param paging 分页条件
 	 * @param session 会话，获取用户
 	 * @return
@@ -39,14 +39,13 @@ public interface TradeRecordService {
 	 * @param card
 	 * @return
 	 */
-	int addTradeRecordBank(BankCard card, HttpSession session) throws Exception;
-	
+	int addTradeRecordBank(BankCard card, HttpSession session);
 	/**
-	 * 查询用户所有充值记录
+	 * 用户将账户余额提现到银行卡记录，变更账户银行卡余额（模拟操作）
+	 * @param card
 	 * @return
 	 */
-	List<TradeRecord> queryTradeRecordAll();
-
+	int withdrawRecordBank(BankCard card);
 	/**
 	 * 查询该Id对应的详细交易记录
 	 * @param id

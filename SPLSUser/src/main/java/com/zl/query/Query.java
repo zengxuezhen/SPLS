@@ -8,7 +8,7 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 
 /**
  * 交易记录检索条件对象
- * @author Administrator
+ * @author 王静
  *
  */
 public class Query {
@@ -17,12 +17,10 @@ public class Query {
 	//交易类型
 	private Integer queryMethod;
 	//查询交易开始时间
-	@JsonFormat(pattern="yyyy-MM-dd")
-    @DateTimeFormat(pattern="yyyy-MM-dd")
+    @DateTimeFormat(pattern="yyyy-MM-dd HH:mm:ss")
 	private Date queryStartDate;
 	//查询交易截止时间
-	@JsonFormat(pattern="yyyy-MM-dd")
-	@DateTimeFormat(pattern="yyyy-MM-dd")
+	@DateTimeFormat(pattern="yyyy-MM-dd HH:mm:ss")
 	private Date queryStopDate;
 	
 	public Long getQueryUserId() {

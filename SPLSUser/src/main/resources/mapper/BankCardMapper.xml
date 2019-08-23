@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zl.dao.BankCardDao">
+	 
+	  <select id="selectBankCardByUserId" parameterType="java.lang.Long" resultType="bankCard">
+	  	select * from bank_card where user_id=#{userId}
+	  </select>
+	  <update id="updateBankCardAmount" parameterType="bankCard">
+	  	update bank_card set amount=#{amount} where user_id=#{userId}
+	  </update>
+	  <insert id="insertBankCard" parameterType="bankCard">
+	  	insert into bank_card (card_no,branch,telephone,user_id,amount) values (#{cardNo},#{branch},#{telephone},#{userId},#{amount})
+	  </insert>
+	  <delete id="deleteBankCard" parameterType="java.lang.Long">
+	  	delete from bank_card where user_id=#{userId}
+	  </delete>
+	 
+</mapper>

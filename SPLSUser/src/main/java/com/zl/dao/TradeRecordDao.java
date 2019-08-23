@@ -7,7 +7,7 @@ import com.zl.query.Query;
 
 /**
  * 对交易记录表的增删改查
- * @author Administrator
+ * @author 王静
  * top_up_record
  */
 public interface TradeRecordDao {

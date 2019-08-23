@@ -8,16 +8,14 @@ import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.servlet.ModelAndView;
 
 import com.zl.pojo.AllUser;
 import com.zl.pojo.TradeRecord;
 import com.zl.query.Paging;
-import com.zl.service.TradeRecordService;
+import com.zl.service.TradeService;
 import com.zl.service.TradeTypeService;
 import com.zl.view.TradeRecordView;
 
@@ -30,7 +28,7 @@ import com.zl.view.TradeRecordView;
 @RequestMapping("/user/record")
 public class TradeRecordController {
 	@Autowired
-	private TradeRecordService ts;
+	private TradeService ts;
 	@Autowired
 	private TradeTypeService ps;
 	
@@ -41,8 +39,9 @@ public class TradeRecordController {
 	 */
 	@RequestMapping("/toShow")
 	public String toShowRecordPage(HttpSession session, Map<String, Object> map) {
-		AllUser user=(AllUser) session.getAttribute("user");
-		map.put("userId", 1);
+		AllUser user=new AllUser();
+		user.setId(1L);
+		session.setAttribute("user", user);
 		map.put("typeList", ps.queryTradeTypeAll());
 		return "/充值记录";
 	}

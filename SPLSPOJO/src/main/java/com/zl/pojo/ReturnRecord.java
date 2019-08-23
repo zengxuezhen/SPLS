@@ -25,8 +25,8 @@ public class ReturnRecord implements Serializable {
     //当前回款期限
     private Integer term;
     //回款时间
-    @JsonFormat(pattern="yyyy-MM-dd HH-mm-ss")
-    @DateTimeFormat(pattern="yyyy-MM-dd HH-mm-ss")
+    @JsonFormat(pattern="yyyy-MM-dd HH:mm:ss",timezone="GMT+8")
+    @DateTimeFormat(pattern="yyyy-MM-dd HH:mm:ss")
     private Date createTime;
 
     public ReturnRecord(Long id, Long creditId, BigDecimal amount, Integer term, Date createTime) {

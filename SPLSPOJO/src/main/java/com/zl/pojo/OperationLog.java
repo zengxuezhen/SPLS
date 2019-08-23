@@ -17,6 +17,8 @@ public class OperationLog implements Serializable {
 	private static final long serialVersionUID = -326241064260282496L;
 	//主键
 	private Long id;
+	//操作编号
+	private String logNo;
 	//操作用户主键
     private Long userId;
     //操作类型
@@ -27,18 +29,6 @@ public class OperationLog implements Serializable {
     @JsonFormat(pattern="yyyy-MM-dd HH-mm-ss")
     @DateTimeFormat(pattern="yyyy-MM-dd HH-mm-ss")
     private Date createTime;
-    
-    public OperationLog(Long id, Long userId, Integer typeId, Integer isSuccess, Date createTime) {
-        this.id = id;
-        this.userId = userId;
-        this.typeId = typeId;
-        this.isSuccess = isSuccess;
-        this.createTime = createTime;
-    }
-
-    public OperationLog() {
-        super();
-    }
 
     public Long getId() {
         return id;
@@ -79,4 +69,19 @@ public class OperationLog implements Serializable {
     public void setCreateTime(Date createTime) {
         this.createTime = createTime;
     }
+
+	public String getLogNo() {
+		return logNo;
+	}
+
+	public void setLogNo(String logNo) {
+		this.logNo = logNo;
+	}
+
+	@Override
+	public String toString() {
+		return "OperationLog [id=" + id + ", logNo=" + logNo + ", userId=" + userId + ", typeId=" + typeId
+				+ ", isSuccess=" + isSuccess + ", createTime=" + createTime + "]";
+	}
+	
 }

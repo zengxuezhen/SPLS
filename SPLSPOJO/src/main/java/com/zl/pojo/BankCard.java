@@ -1,6 +1,7 @@
 package com.zl.pojo;
 
 import java.io.Serializable;
+import java.math.BigDecimal;
 
 /**
  * 银行卡信息实体类
@@ -16,23 +17,13 @@ public class BankCard implements Serializable {
     private String cardNo;
     //银行卡所属银行
     private String branch;
+    //银行卡余额（模拟）
+    private BigDecimal amount;
     //银行卡预留手机号
     private String telephone;
     //所属用户主键
     private Long userId;
     
-    public BankCard(Long id, String cardNo, String branch, String telephone, Long userId) {
-        this.id = id;
-        this.cardNo = cardNo;
-        this.branch = branch;
-        this.telephone = telephone;
-        this.userId = userId;
-    }
-
-    public BankCard() {
-        super();
-    }
-
     public Long getId() {
         return id;
     }
@@ -72,4 +63,19 @@ public class BankCard implements Serializable {
     public void setUserId(Long userId) {
         this.userId = userId;
     }
+
+	public BigDecimal getAmount() {
+		return amount;
+	}
+
+	public void setAmount(BigDecimal amount) {
+		this.amount = amount;
+	}
+
+	@Override
+	public String toString() {
+		return "BankCard [id=" + id + ", cardNo=" + cardNo + ", branch=" + branch + ", amount=" + amount
+				+ ", telephone=" + telephone + ", userId=" + userId + "]";
+	}
+	
 }

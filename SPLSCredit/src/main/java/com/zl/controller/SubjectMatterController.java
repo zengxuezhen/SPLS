@@ -8,6 +8,7 @@ import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -187,5 +188,18 @@ public class SubjectMatterController {
 		Map<String,Object>map=new HashMap();
 		map.put("SubjectMatterAndCredit", sm.selectAllFySubjectMatterAndCredit(fenYe));
 		return map;
+	}
+	
+	
+	/**
+	 * 进入显示单个标的信息页
+	 * @param id
+	 * @return
+	 */
+	@RequestMapping("/showSubjectMatterItem/{id}")
+	@ResponseBody
+	public SubjectMatter showSubjectMatterItem(@PathVariable Long id) {
+		SubjectMatter subItem=sm.selectByPrimaryKey(new BigDecimal(id));
+		return subItem;
 	}
 }

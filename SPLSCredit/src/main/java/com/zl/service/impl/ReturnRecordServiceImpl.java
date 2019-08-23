@@ -1,5 +1,8 @@
 package com.zl.service.impl;
 
+import java.util.List;
+import java.util.Map;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 /*
@@ -9,6 +12,7 @@ import org.springframework.stereotype.Service;
 import com.zl.dao.ReturnRecordMapper;
 import com.zl.pojo.ReturnRecord;
 import com.zl.service.ReturnRecordService;
+import com.zl.view.ReturnRecordView;
 @Service
 public class ReturnRecordServiceImpl implements ReturnRecordService {
 	@Autowired
@@ -49,4 +53,14 @@ public class ReturnRecordServiceImpl implements ReturnRecordService {
 		return rr.updateByPrimaryKey(record);
 	}
 
+	@Override
+	public List<ReturnRecordView> queryReturnRecordByLimit(Map<String, Object> map) {
+		return rr.selectReturnRecordByLimit(map);
+	}
+
+	@Override
+	public int queryReturnRecordCount(Map<String, Object> map) {
+		return rr.selectReturnRecordCount(map);
+	}
+	
 }

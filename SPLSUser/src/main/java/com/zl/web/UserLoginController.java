@@ -13,15 +13,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
-<<<<<<< HEAD
 import java.util.HashMap;
 import java.util.Map;
-=======
-import com.zl.pojo.AllUser;
-import com.zl.service.UserLoginService;
-import com.zl.util.AESUtil;
-import com.zl.util.CodeUtil;
->>>>>>> 69d4b5b439400e86a2cb56347120d163b68459c7
 
 /**
  * @ClassName UserLoginController
@@ -40,7 +33,7 @@ public class UserLoginController {
         System.out.println(ma);
         String name = ma.get("userName");
         String password = ma.get("password");
-        Map<String,Object> map = new HashMap<> ();
+        Map<String,Object> map = new HashMap<>();
         //1.获取Subject
         Subject subject = SecurityUtils.getSubject();
         //2.封装用户数据

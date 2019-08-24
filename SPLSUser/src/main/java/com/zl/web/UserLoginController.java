@@ -13,6 +13,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.zl.service.UserLoginService;
@@ -54,9 +55,9 @@ public class UserLoginController {
         }
 
     }
-    @PostMapping("/sendUserTelphoneMessage")
+    @RequestMapping("/sendUserTelphoneMessage")
     @ResponseBody
-    public Map<String,Object> sendUserTelphoneMessage(@RequestBody long id,@RequestBody String msg){
+    public Map<String,Object> sendUserTelphoneMessage( long id, String msg){
     	Map<String,Object> map=new HashMap();
     	AllUser user=uls.selectByPrimaryKey(id);
     	boolean code=CodeUtil.sendTelephoneMsg(AESUtil.getAesDecoder(user.getTelephone()),msg);

@@ -62,7 +62,7 @@ public class UserLoginController {
     	AllUser user=uls.selectByPrimaryKey(id);
     	boolean code=CodeUtil.sendTelephoneMsg(AESUtil.getAesDecoder(user.getTelephone()),msg);
     	map.put("success",code);
-    	return map;
+    	return map; 
     }
 
 }

@@ -1,7 +1,5 @@
 package com.zl.web;
 
-import java.text.SimpleDateFormat;
-import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -14,12 +12,9 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.zl.api.ReturnRecordAPIService;
 import com.zl.pojo.AllUser;
-import com.zl.pojo.ReturnRecord;
 import com.zl.query.Paging;
-import com.zl.util.JSONUtil;
+import com.zl.service.ReturnAccountService;
 import com.zl.view.ReturnRecordView;
 
 /**
@@ -28,12 +23,18 @@ import com.zl.view.ReturnRecordView;
  *
  */
 @Controller
-@RequestMapping("/user/returns")
+@RequestMapping("/user")
 public class ReturnRecordViewController {
-	@Autowired
-	private ReturnRecordAPIService rs;
 	
-	@RequestMapping("/toShow")
+	@Autowired
+	private ReturnAccountService rs;
+	
+	/**
+	 * 从前端跳转到回账记录显示页面
+	 * @param session
+	 * @return
+	 */
+	@RequestMapping("/returns/toShow")
 	public String toShowReturnRecordPage(HttpSession session) {
 		AllUser user=new AllUser();
 		user.setId(1L);
@@ -41,36 +42,19 @@ public class ReturnRecordViewController {
 		return "/回账查询";
 	}
 	
-	@RequestMapping("/showMyAll")
+	/**
+	 * 显示用户所有回账记录，按条件分页
+	 * @param paging
+	 * @param session
+	 * @return
+	 * @throws Exception
+	 */
+	@RequestMapping("/returns/showMyAll")
 	@ResponseBody
 	public Map<String, Object> showMyAllReturnRecord(@RequestBody Paging paging,HttpSession session) throws Exception {
 		System.out.println("前端检索条件：当前页码："+paging);
 		Map<String, Object> map=new HashMap<String, Object>();
-		SimpleDateFormat sdf=new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-		AllUser user=(AllUser) session.getAttribute("user");
-		map.put("queryUserId", user.getId());
-		if(paging.getPageIndex()==null || paging.getPageIndex()<=1) {
-			paging.setPageIndex(1);
-		}
-		map.put("pageIndex", paging.getPageIndex());
-		map.put("pageSize", paging.getPageSize());
-		if(paging.getQuery()!=null) {
-			if(paging.getQuery().getQueryStartDate()!=null) {
-				map.put("queryStartDate", sdf.format(paging.getQuery().getQueryStartDate()));
-			}
-			if(paging.getQuery().getQueryStopDate()!=null) {
-				map.put("queryStopDate", sdf.format(paging.getQuery().getQueryStopDate()));
-			}
-		}
-		String credit_json=rs.queryMyAllReturnRecord(map);
-		System.out.println("credit:"+credit_json);
-		String return_json=JSONUtil.parseJSONtoStringByKey(credit_json, "returnList");
-		String rowCountStr=JSONUtil.parseJSONtoStringByKey(credit_json, "rowCount");
-		paging.setRowCount(new Integer(rowCountStr));
-		int total=paging.getPageTotal();
-		paging.setPageTotal(total);
-		ObjectMapper om=new ObjectMapper();
-		List<ReturnRecordView> list=om.readValue(return_json, List.class);
+		List<ReturnRecordView> list = rs.queryReturnRecordViewByUserId(paging, session);
 		System.out.println("回账数据："+list);
 		System.out.println("分页对象："+paging);
 		map.put("viewList", list);
@@ -78,7 +62,12 @@ public class ReturnRecordViewController {
 		return map;
 	}
 	
-	@RequestMapping("/showItem")
+	/**
+	 * 点击单条回账记录，跳转对应标的的详细信息页面
+	 * @param id
+	 * @return
+	 */
+	@RequestMapping("/returns/showItem")
 	public String showItemReturnRecord(Long id){
 		System.out.println("点击单条回账记录，跳转显示对应的标的");
 		return "redirect:http://localhost:8084/showSubjectMatterItem/"+id;

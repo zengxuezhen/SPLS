@@ -25,7 +25,7 @@ import com.zl.view.TradeRecordView;
  *
  */
 @Controller
-@RequestMapping("/user/record")
+@RequestMapping("/user")
 public class TradeRecordController {
 	@Autowired
 	private TradeService ts;
@@ -37,13 +37,13 @@ public class TradeRecordController {
 	 * @param session
 	 * @return
 	 */
-	@RequestMapping("/toShow")
+	@RequestMapping("/record/toShow")
 	public String toShowRecordPage(HttpSession session, Map<String, Object> map) {
 		AllUser user=new AllUser();
 		user.setId(1L);
 		session.setAttribute("user", user);
 		map.put("typeList", ps.queryTradeTypeAll());
-		return "/充值记录";
+		return "/交易记录";
 	}
 	
 	/**
@@ -52,7 +52,7 @@ public class TradeRecordController {
 	 * @return
 	 * 包括充值和提现记录
 	 */
-	@RequestMapping("/showMyAll")
+	@RequestMapping("/record/showMyAll")
 	@ResponseBody
 	public Map<String, Object> showMyAllRecord(@RequestBody Paging paging, HttpSession session){
 		System.out.println("前端传递过来的分页对象："+paging);
@@ -71,7 +71,7 @@ public class TradeRecordController {
 	 * @param id
 	 * @return
 	 */
-	@RequestMapping("/showItem")
+	@RequestMapping("/record/showItem")
 	@ResponseBody
 	public Map<String, Object> showItemRecord(int id){
 		Map<String, Object> map=new HashMap<String, Object>();

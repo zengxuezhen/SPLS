@@ -30,6 +30,8 @@ public class TradeRecord implements Serializable {
     private BigDecimal amount;
     //充值操作用户主键
     private  Long userId;
+    //此次交易后账户结余
+    private BigDecimal balance;
     
     public Long getId() {
         return id;
@@ -77,6 +79,14 @@ public class TradeRecord implements Serializable {
 
 	public void setTradeType(Integer tradeType) {
 		this.tradeType = tradeType;
+	}
+
+	public BigDecimal getBalance() {
+		return balance;
+	}
+
+	public void setBalance(BigDecimal balance) {
+		this.balance = balance;
 	}
     
     

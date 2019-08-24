@@ -1,6 +1,7 @@
 package com.zl.service;
 
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -8,6 +9,7 @@ import javax.servlet.http.HttpSession;
 import com.zl.pojo.BankCard;
 import com.zl.pojo.TradeRecord;
 import com.zl.query.Paging;
+import com.zl.view.MonthAccountView;
 import com.zl.view.TradeRecordView;
 
 /**
@@ -52,4 +54,11 @@ public interface TradeService {
 	 * @return
 	 */
 	TradeRecord queryTradeRecordById(Integer id);
+	
+	/**
+	 * 从交易记录中  ：查询用户整年的账单信息
+	 * @param map参数（用户ID，年）
+	 * @return
+	 */
+	List<MonthAccountView> queryMonthAccount(Map<String, Object> map);
 }

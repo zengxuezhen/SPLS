@@ -1,9 +1,12 @@
 package com.zl.dao;
 
 import java.util.List;
+import java.util.Map;
+
 import com.zl.pojo.TradeRecord;
 import com.zl.query.Paging;
 import com.zl.query.Query;
+import com.zl.view.TradeMonthView;
 
 /**
  * 对交易记录表的增删改查
@@ -40,4 +43,10 @@ public interface TradeRecordDao {
 	 * @return
 	 */
 	TradeRecord selectTradeRecordById(Integer id);
+	/**
+	 * 查询用户今年某月的账户交易记录
+	 * @param map
+	 * @return
+	 */
+	List<TradeMonthView> selectTradeRecordMonth(Map<String, Object> map);
 }

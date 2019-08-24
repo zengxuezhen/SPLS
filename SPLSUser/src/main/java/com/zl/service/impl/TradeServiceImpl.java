@@ -5,6 +5,7 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -30,6 +31,8 @@ import com.zl.query.Query;
 import com.zl.service.TradeService;
 import com.zl.util.JSONUtil;
 import com.zl.util.PayUtil;
+import com.zl.view.MonthAccountView;
+import com.zl.view.TradeMonthView;
 import com.zl.view.TradeRecordView;
 
 @Service
@@ -100,7 +103,7 @@ public class TradeServiceImpl implements TradeService {
 			top.setCreateTime(sdf.parse(JSONUtil.parseAliJSONtoStringByKey(notify_json, "gmt_create")));
 			top.setTopUpNo(JSONUtil.parseAliJSONtoStringByKey(notify_json, "out_trade_no"));
 			top.setTradeType(PayUtil.RECHARGE_ALIPAY);
-			int topNum=td.insertTradeRecord(top);
+			
 			//用户账户可用余额新增
 			System.out.println("支付宝充值----->用户账户可用余额新增");
 			AccountInfo info=ad.selectAccountInfoByUserId(user.getId());
@@ -120,6 +123,9 @@ public class TradeServiceImpl implements TradeService {
 			log.setUserId(user.getId());
 			log.setLogNo("t"+PayUtil.getOperationNo());
 			int logNum = od.insertOperationLog(log);
+			
+			top.setBalance(info.getActiveAmount());
+			int topNum=td.insertTradeRecord(top);
 			if (topNum > 0 && ccardNum > 0 && infoNum > 0 && logNum > 0) {
 				System.out.println("支付宝充值相关操作成功。。。");
 				return 1;
@@ -141,15 +147,6 @@ public class TradeServiceImpl implements TradeService {
 			BankCard bank=bd.selectBankCardByUserId(user.getId());
 			bank.setAmount(bank.getAmount().subtract(card.getAmount()));
 			int bankNum=bd.updateBankCardAmount(bank);
-			// 添加充值记录
-			System.out.println("银行卡充值----->添加充值记录");
-			TradeRecord top = new TradeRecord();
-			top.setAmount(card.getAmount());
-			top.setCreateTime(new Date());
-			top.setTopUpNo("CZ"+PayUtil.getOrderNo());
-			top.setTradeType(PayUtil.RECHARGE_BANK);
-			top.setUserId(user.getId());
-			int topNum = td.insertTradeRecord(top);
 			//用户账户可用余额新增
 			System.out.println("银行卡充值----->用户平台账户可用余额新增");
 			AccountInfo info=ad.selectAccountInfoByUserId(user.getId());
@@ -169,6 +166,16 @@ public class TradeServiceImpl implements TradeService {
 			log.setUserId(user.getId());
 			log.setLogNo("t"+PayUtil.getOperationNo());
 			int logNum = od.insertOperationLog(log);
+			// 添加充值记录
+			System.out.println("银行卡充值----->添加充值记录");
+			TradeRecord top = new TradeRecord();
+			top.setAmount(card.getAmount());
+			top.setCreateTime(new Date());
+			top.setTopUpNo("CZ"+PayUtil.getOrderNo());
+			top.setTradeType(PayUtil.RECHARGE_BANK);
+			top.setUserId(user.getId());
+			top.setBalance(info.getActiveAmount());
+			int topNum = td.insertTradeRecord(top);
 			if (bankNum>0 && topNum > 0 && ccardNum > 0 && infoNum>0 && logNum>0 ) {
 				System.out.println("银行卡充值相关操作成功。。。");
 				return 1;
@@ -184,15 +191,6 @@ public class TradeServiceImpl implements TradeService {
 	@Override
 	public int withdrawRecordBank(BankCard card) {
 		Long userId=card.getUserId();
-		//新增提现记录
-		System.out.println("提现----->添加提现记录");
-		TradeRecord top=new TradeRecord();
-		top.setUserId(userId);
-		top.setAmount(card.getAmount());
-		top.setCreateTime(new Date());
-		top.setTopUpNo("TX"+PayUtil.getOrderNo());
-		top.setTradeType(PayUtil.WITHDRAW_BANK);
-		int topNum=td.insertTradeRecord(top);
 		//用户账户可用余额减少
 		System.out.println("提现----->账号可用余额减少");
 		AccountInfo info=ad.selectAccountInfoByUserId(userId);
@@ -217,6 +215,16 @@ public class TradeServiceImpl implements TradeService {
 		log.setUserId(userId);
 		log.setLogNo("t"+PayUtil.getOperationNo());
 		int logNum = od.insertOperationLog(log);
+		//新增提现记录
+		System.out.println("提现----->添加提现记录");
+		TradeRecord top=new TradeRecord();
+		top.setUserId(userId);
+		top.setAmount(card.getAmount());
+		top.setCreateTime(new Date());
+		top.setTopUpNo("TX"+PayUtil.getOrderNo());
+		top.setTradeType(PayUtil.WITHDRAW_BANK);
+		top.setBalance(info.getActiveAmount());
+		int topNum=td.insertTradeRecord(top);
 		if (topNum > 0 && ccardNum > 0 && infoNum > 0 && logNum > 0 && bankNum>0) {
 			System.out.println("提现相关操作成功。。。");
 			return 1;
@@ -225,7 +233,57 @@ public class TradeServiceImpl implements TradeService {
 			return 0;
 		}
 	}
-	
-	
+	@Override
+	public List<MonthAccountView> queryMonthAccount(Map<String, Object> map) {
+		String year=(String) map.get("year");
+		List<MonthAccountView> monthView=new ArrayList<MonthAccountView>();
+		for (int i = 1; i <= 12; i++) {
+			map.put("ym", year+"0"+i);//一个一个月查询
+			List<TradeMonthView> list=td.selectTradeRecordMonth(map);
+			if(list!=null && list.size()>0) {
+				MonthAccountView mv=new MonthAccountView();
+				mv.setMonthTime((String) map.get("ym"));
+				for (TradeMonthView tm : list) {
+					//获取本月：总收入
+					if(tm.getTradeType()==PayUtil.RECHARGE_ALIPAY || tm.getTradeType()==PayUtil.RECHARGE_BANK || tm.getTradeType()==PayUtil.RECHARGE_WEIXIN || tm.getTradeType()==PayUtil.GET_SUBJECT || tm.getTradeType()==PayUtil.OTHER_TIP) {
+						if(mv.getIncomeTotal()!=null) {
+							mv.setIncomeTotal(mv.getIncomeTotal().add(tm.getAmount()));
+						}else {
+							mv.setIncomeTotal(tm.getAmount());
+						}
+					}
+					//获取本月：总支出
+					if(tm.getTradeType()==PayUtil.WITHDRAW_BANK || tm.getTradeType()==PayUtil.PAY_SUBJECT || tm.getTradeType()==PayUtil.SERVICE_TIP) {
+						if(mv.getPayTotal()!=null) {
+							mv.setPayTotal(mv.getPayTotal().add(tm.getAmount()));
+						}else {
+							mv.setPayTotal(tm.getAmount());
+						}
+					}
+					//获取本月：总出借金额
+					if(tm.getTradeType()==PayUtil.PAY_SUBJECT) {
+						if(mv.getLendAmount()!=null) {
+							mv.setLendAmount(mv.getLendAmount().add(tm.getAmount()));
+						}else {
+							mv.setLendAmount(tm.getAmount());
+						}
+					}
+					//获取本月：总贷款金额
+					if(tm.getTradeType()==PayUtil.LOAN_SUBJECT) {
+						if(mv.getLoanAmount()!=null) {
+							mv.setLoanAmount(mv.getLoanAmount().add(tm.getAmount()));
+						}else {
+							mv.setLoanAmount(tm.getAmount());
+						}
+					}
+				}
+				monthView.add(mv);
+			}else {
+				System.out.println("该用户"+year+"0"+i+"月没有交易记录.....");
+			}
+		}
+		
+		return monthView;
+	}
 	
 }

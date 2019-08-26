@@ -1,6 +1,7 @@
 package com.zl.web;
 
 import java.io.IOException;
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -38,7 +39,7 @@ public class OrderController {
 	}
 
 	//按ID查询订单记录表
-	@GetMapping(path="getTotalAmount")
+	@PostMapping(path="/getTotalAmount")
 	public Map<String, Object> getTotalAmount(@RequestBody Long id){
 		CreditorOrderRecord creditorOrderRecord=cs.queryOrderRecordById(id);
 		Map<String,Object> result=new HashMap<String,Object>();
@@ -47,7 +48,7 @@ public class OrderController {
 		
 	}
 	//按原始标的外键查询订单表
-	@GetMapping(path="getOrderRecordByOriginSubjectId")
+	@PostMapping(path="/getOrderRecordByOriginSubjectId")
 	public Map<String, Object> getOrderRecordByOriginSubjectId(@RequestBody Long originSubjectId){
 		List<CreditorOrderRecord> orders=new ArrayList<CreditorOrderRecord>();
 		orders=cs.queryOrderRecordByOriginSubjectId(originSubjectId);
@@ -57,4 +58,12 @@ public class OrderController {
 		
 	}
 	
+	//按标的ID获取未成标标的已筹集金额
+		@PostMapping(path="/getRaisedAmountBySubjectId")
+		public Map<String, Object> getRaisedAmountBySubjectId(@RequestBody Long subjectId){
+			Map<String,Object> result=new HashMap<String,Object>();
+			BigDecimal raisedAmount=cs.queryRaisedAmountBySubjectId(subjectId);
+			result.put("raisedAmount", raisedAmount);
+			return result;
+		}
 }

@@ -84,4 +84,10 @@ public class Credit implements Serializable {
     public void setAmount(BigDecimal amount) {
         this.amount = amount;
     }
+
+	@Override
+	public String toString() {
+		return "Credit [id=" + id + ", creditNo=" + creditNo + ", debitorUserId=" + debitorUserId + ", creditorUserId="
+				+ creditorUserId + ", subjectId=" + subjectId + ", amount=" + amount + "]";
+	}
 }

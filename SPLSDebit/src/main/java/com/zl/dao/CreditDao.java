@@ -19,7 +19,7 @@ public interface CreditDao {
 	/*
 	 * 根据原始标的ID查询债权表
 	 */
-	List<Credit> selectCreditBySubjectId(Long id);
+	List<Credit> selectCreditBySubjectId(Long subjectId);
 	/*
 	 * 根据debtorUserId出借人ID和subjectId原始标的ID修改amount金额 
 	 */

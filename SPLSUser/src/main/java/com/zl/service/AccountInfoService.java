@@ -1,5 +1,8 @@
 package com.zl.service;
 
+
+import java.util.List;
+
 import com.zl.pojo.AccountInfo;
 
 /**
@@ -32,4 +35,14 @@ public interface AccountInfoService {
 	 * @return
 	 */
 	int modifyAccountInfoMaxAmountByUserId(AccountInfo accountInfo);
+	/**
+	 * 根据用户ID修改平台可用金额以及冻结金额
+	 * @param accountInfo
+	 * @return
+	 */
+	int modifyAccountInfoAmountByUserId(AccountInfo accountInfo);
+	
+	int modifyAccountInfoActiveAmountByUserId(List<AccountInfo> accountList);
+	
+	int modifyAccountInfoActiveAmountBatch(List<AccountInfo> accountList);
 }

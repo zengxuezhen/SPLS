@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.zl.dao.AccountInfo">
+<mapper namespace="com.zl.dao.AccountInfoDao">
 	<select id="selectAccountInfoByUserId" parameterType="java.lang.Long" resultType="com.zl.pojo.AccountInfo">
 		select ID, ACCOUNT_NO, ACTIVE_AMOUNT, 
       		FROZEN_AMOUNT, CREATE_TIME, USER_ID, MAX_CREDIT_AMOUNT,ACTIVE_CREDIT_AMOUNT,PASSWORD
@@ -16,13 +16,17 @@
       		#{userId},#{maxCreditAmount},#{activeCreditAmount},#{password})
 	</insert>
 	<update id="updateAccountInfoActiveAmountByUserId" parameterType="com.zl.pojo.AccountInfo">
-		update ACCOUNT_INFO set ACTIVE_AMOUNT=#{activeAmount},
-			FROZEN_AMOUNT=#{frozenAmount}
+
+		update ACCOUNT_INFO set ACTIVE_AMOUNT=#{activeAmount}
+		<if test="frozenAmount!=null">
+			,FROZEN_AMOUNT=#{frozenAmount}
+		</if>
+
 		where USER_ID=#{userId}
 	</update>
 	
 	<update id="updateAccountInfoMaxAmountById" parameterType="com.zl.pojo.AccountInfo">
-		update ACCOUNT_INFO MAX_CREDIT_AMOUNT=#{maxCreditAmount},
+		update ACCOUNT_INFO set MAX_CREDIT_AMOUNT=#{maxCreditAmount},
 			ACTIVE_CREDIT_AMOUNT=#{activeCreditAmount}
 		where USER_ID=#{userId}
 	</update>

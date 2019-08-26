@@ -31,4 +31,9 @@
 		where DEBITOR_USER_ID=#{buyerUserId}
 		and SUBJECT_ID=#{originSubjectMatterId}
 	</update>
+	
+	
+	<select id="selectCreditByCreditorAndState" parameterType="java.util.Map" resultType="credit">
+		select * from credit where user_id=#{userId} and state=#{state}
+	</select>
 </mapper>

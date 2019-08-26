@@ -1,6 +1,7 @@
 package com.zl.dao;
 
 import java.util.List;
+import java.util.Map;
 
 import com.zl.pojo.Credit;
 import com.zl.pojo.CreditorOrderRecord;
@@ -24,4 +25,11 @@ public interface CreditDao {
 	 * 根据debtorUserId出借人ID和subjectId原始标的ID修改amount金额 
 	 */
 	int updateCreditAmount(Credit credit);
+	
+	/**
+	 * 根据用户主键查询对应所拥有的债权信息
+	 * @author 王静
+	 * @return
+	 */
+	List<Credit> selectCreditByCreditorAndState(Map<String, Object> map);
 }

@@ -37,7 +37,7 @@
 			SUBJECT_ID={subjectId}
 	</select>
 	
-	<select id="selectCreditByCreditorAndState" parameterType="java.util.Map" resultType="comd.zl.pojo.Credit">
+	<select id="selectCreditByCreditorAndState" parameterType="java.util.Map" resultType="com.zl.pojo.Credit">
 		select * from credit where user_id=#{userId} and state=#{state}
 	</select>
 </mapper>

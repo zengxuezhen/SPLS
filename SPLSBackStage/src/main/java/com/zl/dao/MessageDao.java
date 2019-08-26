@@ -4,7 +4,7 @@ package com.zl.dao;
  * */
 
 
-public interface messageDao {
+public interface MessageDao {
 	/*
 	 * 根据ID查询消息内容
 	 * */

@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<script type="text/javascript" src="js/vuejs-2.5.16.js"></script>
+<script type="text/javascript" src="js/axios.min.js"></script>
+<link rel="stylesheet" href="css/bootstrap.css"></link>
+<script type="text/javascript" src="js/jquery.js"></script>
+<script type="text/javascript" src="js/bootstrap.js"></script>
+
+</head>
+<body>
+
+<img alt="" src="img/输入手机号.jpg">
+
+ <div id="app" align="center" class="form-inline">
+ <label for="exampleInputName2" style="font-size: 20px" ></label><p>
+ <label for="exampleInputName2" style="font-size: 15px" >输入手机号:</label>
+<input type="text" class="form-control" id="num" v-model="num" >
+<label for="exampleInputName2" style="font-size: 15px" >输入验证码:</label>
+ <input type="text" class="form-control" id="YZM" v-model="verif" >
+ 
+
+ <input type="hidden" v-model="verifs">
+   <button id="YZMID"  class="btn btn-default" @click="show()">发送验证码</button><p>
+   <span style="color: red ;font-size:11px">{{error}}</span><p>
+ 	<button id="login" class="btn btn-default" @click="sh()">下一步</button>
+ 	</div>
+ 	
+ 	<script type="text/javascript">
+	var vm = new Vue({
+		el: "#app",
+		
+		data: {
+			num:'',
+			verif:'',
+		    verifs:'',
+		    error:''
+		},
+		methods:{
+			show(){
+				axios.post("../getPhoneNo",{
+					num:this.num
+				}).then(res=>{
+					if(res.data.code==200){
+						this.verifs=res.data.verifs
+					}else{
+						this.error="请输入正确的手机号";
+					}
+				})
+			},
+			sh:function(){
+				if(this.verif==this.verifs){
+					document.location="xiugai.html?num="+this.num;
+					
+				}else{
+					this.error="验证码错误";
+				}
+			}
+		},
+	})
+
+</script>
+ 	
+</body>
+</html>

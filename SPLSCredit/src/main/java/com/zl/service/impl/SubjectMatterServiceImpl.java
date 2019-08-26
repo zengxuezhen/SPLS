@@ -127,8 +127,11 @@ public class SubjectMatterServiceImpl implements SubjectMatterService {
 		return sm.selectAllFySubjectMatterAndCredit(fenYe) ;
 	}
 
+	@Override
+	public List<SubjectMatter> selectCreditSubjectMatterId(FenYe fenYe) {
+		fenYe.setRowCount(sm.selectCreditSubjectMatterIdCount());
+		return sm.selectCreditSubjectMatterId(fenYe);
+	}
 
-
-	
 
 }

@@ -27,6 +27,8 @@ import java.util.Map;
 public class UserLoginController {
 	@Autowired
 	private UserLoginService uls;
+    @PostMapping("/login")
+    public String userLogin(String name, String password, Model model){
     @RequestMapping(value = "/toLogin", method = RequestMethod.POST)
     @ResponseBody
     public Map<String,Object> userLogin(@RequestBody Map<String,String> ma){
@@ -43,12 +45,14 @@ public class UserLoginController {
 
             //登录成功
             //跳转到test.html
+            return "redirect:/testLoginPage";
             map.put("code", "200");
             System.out.println(map);
             return map;
         } catch (UnknownAccountException e) {
             //e.printStackTrace();
             //登录失败:用户名不存在
+            model.addAttribute("msg", "用户名不存在");
             map.put("msg", "401");
             System.out.println(map);
             return map;
@@ -61,14 +65,14 @@ public class UserLoginController {
         }
 
     }
-    @PostMapping("/sendUserTelphoneMessage")
+    @RequestMapping("/sendUserTelphoneMessage")
     @ResponseBody
-    public Map<String,Object> sendUserTelphoneMessage(@RequestBody long id,@RequestBody String msg){
+    public Map<String,Object> sendUserTelphoneMessage( long id, String msg){
     	Map<String,Object> map=new HashMap();
     	AllUser user=uls.selectByPrimaryKey(id);
     	boolean code= CodeUtil.sendTelephoneMsg(AESUtil.getAesDecoder(user.getTelephone()),msg);
     	map.put("success",code);
-    	return map;
+    	return map; 
     }
 
 }

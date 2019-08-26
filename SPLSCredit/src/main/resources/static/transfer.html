@@ -3,6 +3,7 @@
  <head> 
   <meta charset="utf-8"> 
   <meta http-equiv="X-UA-Compatible" content="IE=edge"> 
+  <!--  
   <script>
             window._jHeadStart = ( new Date() ).getTime();
             window.tplConf = {
@@ -18,18 +19,8 @@
                 isProduction : true,
                 pbId : ''
             };
-        </script> 
-  <meta name="viewport" content="width=device-width, initial-scale=1"> 
-  <meta name="renderer" content="webkit"> 
-  <meta name="google-site-verification" content="oQXrGa_mTgxg7joO0himE0QuFeqOVmm-SDC1H2dzT4c"> 
-  <meta name="baidu-site-verification" content="wibJopuIuI"> 
-  <meta name="viewport" content="width=device-width, initial-scale=1"> 
-  <meta name="keywords" content="p2p债权转让,理财债权转让"> 
-  <meta name="description" content="债权转让是超人贷推出的债权转让平台，提供大量的p2p理财债权转让，致力于成为最优的p2p理财平台，选择p2p理财产品首选人人贷。"> 
-  <title>网贷p2p债权转让 - 超人贷官网</title> 
-  <link rel="shortcut icon" type="image/x-icon" href="css/favicon-rrd.ico"> 
-  <link rel="stylesheet" type="text/css" href="css/base_02fd8b5.css"> 
-  <script type="text/javascript">
+        </script>  
+        <script type="text/javascript">
             (function(){
                 var userAgent = navigator.userAgent.toLowerCase();
                 if(userAgent.match(/rv:([\d.]+)\) like gecko/) || userAgent.match(/msie ([\d.]+)/) ){
@@ -46,10 +37,143 @@
     gio('send');
 
 </script> 
+        
+        
+        -->
+  <meta name="viewport" content="width=device-width, initial-scale=1"> 
+  <meta name="renderer" content="webkit"> 
+  <meta name="google-site-verification" content="oQXrGa_mTgxg7joO0himE0QuFeqOVmm-SDC1H2dzT4c"> 
+  <meta name="baidu-site-verification" content="wibJopuIuI"> 
+  <meta name="viewport" content="width=device-width, initial-scale=1"> 
+  <meta name="keywords" content="p2p债权转让,理财债权转让"> 
+  <meta name="description" content="债权转让是超人贷推出的债权转让平台，提供大量的p2p理财债权转让，致力于成为最优的p2p理财平台，选择p2p理财产品首选人人贷。"> 
+  <title>网贷p2p债权转让 - 超人贷官网</title> 
+  <link rel="shortcut icon" type="image/x-icon" href="css/favicon-rrd.ico"> 
+  <link rel="stylesheet" type="text/css" href="css/base_02fd8b5.css"> 
+  
   <link rel="stylesheet" href="css/common_wdg_5724504.css">
   <link rel="stylesheet" href="css/common_nm_2a02658.css">
   <link rel="stylesheet" href="css/transfer_wdg_1995f6e.css">
   <link rel="stylesheet" href="css/list_d41d8cd.css">
+  <script type="text/javascript" src="/js/jquery-2.1.4/jquery-2.1.4.min.js"></script>
+  <script>
+			var page=1;
+			var subjectMatter;
+			function getSubjectMatterList(page){
+				$.ajax({url:"/queryCreditSubjectMatterId",
+					dataType:"json",
+					data:{page:page},
+					success:function(data){
+						console.log(data);
+						var CreditSubjectMatterList=data.CreditSubjectMatterList;
+						//比例
+						var coefficientList=data.coefficientList;
+						//余下期数
+						var residualPeriodList=data.residualPeriodList;
+						var subjectMatterList=data.subjectMatterList;
+						var fenYe=data.fenYe;
+						$("[name='subjectMatter']").remove();
+						$.each(CreditSubjectMatterList,function(i,data){
+							var sm=subjectMatter.clone(true);
+							//console.log(subjectMatter==sm);
+							console.log(data);
+							//console.log($(sm).html());
+							sm.find("#normalInterestRate").html(subjectMatterList[i].subjectMatterType.repaymentMethod.normalInterestRate);
+							sm.find("[name='subjectMatterUrl']").each(function(){
+								$(this).attr("href","/...............?id="+data.id);
+							});
+							$(sm).find("#proportion").html(coefficientList[i]);
+							$(sm).find("#matterNo").html(data.matterNo);
+							$(sm).find("#debtPeriod").html(residualPeriodList[i]);
+							$(sm).find("#loanAmount").html(data.loanAmount);
+							sm.find("#title").html(subjectMatterList[i].title);
+							var diplayClass=sm.find("#loan-list-item").attr("class");
+							diplayClass=(i+1)%2==0?diplayClass+" even":diplayClass;
+							sm.find("#loan-list-item").attr("class",diplayClass);
+							if(data.status==0){
+								sm.find("#status").html("购买");
+								sm.find("#status").attr("class","btn");
+							}else if(data.status==6){
+								sm.find("#status").html("已完成");
+								sm.find("#status").attr("class","completed");
+							}
+							/*
+							$.ajax({url:"/queryCreditSubjectMatterId",
+								dataType:"json",
+								data:{id:data.id},
+								success:function(data1){
+									console.log(data1);
+									var proportion=0;
+									if(data1!=null&&data1!=""){
+										data1=data1.credits;
+										//已借出总金额		
+										var allAmount=0;
+										for(var i=0;i<data1.length;i++){
+											allAmount+=parseInt(data1[i].amount);
+										}
+										proportion=allAmount/data.loanAmount*100;
+										console.log("id:"+data.id+"  "+data.loanAmount);
+										console.log(proportion);
+										$(sm).find("#displayProportion").css("width",proportion+"%");
+										$(sm).find("#proportion").html(proportion);
+									}else{
+										$(sm).find("#displayProportion").css("width",0+"%");
+										$(sm).find("#proportion").html(proportion);
+									}
+								}
+							});*/
+							
+							$("#subjectMatterList").append(sm);
+							//分页列表 
+							$("#fenYeList").remove();
+							var fenYelistStr="<div id=\"fenYeList\" class=\"ui-pagination\" >"
+									+"<ul class=\"pagination\" >";
+		   	   				if(fenYe.page==1){
+		   	   					fenYelistStr+="<li class=\"previous disabled\" ><a href=\"javascript:void(0)\">首页</a></li>";
+		   	   			
+		   	   				}else{
+		   	   					fenYelistStr+="<li class=\"previous\" ><a href=\"javascript:getSubjectMatterList(1)\">首页</a></li>";
+		   	   				}
+		   	   				
+		   	   				if(fenYe.page==1){
+		   	   					fenYelistStr+="<li class=\"previous disabled\" ><a href=\"javascript:void(0)\">上一页</a></li>";
+		   	   				}else{
+		   	   					fenYelistStr+="<li class=\"previous\" ><a href=\"javascript:getSubjectMatterList("+(parseInt(fenYe.page)-1)+")\">上一页</a></li>";
+		   	   				}
+		   	   				
+			   	   			if(fenYe.page==fenYe.pageCount){
+		   	   					fenYelistStr+="<li class=\"previous disabled\" ><a href=\"javascript:void(0)\">下一页</a></li>";
+			   				}else{
+		   	   					fenYelistStr+="<li class=\"previous\" ><a href=\"javascript:getSubjectMatterList("+(fenYe.page+1)+")\">下一页</a></li>";
+			   				}
+		   				
+		   	   				if(fenYe.page==fenYe.pageCount){
+		   	   					fenYelistStr+="<li class=\"previous disabled\" ><a href=\"javascript:void(0)\">尾页</a></li>";
+			   				}else{
+		   	   					fenYelistStr+="<li class=\"previous\" ><a href=\"javascript:getSubjectMatterList("+fenYe.pageCount+")\">尾页&nbsp;</a></li>";
+			   				}
+		   	   				//fenYelistStr+="<li class=\"break\" ><span class=\"ellipse\" >当前第"+fenYe.page+"页,总条数"+
+	   	   					//+fenYe.rowCount+",页数"+fenYe.pageCount
+	   	   					//"<li class=\"break\" ><span >"
+	   	   					//+" </span><input style=\"width:30px;\" type=\"text\" id=\"page\" value=\""+fenYe.page+"\"/>页，"
+	   	   	   	  		 	//+"<a style=\"color:blue;\" class=\"previous\" onclick=\"getSubjectMatterList()\" href=\"javascript:void(0)\">跳转</a></li>";
+	   	   	   	  			
+	   	   	   	  		 	fenYelistStr+="</ul></div>";	
+	   	   	   	  		 	$(".ui-list").append(fenYelistStr);
+						
+						
+						});
+					}
+				});
+			}
+			$(function(){
+				subjectMatter= $("#subjectMatter").clone(true);
+				console.log( subjectMatter.html());
+				$("#subjectMatter").remove();
+				getSubjectMatterList(page)
+			});
+		
+		</script>
  </head> 
  <body> 
   <!--[if lt IE 9]>
@@ -115,12 +239,48 @@
       <div class="left">
        债权转让列表
       </div> 
+      <a class="right" href="/利率计算页.html" target="_blank"><i class="icon-we-jisuanqi"></i><span>扣费后利息计算器</span></a>
      </div> 
     </div> 
     <div class="transfer-list"> 
      <div id="transferMain"> 
       <div class="ui-list"> 
-       <div class="list-loading show"></div> 
+      	<div class="ui-list-group" id="subjectMatterList" >
+      	<ul class="ui-list-head fn-clear" data-reactid=".0.0.0"><li class="h-rate" data-reactid=".0.0.0.$0"><span data-reactid=".0.0.0.$0.0">年利率</span></li><li class="h-name" data-reactid=".0.0.0.$1"><span data-reactid=".0.0.0.$1.0">借款标题</span></li><li class="h-limit" data-reactid=".0.0.0.$2"><span data-reactid=".0.0.0.$2.0">剩余期限</span></li><li class="h-transfer" data-reactid=".0.0.0.$3"><span data-reactid=".0.0.0.$3.0">转让系数</span></li><li class="h-price" data-reactid=".0.0.0.$4"><span data-reactid=".0.0.0.$4.0">转让价格</span></li><li class="h-action icon-we-zhongzhiicon" data-reactid=".0.0.0.$5"><span data-reactid=".0.0.0.$5.0">重置</span></li></ul>
+
+						<div class="ui-list-row" name="subjectMatter" id="subjectMatter">
+							<div class="loan-list-item" data-reactid=".0.0.1:$0.0">
+								<div class="rate" >
+									<i id="normalInterestRate" >9.60</i><span >%</span>
+								</div>
+								<div class="name" >
+								<div class="name-top" >
+									<span class="badge" >实</span>
+									<span data-reactid=".0.0.1:$0.0.1.0.1"> </span>
+									<a id="title" name="subjectMatterUrl" href="/loan-3583174.html" target="_blank" >资金周转</a>
+								</div>
+								<div id="matterNo" class="list-no" >NO.3583174</div>
+							</div>
+							<div class="limit" >
+								<span id="debtPeriod" >36</span>
+								<span data-reactid=".0.0.1:$0.0.2.1">个月</span>
+							</div>
+							<div class="transfer" id="proportion" >100%</div>
+								<div class="price" >
+									<span id="loanAmount">7.79</span><span
+										data-reactid=".0.0.1:$0.0.4.1">元</span>
+								</div>
+								<div class="action" data-reactid=".0.0.1:$0.0.5">
+									<a class="completed" id="status" name="subjectMatterUrl" href="/transfer-210400250.html"
+										target="_blank" >已完成</a>
+								</div>
+							</div>
+						</div>
+					</div>
+       <!-- <div class="list-loading show"></div> 
+       		 
+       
+        -->
       </div> 
      </div> 
     </div> 

@@ -16,6 +16,16 @@ import com.fasterxml.jackson.annotation.JsonFormat;
  */
 public class SubjectMatter implements Serializable {
     
+	@Override
+	public String toString() {
+		return "SubjectMatter [id=" + id + ", matterNo=" + matterNo + ", status=" + status + ", debtorUserId="
+				+ debtorUserId + ", loanAmount=" + loanAmount + ", isCredit=" + isCredit + ", createTime=" + createTime
+				+ ", filledTime=" + filledTime + ", purpose=" + purpose + ", title=" + title + ", typeId=" + typeId
+				+ ", originSubjectMatterId=" + originSubjectMatterId + ", repaymentRecordList=" + repaymentRecordList
+				+ ", overdueRecordList=" + overdueRecordList + ", subjectMatterType=" + subjectMatterType
+				+ ", creditList=" + creditList + "]";
+	}
+
 	private static final long serialVersionUID = 3391937959367938881L;
 	//主键
 	private Long id;
@@ -43,6 +53,8 @@ public class SubjectMatter implements Serializable {
     private String title;
     //此标对应的类型表主键
     private Integer typeId;
+    //债权人转让债权的原始标的Id
+    private Long  originSubjectMatterId;
     //关联还款记录
     private List<RepaymentRecord> repaymentRecordList;
     public List<RepaymentRecord> getRepaymentRecordList() {
@@ -187,4 +199,16 @@ public class SubjectMatter implements Serializable {
 	public void setIsCredit(String isCredit) {
 		this.isCredit = isCredit;
 	}
+
+	public Long getOriginSubjectMatterId() {
+		return originSubjectMatterId;
+	}
+
+	public void setOriginSubjectMatterId(Long originSubjectMatterId) {
+		this.originSubjectMatterId = originSubjectMatterId;
+	}
+
+
+
+	
 }

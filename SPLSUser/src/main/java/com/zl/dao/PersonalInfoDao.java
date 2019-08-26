@@ -34,8 +34,22 @@ public interface PersonalInfoDao {
 	
 	/**
 	 * 修改邮箱
-	 * @param user
+	 * @param user 
 	 * @return
 	 */
 	int updateUserEmail(AllUser user);
+	
+	/**
+	 * 根据手机号查询用户所有信息
+	 * @param telephone 
+	 * @return
+	 */
+	AllUser selectByTelephone(String telephone);
+	
+	/**
+	 * 根据邮箱查询所有信息
+	 * @param email 
+	 * @return
+	 */
+	AllUser selectByEmail(String email);
 }

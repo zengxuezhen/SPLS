@@ -13,6 +13,7 @@
    	<result column="TYPE_ID" property="typeId"></result>
    	<result column="FILLED_TIME" property="filledTime"></result>
    	<result column="IS_CREDIT" property="isCredit"/>
+   	<result column="ORIGIN_SUBJECT_MATTER_ID" property="originSubjectMatterId"></result>
     	 <association property="subjectMatterType" column="TYPE_ID" javaType="com.zl.pojo.SubjectMatterType" select="com.zl.dao.SubjectMatterTypeMapper.selectSubjectMatterTypeAndRepaymentMethod"></association>
   </resultMap>
   <resultMap id="subjectMatterAndOverdueRecord" type="com.zl.pojo.SubjectMatter">
@@ -42,6 +43,17 @@
    	<result column="IS_CREDIT" property="isCredit"/>
     	 <collection  property="repaymentRecordList" column="ID"  select="com.zl.dao.RepaymentRecordMapper.selectRepaymentRecordBySubjectMatterId"></collection>
   </resultMap>
+  <select id="selectCreditSubjectMatterIdCount"  resultType="int">
+  	 select count(1)
+  	 from subject_matter where is_credit=1 and (status=0 or status=6) 
+  </select>
+  <select id="selectCreditSubjectMatterId" parameterType="fenYe" resultMap="subjectMatterAndType">
+  	Select * from(select a.*,rownum r from(
+  	 select DEBTOR_USER_ID,STATUS, MATTER_NO,LOAN_AMOUNT, ORIGIN_SUBJECT_MATTER_ID 
+  	 from subject_matter where is_credit=1 and (status=0 or status=6) 
+  	 order by CREATE_TIME desc)a) where 
+     r>=#{rowStart} and r&lt;=#{rowEnd}
+  </select>
   <select id="selectSubjectMatterByUserId" parameterType="long" resultMap="subjectMatterAndType">
   	select  <include refid="Base_Column_List" />
   	from SUBJECT_MATTER where DEBTOR_USER_ID=#{id}
@@ -85,6 +97,17 @@
   <select id="selectAllFy" parameterType="fenYe" resultMap="subjectMatterAndType">
   	Select * from(select a.*,rownum r from(select  <include refid="Base_Column_List" />
      from SUBJECT_MATTER where status=0 or status=2 or status=4  order by CREATE_TIME desc)a) where 
+     r>=#{rowStart} and r&lt;=#{rowEnd}
+  </select>
+  <!--查询所有债权标的记录，status 0：未出售，6：已完成 -->
+  <select id="selectAllCountFySubjectMatterAndCredit" resultType="int">
+  	Select count(1) count
+     from SUBJECT_MATTER  where (status=0 or status=6) and is_credit=1
+  </select>
+  <!--查询所有债权标的记录，status 0：未出售，6：已完成 -->
+  <select id="selectAllFySubjectMatterAndCredit" parameterType="fenYe" resultMap="subjectMatterAndType">
+  	Select * from(select a.*,rownum r from(select  <include refid="Base_Column_List" />
+     from SUBJECT_MATTER where (status=0 or status=6) and is_credit=1  order by CREATE_TIME desc)a) where 
      r>=#{rowStart} and r&lt;=#{rowEnd}
   </select>
   <sql id="Base_Column_List">

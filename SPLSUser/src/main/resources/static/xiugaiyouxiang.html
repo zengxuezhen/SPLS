@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<script type="text/javascript" src="js/vuejs-2.5.16.js"></script>
+<script type="text/javascript" src="js/axios.min.js"></script>
+<link rel="stylesheet" href="css/bootstrap.css"></link>
+<script type="text/javascript" src="js/jquery.js"></script>
+<script type="text/javascript" src="js/bootstrap.js"></script>
+
+</head>
+<body>
+<img alt="" src="img/修改邮箱B.jpg">
+<div id="app" align="center" class="form-inline">
+ <label for="exampleInputName2" style="font-size: 20px" ></label><p>
+  <label for="exampleInputName2" style="font-size: 15px" >输入新邮箱号:</label>
+ <input type="text" id="email" class="form-control" v-model="email">
+ 
+ <input type="hidden" v-model="emails">
+  <input type="hidden" v-model="verifs">
+   <span style="color: red ;font-size:11px">{{error}}</span><p>
+ <button id="ok" class="btn btn-default" @click="ok()">确定</button>
+</div>
+
+<script type="text/javascript">
+var vm = new Vue({
+	 el:"#app",
+	 data:{
+		 telephone:"",
+		 verif:"",
+		 verifs:"",
+		 error:"",
+		 
+	 },
+	 methods:{
+		
+		 ok(){
+			 var url = location.href;
+			//  从?开始切，直到最后，获取参数，然后按&切成参数数组
+			var paraString = url.substring(url.indexOf("?") + 1, url.length).split("&");
+			var num =paraString[0].split("=")[1];
+			console.log(num);
+				 axios.post("../updateEmail",{
+					 email:this.email,
+					 emails:num
+				 }).then(res=>{
+					 if(res.data.code==200){
+						 document.location="www.html";
+					 }else if(res.data.code==400){
+						 this.error="和旧邮箱号相同";
+					 }else{
+						 this.error="请输入正确的邮箱号";
+					 }
+				 })
+			
+		 }
+	 }
+	 
+	 
+	 
+	 
+})
+
+</script>
+
+</body>
+</html>

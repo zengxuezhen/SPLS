@@ -6,12 +6,14 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.cloud.netflix.eureka.EnableEurekaClient;
 import org.springframework.cloud.openfeign.EnableFeignClients;
 import org.springframework.context.annotation.ComponentScan;
+import org.springframework.session.data.redis.config.annotation.web.http.EnableRedisHttpSession;
 
 @SpringBootApplication
 @EnableEurekaClient
 @ComponentScan("com.zl")
 @MapperScan("com.zl.dao")
 @EnableFeignClients("com.zl.api")
+@EnableRedisHttpSession(maxInactiveIntervalInSeconds=300)
 public class SplsDebitApplication {
 
 	public static void main(String[] args) {

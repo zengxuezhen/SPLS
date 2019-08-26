@@ -66,13 +66,6 @@ public class CreditServiceImpl implements CreditService {
 	}
 	
 	@Override
-	public List<Credit> queryCreditBySort(Map<String, Object> map) {
-		map.put("userId", 1L);
-		map.put("state", 1);
-		List<Credit> list=cd.selectCreditByCreditorAndState(map);
-		return list;
-	}
-	@Override
 	public Credit queryCreditByDebitorUserIdAndSubjectId(Credit credit) {
 		credit=cd.selectCreditByDebitorUserIdAndSubjectId(credit);
 		return null;

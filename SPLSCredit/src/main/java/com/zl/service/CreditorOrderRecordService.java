@@ -39,4 +39,12 @@ public interface CreditorOrderRecordService {
 	 * @return
 	 */
 	List<CreditorOrderRecord> queryOrderRecordBySubjectId(Long subjectMatterId);
+	
+	/**
+	 * 根据卖出债权的用户主键查询其所有债权信息
+	 * @author 王静
+	 * @param userId
+	 * @return
+	 */
+	List<CreditorOrderRecord> queryOrderRecordByUserId(Long userId);
 }

@@ -38,4 +38,12 @@ public interface CreditorOrderRecordDao {
 	 * @return
 	 */
 	List<CreditorOrderRecord> selectOrderRecordBySubjectId(Long subjectMatterId);
+	
+	/**
+	 * 根据用户主键查询获取其债权信息
+	 * @author 王静
+	 * @param userId
+	 * @return
+	 */
+	List<CreditorOrderRecord> selectOrderRecordByUserId(Long userId);
 }

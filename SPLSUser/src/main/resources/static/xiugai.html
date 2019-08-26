@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<script type="text/javascript" src="js/vuejs-2.5.16.js"></script>
+<script type="text/javascript" src="js/axios.min.js"></script>
+<link rel="stylesheet" href="css/bootstrap.css"></link>
+<script type="text/javascript" src="js/jquery.js"></script>
+<script type="text/javascript" src="js/bootstrap.js"></script>
+
+</head>
+<body>
+<img alt="" src="img/设置密码.jpg">
+ <div id="app" class="form-inline" align="center">
+  <label for="exampleInputName2" style="font-size: 20px" ></label><p>
+  <label for="exampleInputName2" style="font-size: 15px" >第一次输入新密码:</label>
+ <input type="text" id="pad" class="form-control" v-model="pad"><p>
+  <label for="exampleInputName2" style="font-size: 15px" >第二次输入新密码:</label>
+ <input type="text" id="pads" class="form-control" v-model="pads"><p>
+ <span style="color: red ;font-size:11px">{{error}}</span><p>
+ 
+ <button id="ok" class="btn btn-default" @click="ok()">确定</button>
+ 
+ </div>
+ <script type="text/javascript">
+ var vm = new Vue({
+	 el:"#app",
+	 data:{
+		 pad:"",
+		 pads:"",
+		 error:""
+	 },
+	 methods:{
+		 ok(){
+			 var url = location.href;
+				//  从?开始切，直到最后，获取参数，然后按&切成参数数组
+			var paraString = url.substring(url.indexOf("?") + 1, url.length).split("&");
+			var num =paraString[0].split("=")[1];
+			console.log(num);
+			axios.post("../toUpdateUser",{
+				pad:this.pad,
+				pads:this.pads,
+				telephone:num
+			}).then(res=>{
+				if(res.data.code==200){
+					document.location="login.html";
+				}else{
+					this.error="两次密码不一致";
+				}
+			})
+		 }
+	 }
+	 
+	 
+	 
+	 
+ })
+ 
+ 
+ </script>
+</body>
+</html>

@@ -1,6 +1,7 @@
 package com.zl.service;
 
 import java.io.IOException;
+import java.math.BigDecimal;
 import java.util.List;
 
 import com.fasterxml.jackson.core.JsonParseException;
@@ -22,9 +23,10 @@ public interface CreditService {
 	Credit queryCreditById(Long id);
 	/*按标的表外键查询债权表
 	*/
-	List<Credit> queryCreditBySubjectId(Long id);
+	List<Credit> queryCreditBySubjectId(Long subjecId);
 	/* 
 	 *根据debtorUserId出借人ID和subjectId原始标的ID修改amount金额 
 	 **/
 	int modifyCreditAmount(CreditorOrderRecord creditorOrderRecord);
+
 }

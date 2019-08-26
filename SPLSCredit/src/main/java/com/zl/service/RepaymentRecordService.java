@@ -20,4 +20,6 @@ public interface RepaymentRecordService {
     List<RepaymentRecord> selectRepaymentRecordBySubjectMatterId(Long id);
     
     void  RepaymentRecordHandle() throws Exception;
+    
+    public int applicationForAdvancePayment(long[] subjectMatterIds) throws Exception;
 }

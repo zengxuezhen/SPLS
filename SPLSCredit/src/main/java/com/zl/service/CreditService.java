@@ -3,6 +3,7 @@ package com.zl.service;
 import java.io.IOException;
 import java.math.BigDecimal;
 import java.util.List;
+import java.util.Map;
 
 import com.fasterxml.jackson.core.JsonParseException;
 import com.fasterxml.jackson.databind.JsonMappingException;
@@ -28,5 +29,18 @@ public interface CreditService {
 	 *根据debtorUserId出借人ID和subjectId原始标的ID修改amount金额 
 	 **/
 	int modifyCreditAmount(CreditorOrderRecord creditorOrderRecord);
-
+	/**
+	 * 根据debtorUserId出借人ID和subjectId原始标的ID查询债权表
+	 * @param credit
+	 * @return
+	 */
+	Credit queryCreditByDebitorUserIdAndSubjectId(Credit credit);
+	/**
+	 * 分类获取债权信息
+	 * @author 王静
+	 * @param map
+	 * @return
+	 */
+	List<Credit> queryCreditBySort(Map<String, Object> map);
+	
 }

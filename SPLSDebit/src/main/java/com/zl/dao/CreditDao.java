@@ -2,6 +2,8 @@ package com.zl.dao;
 
 import java.util.List;
 
+import org.apache.ibatis.annotations.Param;
+
 import com.zl.pojo.Credit;
 import com.zl.pojo.CreditorOrderRecord;
 /*
@@ -19,9 +21,11 @@ public interface CreditDao {
 	/*
 	 * 根据原始标的ID查询债权表
 	 */
-	List<Credit> selectCreditBySubjectId(Long id);
+	List<Credit> selectCreditBySubjectId(Long subjectId);
 	/*
 	 * 根据debtorUserId出借人ID和subjectId原始标的ID修改amount金额 
 	 */
 	int updateCreditAmount(Credit credit);
+	
+	Credit selectCreditByUserIdAndSubjectId(@Param("userId")long userId,@Param("subjectId")long subjectId );
 }

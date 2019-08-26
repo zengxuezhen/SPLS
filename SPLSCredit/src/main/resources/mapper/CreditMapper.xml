@@ -25,10 +25,19 @@
 	    from CREDIT
 	    where SUBJECT_ID=#{subjectId}
 	</select>
-	<!-- 根据debtorUserId出借人ID和subjectId原始标的ID修改amount金额 -->
+	<!-- 根据debitorUserId出借人ID和subjectId原始标的ID修改amount金额 -->
 	<update id="updateCreditAmount" parameterType="com.zl.pojo.Credit">
 		update CREDIT set AMOUNT=#{amount} 
-		where DEBITOR_USER_ID=#{buyerUserId}
-		and SUBJECT_ID=#{originSubjectMatterId}
+		where DEBITOR_USER_ID=#{debitorUserId}
+		and SUBJECT_ID=#{subjectId}
 	</update>
+	<!-- 根据debitorUserId出借人ID和 subjectId原始标的ID查询Credit表-->
+	<select id="selectCreditByDebitorUserIdAndSubjectId" parameterType="com.zl.pojo.Credit" resultType="com.zl.pojo.Credit">
+		select * from CREDIT where BUYER_USER_ID=#{buyerUserId} and
+			SUBJECT_ID={subjectId}
+	</select>
+	
+	<select id="selectCreditByCreditorAndState" parameterType="java.util.Map" resultType="comd.zl.pojo.Credit">
+		select * from credit where user_id=#{userId} and state=#{state}
+	</select>
 </mapper>

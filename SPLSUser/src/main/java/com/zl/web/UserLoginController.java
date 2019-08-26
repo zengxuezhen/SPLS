@@ -11,7 +11,10 @@ import org.apache.shiro.authc.UsernamePasswordToken;
 import org.apache.shiro.subject.Subject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -27,6 +30,7 @@ import java.util.Map;
 public class UserLoginController {
 	@Autowired
 	private UserLoginService uls;
+
     @RequestMapping(value = "/toLogin", method = RequestMethod.POST)
     @ResponseBody
     public Map<String,Object> userLogin(@RequestBody Map<String,String> ma){
@@ -40,35 +44,25 @@ public class UserLoginController {
         UsernamePasswordToken token = new UsernamePasswordToken(name,password);
         try {
             subject.login(token);
-
-            //登录成功
-            //跳转到test.html
             map.put("code", "200");
-            System.out.println(map);
             return map;
         } catch (UnknownAccountException e) {
-            //e.printStackTrace();
-            //登录失败:用户名不存在
             map.put("msg", "401");
-            System.out.println(map);
             return map;
         }catch (IncorrectCredentialsException e) {
-            //e.printStackTrace();
-            //登录失败:密码错误
             map.put("msg", "403");
-            System.out.println(map);
             return map;
         }
 
     }
-    @PostMapping("/sendUserTelphoneMessage")
+    @RequestMapping("/sendUserTelphoneMessage")
     @ResponseBody
-    public Map<String,Object> sendUserTelphoneMessage(@RequestBody long id,@RequestBody String msg){
+    public Map<String,Object> sendUserTelphoneMessage( long id, String msg){
     	Map<String,Object> map=new HashMap();
     	AllUser user=uls.selectByPrimaryKey(id);
     	boolean code= CodeUtil.sendTelephoneMsg(AESUtil.getAesDecoder(user.getTelephone()),msg);
     	map.put("success",code);
-    	return map;
+    	return map; 
     }
 
 }

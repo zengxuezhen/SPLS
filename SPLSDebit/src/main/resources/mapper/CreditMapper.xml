@@ -11,6 +11,13 @@
 	      #{creditorUserId}, #{subjectId}, #{amount}
 	      )
 	</insert>
+	<select id="selectCreditByUserIdAndSubjectId" resultType="com.zl.pojo.Credit">
+		select ID, CREDIT_NO, DEBITOR_USER_ID, 
+	      CREDITOR_USER_ID, SUBJECT_ID, AMOUNT
+	    from CREDIT
+	    where DEBITOR_USER_ID=#{userId} and SUBJECT_ID=#{subjectId}
+	
+	</select>
 	<!-- 根据ID查询记录 -->
 	<select id="selectCreditById" resultType="com.zl.pojo.Credit" parameterType="java.lang.Long">
 		select ID, CREDIT_NO, DEBITOR_USER_ID, 

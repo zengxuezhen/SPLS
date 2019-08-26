@@ -1,11 +1,11 @@
 package com.zl.service.impl;
 
 import java.io.IOException;
+import java.math.BigDecimal;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.fasterxml.jackson.core.JsonParseException;
 import com.fasterxml.jackson.databind.JsonMappingException;
@@ -13,7 +13,6 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.zl.api.UserServiceApi;
 import com.zl.dao.CreditorOrderRecordDao;
 import com.zl.pojo.AccountInfo;
-import com.zl.pojo.BankCard;
 import com.zl.pojo.CreditorOrderRecord;
 import com.zl.service.CreditorOrderRecordService;
 
@@ -55,6 +54,16 @@ public class CreditorOrderRecordServiceImpl implements CreditorOrderRecordServic
 	public List<CreditorOrderRecord> queryOrderRecordByOriginSubjectId(Long originSubjectId) {
 		List<CreditorOrderRecord> orderRecords=cd.selectOrderRecordByOriginSubjectId(originSubjectId);
 		return orderRecords;
+	}
+
+	@Override
+	public BigDecimal queryRaisedAmountBySubjectId(Long subjectId) {
+		List<CreditorOrderRecord> orderRecords=cd.selectOrderRecordBySubjectId(subjectId);
+		BigDecimal raisedAmount = null;
+		for (CreditorOrderRecord orderRecord : orderRecords) {
+			raisedAmount=raisedAmount.add(orderRecord.getAmount());
+		}
+		return raisedAmount;
 	}
 	
 	

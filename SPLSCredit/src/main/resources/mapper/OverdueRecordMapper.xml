@@ -22,7 +22,7 @@
   </sql>
   <select id="selectOverdueRecordBySubjectMatterId" parameterType="java.lang.Long" resultMap="ResultMap">
   	 select <include refid="Base_Column_List" />
-    from OVERDUE_RECORD  where SUBJECT_MATTER_ID=#{id}
+    from OVERDUE_RECORD where OVERDUE_STATUS=0 and SUBJECT_MATTER_ID=#{id}
   </select>
   <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
     select 

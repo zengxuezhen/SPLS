@@ -45,4 +45,9 @@ public interface SubjectMatterMapper {
     List<SubjectMatter> selectAllFySubjectMatterAndCredit(FenYe fenYe);
 
     int selectAllCountFySubjectMatterAndCredit();
+    
+    //查询所有债权转让的 原始标的ID
+    List<SubjectMatter> selectCreditSubjectMatterId(FenYe fenYe);
+    
+    int selectCreditSubjectMatterIdCount();
 }

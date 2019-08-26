@@ -29,11 +29,10 @@ import static com.zl.web.CaptchaController.KEY_CAPTCHA;
 @CrossOrigin(origins = "*")
 public class UserRegisterController {
     @Autowired
-    private UserRegisterService urs;
-    @Autowired
     @Qualifier("redisTemplate")
-    //实例化
     private RedisTemplate<Object, Object> rts;
+    @Autowired
+    private UserRegisterService urs;
     @RequestMapping(value="/getCode",method = RequestMethod.POST)
     @ResponseBody
     public Map<String, Object> findUserTel(@RequestBody Map<String, String> ma, HttpServletRequest request) {

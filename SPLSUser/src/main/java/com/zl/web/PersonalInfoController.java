@@ -19,6 +19,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.zl.util.CodeUtil;
+import com.zl.pojo.AllUser;
 import com.zl.service.IMailService;
 import com.zl.service.PersonalInfoService;
 import com.zl.util.CodeUtil;

@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<script type="text/javascript" src="js/vuejs-2.5.16.js"></script>
+<script type="text/javascript" src="js/axios.min.js"></script>
+<link rel="stylesheet" href="css/bootstrap.css"></link>
+<script type="text/javascript" src="js/jquery.js"></script>
+<script type="text/javascript" src="js/bootstrap.js"></script>
+
+</head>
+<body>
+
+<img alt="" src="img/验证新手机号.jpg">
+<div id="app" align="center" class="form-inline">
+ <label for="exampleInputName2" style="font-size: 20px" ></label><p>
+  <label for="exampleInputName2" style="font-size: 15px" >输入新手机号:</label>
+ <input type="text" id="telephone" class="form-control" v-model="telephone">
+ <label for="exampleInputName2" style="font-size: 15px" >输入验证码:</label>
+ 
+  <input type="text" id="verif" class="form-control" v-model="verif">
+ <input type="hidden" v-model="telephones">
+  <input type="hidden" v-model="verifs">
+   <span style="color: red ;font-size:11px">{{error}}</span><p>
+    <button id="YZMID"  class="btn btn-default" @click="show()">发送验证码</button>
+ <button id="ok" class="btn btn-default" @click="ok()">确定</button>
+</div>
+
+<script type="text/javascript">
+var vm = new Vue({
+	 el:"#app",
+	 data:{
+		 telephone:"",
+		 verif:"",
+		 verifs:"",
+		 error:"",
+		 
+	 },
+	 methods:{
+		 show(){
+			axios.post("../getTelephone",{
+				telephone:this.telephone
+			}).then(res=>{
+				if(res.data.code==200){
+					this.verifs=res.data.verifs
+				}else{
+					this.error="请输入正确手机号";
+				}
+			})
+		 },
+		 ok(){
+			 var url = location.href;
+			//  从?开始切，直到最后，获取参数，然后按&切成参数数组
+			var paraString = url.substring(url.indexOf("?") + 1, url.length).split("&");
+			var num =paraString[0].split("=")[1];
+			console.log(num);
+			
+			 if(this.verif==this.verifs){
+				 axios.post("../getPhoneVerification",{
+					 telephone:this.telephone,
+					 telephones:num
+				 }).then(res=>{
+					 if(res.data.codes==200){
+						 document.location="www.html";
+					 }else{
+						 this.error="新旧手机号一致";
+					 }
+				 })
+			 }else{
+				 this.error="验证码错误"
+			 }
+			
+		 }
+	 }
+	 
+	 
+	 
+	 
+})
+
+</script>
+
+</body>
+</html>

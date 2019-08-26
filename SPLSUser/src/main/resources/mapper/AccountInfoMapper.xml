@@ -16,10 +16,12 @@
       		#{userId},#{maxCreditAmount},#{activeCreditAmount},#{password})
 	</insert>
 	<update id="updateAccountInfoActiveAmountByUserId" parameterType="com.zl.pojo.AccountInfo">
+
 		update ACCOUNT_INFO set ACTIVE_AMOUNT=#{activeAmount}
 		<if test="frozenAmount!=null">
 			,FROZEN_AMOUNT=#{frozenAmount}
 		</if>
+
 		where USER_ID=#{userId}
 	</update>
 	

@@ -1,6 +1,7 @@
 package com.zl.service.impl;
 
 import java.io.IOException;
+import java.math.BigDecimal;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -59,14 +60,10 @@ public class CreditServiceImpl implements CreditService {
 	}
 
 	@Override
-	public List<Credit> queryCreditBySubjectId(Long id) {
-		List<Credit>credits=cd.selectCreditBySubjectId(id);
+	public List<Credit> queryCreditBySubjectId(Long subjectId) {
+		List<Credit>credits=cd.selectCreditBySubjectId(subjectId);
 		return credits;
 	}
-	@Override
-	public Credit selectCreditByUserIdAndSubjectId(long userId, long subjectId) {
-		// TODO Auto-generated method stub
-		return	cd.selectCreditByUserIdAndSubjectId(userId, subjectId);
-	}
-
+	
+	
 }

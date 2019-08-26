@@ -1,6 +1,7 @@
 package com.zl.web;
 
 import java.io.IOException;
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -17,7 +18,6 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.fasterxml.jackson.core.JsonParseException;
 import com.fasterxml.jackson.databind.JsonMappingException;
-import com.zl.pojo.AllUser;
 import com.zl.pojo.Credit;
 import com.zl.pojo.CreditorOrderRecord;
 import com.zl.service.CreditService;
@@ -28,7 +28,7 @@ public class CreditController {
 	@Autowired
 	private CreditService cs;
 	//添加债权表记录
-	@PostMapping(path="addCredit")
+	@PostMapping(value="/addCredit")
 	public Map<String, Object> addCredit(@RequestBody CreditorOrderRecord creditorOrderRecord) throws JsonParseException, JsonMappingException, IOException{
 		
 		Map<String,Object> result=new HashMap<String,Object>();
@@ -39,7 +39,7 @@ public class CreditController {
 	}
 	
 	//按ID获取Credit
-	@GetMapping(path="getCreditById")
+	@GetMapping(path="/getCreditById")
 	public Map<String, Object> getCreditById(@RequestBody Long id){
 		Map<String,Object> result=new HashMap<String,Object>();
 		Credit credit=cs.queryCreditById(id);
@@ -48,21 +48,14 @@ public class CreditController {
 		return result;
 		
 	}
-	//按标的ID获取Credit
-	@RequestMapping(path="getCreditBySubjectId")
-	@ResponseBody
-	public Map<String, Object> getCreditBySubjectId(Long id ){
+	//按原始标的ID获取Credit
+	@RequestMapping(path="/getCreditBySubjectId",method=RequestMethod.POST)
+	public Map<String, Object> getCreditBySubjectId(@RequestBody Long subjectId){
 		Map<String,Object> result=new HashMap<String,Object>();
 		List<Credit> credits=new ArrayList<Credit>();
-		credits=cs.queryCreditBySubjectId(id);
+		credits=cs.queryCreditBySubjectId(subjectId);
 		result.put("credits", credits);
 		return result;
-	}
-	//按标的ID和userId获取Credit
-	@RequestMapping(path="getCreditByUserIdAndSubjectId")
-	@ResponseBody
-	public Object selectCreditByUserIdAndSubjectId(long userId, long subjectId) {
-		return	cs.selectCreditByUserIdAndSubjectId(userId, subjectId);
 	}
 	
 }

@@ -23,8 +23,7 @@ public class Credit implements Serializable {
     private Long subjectId;
     //持有债权金额
     private BigDecimal amount;
-    //此债权的状态（1.投标中2.持有中3.转出中4.已完成）
-    private Integer state;
+
     
     public Credit(Long id, String deptNo, Long debtorUserId, Long creditorUserId, Long subjectId, BigDecimal amount) {
         this.id = id;
@@ -87,11 +86,11 @@ public class Credit implements Serializable {
         this.amount = amount;
     }
 
-	public Integer getState() {
-		return state;
-	}
 
-	public void setState(Integer state) {
-		this.state = state;
+	@Override
+	public String toString() {
+		return "Credit [id=" + id + ", creditNo=" + creditNo + ", debitorUserId=" + debitorUserId + ", creditorUserId="
+				+ creditorUserId + ", subjectId=" + subjectId + ", amount=" + amount + "]";
+
 	}
 }

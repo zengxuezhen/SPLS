@@ -21,8 +21,8 @@ public class TradeRecord implements Serializable {
 	//充值记录编号
     private String topUpNo;
     //充值时间
-    @JsonFormat(pattern="yyyy-MM-dd")
-    @DateTimeFormat(pattern="yyyy-MM-dd")
+    @JsonFormat(pattern="yyyy-MM-dd HH:mm:ss",timezone="GMT+8")
+    @DateTimeFormat(pattern="yyyy-MM-dd HH:mm:ss")
     private Date createTime;
     //交易类型
     private Integer tradeType;
@@ -30,6 +30,8 @@ public class TradeRecord implements Serializable {
     private BigDecimal amount;
     //充值操作用户主键
     private  Long userId;
+    //此次交易后账户结余
+    private BigDecimal balance;
     
     public Long getId() {
         return id;
@@ -77,6 +79,14 @@ public class TradeRecord implements Serializable {
 
 	public void setTradeType(Integer tradeType) {
 		this.tradeType = tradeType;
+	}
+
+	public BigDecimal getBalance() {
+		return balance;
+	}
+
+	public void setBalance(BigDecimal balance) {
+		this.balance = balance;
 	}
     
     

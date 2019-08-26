@@ -4,7 +4,7 @@
 <mapper namespace="com.zl.dao.TradeRecordDao">
 	 
 	 <insert id="insertTradeRecord" parameterType="tradeRecord">
-	 	insert into trade_record (top_up_no,create_time,trade_type,amount,user_id) values (#{topUpNo},#{createTime},#{trade_type},#{amount},#{userId})
+	 	insert into trade_record (top_up_no,create_time,trade_type,amount,user_id,balance) values (#{topUpNo},#{createTime},#{tradeType},#{amount},#{userId},#{balance})
 	 </insert>
 	 <select id="selectTradeRecordAll" resultType="tradeRecord">
 	 	select * from trade_record
@@ -50,4 +50,17 @@
 	 		</where>
 	 </select>
 	 
+	 <select id="selectTradeRecordMonth" parameterType="java.util.Map" resultType="com.zl.view.TradeMonthView">
+	 	select to_char(t.create_time,'yyyyMM') as monthTime,t.trade_type,t.amount,t.user_id from trade_record t 
+	 	where user_id=#{userId} 
+	 		and to_char(t.create_time,'yyyyMM')=#{ym}
+	 </select>
+	 
+	 
+	 <!-- 
+	 select to_char(t.create_time, 'yyyymm') as typeTime,sum(t.amount) as typeAmount 
+	 	from 
+	 (select * from trade_record where trade_type=1 and user_id=1 and create_time>=to_date('2019-01-01','yyyy-MM-dd') and create_time<=to_date('2019-12-31','yyyy-MM-dd')) t 
+	 	group by to_char(create_time, 'yyyymm')
+	  -->
 </mapper>

@@ -45,12 +45,11 @@ public class UserRealm extends AuthorizingRealm {
 
     @Override
     protected AuthenticationInfo doGetAuthenticationInfo(AuthenticationToken arg0) throws AuthenticationException {
-        //执行认证逻辑
-        System.out.println("执行认证逻辑");
 
         //编写shiro判断逻辑，判断用户名和密码
         //1.判断用户名
         UsernamePasswordToken token = (UsernamePasswordToken) arg0;
+        System.out.println(token);
         AllUser user =null;
         String regEx1 = "^\\s*\\w+(?:\\.{0,1}[\\w-]+)*@[a-zA-Z0-9]+(?:[-.][a-zA-Z0-9]+)*\\.[a-zA-Z]+\\s*$";
         Pattern p = Pattern.compile(regEx1);

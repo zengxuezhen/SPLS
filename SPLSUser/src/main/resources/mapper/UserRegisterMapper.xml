@@ -5,6 +5,9 @@
         select * from ALL_USER where TELEPHONE=#{tel}
     </select>
     <insert id="addUser" parameterType="com.zl.pojo.AllUser">
-        insert into ALL_USER (user_name, pwd, telephone,create_time) values (#{userName},#{pwd},#{telephone},#{createTime})
+        insert into ALL_USER (user_name, telephone,create_time) values (#{userName},#{telephone},#{createTime})
     </insert>
+    <update id="updateUser" parameterType="com.zl.pojo.AllUser">
+        update ALL_USER set PWD=#{pwd} where USER_NAME=#{userName}
+    </update>
 </mapper>

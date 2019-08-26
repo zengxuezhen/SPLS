@@ -1,13 +1,9 @@
 package com.zl.web;
 
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.request;
 
-import java.util.HashMap;
-import java.util.Map;
-import java.util.concurrent.TimeUnit;
-
-import javax.servlet.http.HttpServletRequest;
-
+import com.zl.pojo.AllUser;
+import com.zl.service.PersonalInfoService;
+import com.zl.util.CodeUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.stereotype.Controller;
@@ -15,11 +11,10 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.servlet.ModelAndView;
 
-import com.zl.pojo.AllUser;
-import com.zl.service.PersonalInfoService;
-import com.zl.util.CodeUtil;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.concurrent.TimeUnit;
 
 @Controller
 public class PersonalInfoController {

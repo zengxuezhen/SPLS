@@ -1,19 +1,19 @@
 package com.zl.web;
 
-import java.text.SimpleDateFormat;
-import java.util.Date;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
-import java.util.UUID;
+import java.util.concurrent.TimeUnit;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.alibaba.fastjson.JSONObject;
 import com.alipay.api.AlipayApiException;
@@ -21,14 +21,19 @@ import com.alipay.api.AlipayClient;
 import com.alipay.api.internal.util.AlipaySignature;
 import com.alipay.api.request.AlipayTradePagePayRequest;
 import com.alipay.config.DefaultAlipayClientFactory;
+import com.zl.pojo.AccountInfo;
 import com.zl.pojo.AllUser;
 import com.zl.pojo.BankCard;
 import com.zl.pojo.TradeRecord;
-import com.zl.service.TradeRecordService;
+import com.zl.service.AccountInfoService;
+import com.zl.service.BankCardService;
+import com.zl.service.TradeService;
+import com.zl.util.PayUtil;
+import com.zl.util.PrivacyUtil;
 
 /**
  * 充值操作控制器
- * @author Administrator
+ * @author 王静
  * 
  */
 @Controller
@@ -37,24 +42,112 @@ public class RechargeController {
 
 	private static final String CHARSET="UTF-8";
 	@Autowired
-	private TradeRecordService ts;
+	private TradeService ts;
+	@Autowired
+	private BankCardService bs;
+	@Autowired
+	private AccountInfoService as;
+	@Autowired
+	private StringRedisTemplate temp;
 	
+	/**
+	 * 跳转到充值页面
+	 * @param session
+	 * @param map
+	 * @return
+	 */
 	@RequestMapping("/toRecharge")
 	public String toRechargePage(HttpSession session, Map<String, Object> map) {
-		AllUser user=(AllUser) session.getAttribute("user");
-		map.put("userId", 1);
+		AllUser user=new AllUser();
+		user.setId(1L);
+		session.setAttribute("user", user);//测试：手动添加session
+		BankCard bank=bs.queryBankCardByUserId(user.getId());
+		AccountInfo info=as.queryAccountInfoByUserId(user.getId());
+		map.put("user", user);
+		map.put("bankNo", PrivacyUtil.encryptBankAcct(bank.getCardNo()));
+		map.put("bankBranch", bank.getBranch());
+		map.put("info", info);
 		return "/充值";
 	}
 	
+	/**
+	 * 验证交易密码是否正确
+	 * @param tradePswd
+	 * @param userId
+	 * @return
+	 * 以下业务可以封装到AccountInfoService层中
+	 */
+	@RequestMapping("/checkPwd")
+	@ResponseBody
+	public Map<String, Object> checkTradePassword(String tradePswd,String userId){
+		Map<String, Object> map = new HashMap<String, Object>();
+		AccountInfo info = as.queryAccountInfoByUserId(new Long(userId));
+		int count=0;
+		String errorNum=temp.opsForValue().get("errorTradePswd");
+		if(errorNum==null || "".equals(errorNum)) {
+			count=0;
+		}else {
+			count=new Integer(errorNum);
+		}
+		System.out.println("错误次数："+count);
+		if(count>2) {
+			map.put("code", 401);
+			map.put("message", "交易密码输入错误超出3次，请10分钟后重试");
+		}else {
+			if(tradePswd!=null && info.getPassword().equals(tradePswd)) {
+				map.put("code", 200);
+				temp.delete("errorTradePswd");
+			}else {
+				map.put("code", 400);
+				map.put("message", "交易密码输入错误，请从新输入");
+				count++;
+				temp.opsForValue().set("errorTradePswd", count+"", 600, TimeUnit.SECONDS);
+			}
+		}
+		return map;
+	}
+	/**
+	 * 跳转去确认银行卡充值订单页面
+	 * @param session
+	 * @param card
+	 * @throws Exception
+	 */
+	@RequestMapping("/toConfirmBankOrder")
+	public String toConfirmBankOrderPage(HttpServletRequest request, Map<String, Object> map) {
+		System.out.println("交易密码正确，提交表单");
+		String amountReq = request.getParameter("amount");
+		String userIdReq = request.getParameter("userId");
+		BankCard card = bs.queryBankCardByUserId(new Long(userIdReq));
+		map.put("amount", amountReq);
+		map.put("bank", card);
+		return "/银行支付";
+	}
+	/**
+	 * 提交银行卡充值信息
+	 * @param card
+	 * @param map
+	 * @return
+	 */
 	@RequestMapping("/payBank")
-	public void payBank(HttpSession session, BankCard card) throws Exception {
-		System.out.println(card);
-		int num=ts.addTradeRecordBank(card, session);
-		if(num>0) {
-    		System.out.println("银行卡充值记录成功。。");
-    	}else {
-    		System.out.println("银行卡充值记录失败！！");
-    	}
+	public String payBankPage(BankCard card, HttpServletRequest request, Map<String, Object> map){
+		String code=request.getParameter("code");
+		if("123456".equals(code)) {
+			System.out.println("验证码验证成功后对账户余额新增，银行卡扣款");
+			int num=ts.addTradeRecordBank(card, request.getSession());
+			if(num>0) {
+				map.put("code", "200");
+				map.put("message", "充值成功");
+				return "redirect:/trade_success.html";
+			}else {
+				map.put("code", "400");
+				map.put("message", "充值失败");
+				return "redirect:/trade_error.html";
+			}	
+		}else {
+			map.put("code", "401");
+			map.put("message", "验证码错误，请重新输入");
+			return "redirect:/trade_error.html";
+		}
 	}
 	
 	/**
@@ -66,13 +159,13 @@ public class RechargeController {
 	@RequestMapping("/payRecharge")
 	public void payRecharge(HttpServletResponse response, TradeRecord top) throws Exception {
 		System.out.println("进入支付宝充值功能.....");
-		top.setTopUpNo("CZ"+getDateAddUUID());
+		top.setTopUpNo("CZ"+PayUtil.getOrderNo());
 		String topSubject="超人贷充值";//数据库加字段
 		System.out.println(top.toString());
 		AlipayClient alipayClient = DefaultAlipayClientFactory.getAlipayClient();
 		AlipayTradePagePayRequest aliRequest = new AlipayTradePagePayRequest();
-		aliRequest.setReturnUrl("http://xpi8y5.natappfree.cc/user/trade/return_url");//
-		aliRequest.setNotifyUrl("http://xpi8y5.natappfree.cc/user/trade/notify_url");//
+		aliRequest.setReturnUrl("http://8bi9xq.natappfree.cc/user/trade/return_url");//
+		aliRequest.setNotifyUrl("http://8bi9xq.natappfree.cc/user/trade/notify_url");//
 		aliRequest.setBizContent("{" +
 	        "    \"out_trade_no\":\""+top.getTopUpNo()+"\"," +
 	        "    \"product_code\":\"FAST_INSTANT_TRADE_PAY\"," +
@@ -98,6 +191,9 @@ public class RechargeController {
 	    response.getWriter().close();
 	}
 	
+	
+	
+	
 
 	/**
      * 支付宝服务器异步通知请求，处理自己的业务逻辑
@@ -111,7 +207,7 @@ public class RechargeController {
     @RequestMapping("/notify_url")
     public String alipayNotify(HttpServletRequest request, String out_trade_no, String trade_no, String trade_status) throws Exception {
         Map<String, String> params = getParamsMap(request);
-        String notify_json=(String) JSONObject.toJSON(params);
+        String notify_json=JSONObject.toJSON(params).toString();
         System.out.println("notify-json:"+notify_json);
         // 验证签名
         boolean signVerified = AlipaySignature.rsaCheckV1(params, DefaultAlipayClientFactory.ALIPAY_PUBLIC_KEY, DefaultAlipayClientFactory.CHARSET, DefaultAlipayClientFactory.SIGN_TYPE);
@@ -180,18 +276,4 @@ public class RechargeController {
         return params;
     }
 	
-    /**
-     * 获取唯一充值订单号
-     * 20190817104715b83596c19708febb
-     * @return
-     */
-    public StringBuffer getDateAddUUID() {
-		StringBuffer sb=new StringBuffer();
-		String uuidStr=UUID.randomUUID().toString().replaceAll("\\-", "");
-		SimpleDateFormat sdf=new SimpleDateFormat("yyyyMMddHHmmss");
-		sb.append(sdf.format(new Date()));
-		sb.append(uuidStr.substring(uuidStr.length()/2));
-		return sb;
-	}
-    
 }

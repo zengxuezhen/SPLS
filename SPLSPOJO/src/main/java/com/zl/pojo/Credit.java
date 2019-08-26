@@ -15,15 +15,17 @@ public class Credit implements Serializable {
 	private Long id;
 	//债权表编号
     private String creditNo;
-    //债权拥有者用户主键（债主）
+    //贷款人用户主键（借贷方）
     private Long debitorUserId;
-    //贷款人用户主键
+    //债权拥有者用户主键（债主）
     private Long creditorUserId;
     //所属标的主键
     private Long subjectId;
     //持有债权金额
     private BigDecimal amount;
-    //所属标的
+    //此债权的状态（1.投标中2.持有中3.转出中4.已完成）
+    private Integer state;
+    
     public Credit(Long id, String deptNo, Long debtorUserId, Long creditorUserId, Long subjectId, BigDecimal amount) {
         this.id = id;
         this.creditNo = deptNo;
@@ -84,4 +86,12 @@ public class Credit implements Serializable {
     public void setAmount(BigDecimal amount) {
         this.amount = amount;
     }
+
+	public Integer getState() {
+		return state;
+	}
+
+	public void setState(Integer state) {
+		this.state = state;
+	}
 }

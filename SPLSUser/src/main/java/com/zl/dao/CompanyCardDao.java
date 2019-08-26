@@ -3,9 +3,9 @@ package com.zl.dao;
 import com.zl.pojo.CompanyCard;
 
 /**
- * 模拟对公司银行卡表的持久层接口
- * @author Administrator
- *
+ * 【模拟】对公司银行卡表的持久层接口
+ * @author 王静
+ * 映射数据库表company_card
  */
 public interface CompanyCardDao {
 

@@ -36,4 +36,16 @@ public class PersonalInfoServiceImpl implements PersonalInfoService {
 		return result;
 	}
 
+	@Override
+	public AllUser queryByTelephone(String telephone) {
+		
+		return pd.selectByTelephone(telephone);
+	}
+
+	@Override
+	public AllUser queryByEmail(String email) {
+		
+		return pd.selectByEmail(email);
+	}
+
 }

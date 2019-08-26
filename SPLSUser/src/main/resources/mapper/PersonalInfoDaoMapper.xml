@@ -2,31 +2,48 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.zl.dao.PersonalInfoDao">
-	 <update id="updateUserById" parameterType="com.zl.pojo.AllUser">
-	 update all_user
-	<trim prefix="set" suffixOverrides=",">
-	<if test="telephone!=null and telephone!=''">
-	telephone=#{telephone}
-	</if>
-	<if test="email!=null and email!=''">
-	email=#{email}
-	</if>
-	<if test="pwd!=null and pwd!=''">
-	pwd=#{pwd}
-	</if>
-	</trim>
-	where id=#{id}
-	 </update>
-	
-	 <update id="updateUserPad" parameterType="com.zl.pojo.AllUser">
-	 update all_user set pwd=#{pwd} where id=#{id}
-	 </update>
-	 
-	 <update id="updateUserTelephone" parameterType="com.zl.pojo.AllUser">
-	 update all_user set telephone=#{telephone} where id=#{id}
-	 </update>
-	 
-	 <update id="updateUserEmail" parameterType="com.zl.pojo.AllUser">
-	 update all_user set email=#{email} where id=#{id}
-	 </update>
+
+	<!-- 修改手机号/邮箱/密碼 -->
+	<update id="updateUserById" parameterType="com.zl.pojo.AllUser">
+		update all_user
+		<trim prefix="set" suffixOverrides=",">
+			<if test="telephone!=null and telephone!=''">
+				telephone=#{telephone}
+			</if>
+			<if test="email!=null and email!=''">
+				email=#{email}
+			</if>
+			<if test="pwd!=null and pwd!=''">
+				pwd=#{pwd}
+			</if>
+		
+		</trim>
+		where id=#{id}
+	</update>
+
+	<!-- 修改密码 -->
+	<update id="updateUserPad" parameterType="com.zl.pojo.AllUser">
+		update all_user set pwd=#{pwd} where id=#{id}
+	</update>
+
+	<!-- 修改手机号 -->
+	<update id="updateUserTelephone" parameterType="com.zl.pojo.AllUser">
+		update all_user set telephone=#{telephone} where id=#{id}
+	</update>
+
+	<!-- 修改邮箱 -->
+	<update id="updateUserEmail" parameterType="com.zl.pojo.AllUser">
+		update all_user set email=#{email} where id=#{id}
+	</update>
+
+	<!-- 根据手机号查询用户所有信息 -->
+   <select id="selectByTelephone" parameterType="string" resultType="com.zl.pojo.AllUser">
+   select * from all_user where telephone=#{telephone}
+   </select>
+   
+   <!-- 根据邮箱号查询用户所有信息 -->
+   <select id="selectByEmail" parameterType="string" resultType="com.zl.pojo.AllUser">
+   select * from all_user where email=#{email}
+   
+   </select>
 </mapper>

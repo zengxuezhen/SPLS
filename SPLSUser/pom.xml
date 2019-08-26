@@ -124,6 +124,7 @@
 			<version>3.0.0</version>
 		</dependency>
 		<!-- 以上是支付宝扫码支付所需依赖 -->
+		
 	</dependencies>
 
 	<dependencyManagement>

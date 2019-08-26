@@ -38,4 +38,19 @@ public interface PersonalInfoService {
 	 * @return
 	 */
 	int updateUserEmail(AllUser user);
+	
+	/**
+	 * 根据手机号查询用户所有信息
+	 * @param telephone
+	 * @return
+	 */
+	AllUser queryByTelephone(String telephone);
+	
+	
+	/**
+	 * 根据邮箱查询所有信息
+	 * @param email 
+	 * @return
+	 */
+	AllUser queryByEmail(String email);
 }

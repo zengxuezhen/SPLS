@@ -53,7 +53,7 @@ public class PersonalLoanInfoController {
 	 * @param userId
 	 * @return
 	 */
-	@GetMapping(path="getPersonalLoanInfoByUserId")
+	@GetMapping(path="/getPersonalLoanInfoByUserId")
 	public Map<String, Object> getPersonalLoanInfoByUserId(Long userId){
 		PersonalLoanInfo personalLoanInfo=ps.queryPersonalLoanInfoByUserId(userId);
 		Map<String, Object> result=new HashMap<String,Object>();

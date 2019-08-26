@@ -25,7 +25,7 @@ import com.zl.view.MonthAccountView;
  *
  */
 @Controller
-@RequestMapping("/user")
+
 public class MonthAccountController {
 
 	@Autowired
@@ -42,7 +42,7 @@ public class MonthAccountController {
 		AllUser user=new AllUser();
 		user.setId(1L);
 		session.setAttribute("user", user);
-		return "/月度账单";
+		return "/user/月度账单";
 	}
 	
 	/**

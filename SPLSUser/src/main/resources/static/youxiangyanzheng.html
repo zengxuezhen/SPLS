@@ -39,7 +39,7 @@
 		},
 		methods:{
 			show(){
-				axios.post("../getEmail",{
+				axios.post("user/getEmail",{
 				   email:this.email
 				}).then(res=>{
 					if(res.data.code==200){

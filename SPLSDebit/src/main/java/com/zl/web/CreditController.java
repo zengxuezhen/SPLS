@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.fasterxml.jackson.core.JsonParseException;
 import com.fasterxml.jackson.databind.JsonMappingException;
+import com.zl.pojo.AllUser;
 import com.zl.pojo.Credit;
 import com.zl.pojo.CreditorOrderRecord;
 import com.zl.service.CreditService;
@@ -48,13 +49,20 @@ public class CreditController {
 		
 	}
 	//按标的ID获取Credit
-	@RequestMapping(path="getCreditBySubjectId",method=RequestMethod.POST)
+	@RequestMapping(path="getCreditBySubjectId")
 	@ResponseBody
-	public Map<String, Object> getCreditBySubjectId(@RequestBody Long id){
+	public Map<String, Object> getCreditBySubjectId(Long id ){
 		Map<String,Object> result=new HashMap<String,Object>();
 		List<Credit> credits=new ArrayList<Credit>();
 		credits=cs.queryCreditBySubjectId(id);
 		result.put("credits", credits);
 		return result;
 	}
+	//按标的ID和userId获取Credit
+	@RequestMapping(path="getCreditByUserIdAndSubjectId")
+	@ResponseBody
+	public Object selectCreditByUserIdAndSubjectId(long userId, long subjectId) {
+		return	cs.selectCreditByUserIdAndSubjectId(userId, subjectId);
+	}
+	
 }

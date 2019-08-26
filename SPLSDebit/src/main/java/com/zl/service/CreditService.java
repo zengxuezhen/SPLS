@@ -3,6 +3,8 @@ package com.zl.service;
 import java.io.IOException;
 import java.util.List;
 
+import org.apache.ibatis.annotations.Param;
+
 import com.fasterxml.jackson.core.JsonParseException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.zl.pojo.Credit;
@@ -27,4 +29,7 @@ public interface CreditService {
 	 *根据debtorUserId出借人ID和subjectId原始标的ID修改amount金额 
 	 **/
 	int modifyCreditAmount(CreditorOrderRecord creditorOrderRecord);
+	
+	Credit selectCreditByUserIdAndSubjectId(long userId,long subjectId );
+
 }

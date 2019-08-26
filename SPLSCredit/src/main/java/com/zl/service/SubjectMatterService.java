@@ -37,4 +37,8 @@ public interface SubjectMatterService {
     List<SubjectMatter> selectFullMark();
     
     List<SubjectMatter> selectAllFySubjectMatterAndCredit(FenYe fenYe);
+    
+  //查询所有债权转让的 原始标的ID
+    List<SubjectMatter> selectCreditSubjectMatterId(FenYe fenYe);
+    
 }

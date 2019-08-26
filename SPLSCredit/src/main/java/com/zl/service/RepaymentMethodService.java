@@ -17,5 +17,6 @@ public interface RepaymentMethodService {
 
     int updateByPrimaryKey(RepaymentMethod record);
     
+    
  
 }

@@ -19,14 +19,19 @@ public class QuartzHandle {
 	@Scheduled(cron="0 0 1 * * ?")
 	public void run() {
 		try {
-			//还款处理
+			//自动还款处理
 			rrs.RepaymentRecordHandle();
 		} catch (Exception e) {
-			// TODO Auto-generated catch block
+			System.out.println("还款失败，做后续处理");
 			e.printStackTrace();
 		}
 		//借款过期处理 ,前台获取借款信息时判断时间是否过期，过期修改状态 
-		ors.subjectMatterOverdue();
+		try {
+			ors.subjectMatterOverdue();
+		} catch (Exception e) {
+			System.out.println("借款过期处理，做后续处理");
+			e.printStackTrace();
+		}
 	}
 	
 }

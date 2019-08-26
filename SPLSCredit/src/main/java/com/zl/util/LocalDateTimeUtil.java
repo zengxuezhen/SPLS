@@ -1,5 +1,6 @@
 package com.zl.util;
 
+import java.time.Duration;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.time.ZoneId;
@@ -157,7 +158,60 @@ public class LocalDateTimeUtil {
 	    public static LocalDateTime plus(LocalDateTime time, long number, TemporalUnit field) {
 	        return time.plus(number, field);
 	    }
-	    
+	    //根据不同类型获取两个时间差的类型值
+	    public static long between(Date start,Date end,ChronoUnit c) {
+		    LocalDateTime  endTime= LocalDateTime.ofInstant(end.toInstant(), ZoneId.systemDefault());
+		    LocalDateTime startTime= LocalDateTime.ofInstant(start.toInstant(), ZoneId.systemDefault());
+		    Duration duration = Duration.between(endTime,startTime);
+		    long millis = duration.toMillis();//相差毫秒数
+		    long seconds= millis/1000;
+		    if(c==ChronoUnit.DAYS) {
+		    	  long days = duration.toDays(); //相差的天数
+		    	return days;
+		    }else if(c==ChronoUnit.HOURS) {
+		    	 long hours = duration.toHours();//相差的小时数
+		    	return hours;
+		    }
+		    else if(c==ChronoUnit.MINUTES) {
+		    	  long minutes = duration.toMinutes();//相差的分钟数
+		    	return minutes;
+		    }else if(c==ChronoUnit.SECONDS) {
+		    	return seconds;
+		    }else if(c==ChronoUnit.MILLIS) {
+		    	return millis;
+		    }else if(c==ChronoUnit.NANOS) {
+		    	 long nanos = duration.toNanos();//相差的纳秒数
+		    	 return nanos;
+		    }
+		    return -1;
+	    }
+	    //根据不同类型获取两个时间差的类型值
+	    public static long between(LocalDateTime start,LocalDateTime end,ChronoUnit c) {
+		    LocalDateTime  endTime= start;
+		    LocalDateTime startTime= end;
+		    Duration duration = Duration.between(endTime,startTime);
+		    long millis = duration.toMillis();//相差毫秒数
+		    long seconds= millis/1000;
+		    if(c==ChronoUnit.DAYS) {
+		    	  long days = duration.toDays(); //相差的天数
+		    	return days;
+		    }else if(c==ChronoUnit.HOURS) {
+		    	 long hours = duration.toHours();//相差的小时数
+		    	return hours;
+		    }
+		    else if(c==ChronoUnit.MINUTES) {
+		    	  long minutes = duration.toMinutes();//相差的分钟数
+		    	return minutes;
+		    }else if(c==ChronoUnit.SECONDS) {
+		    	return seconds;
+		    }else if(c==ChronoUnit.MILLIS) {
+		    	return millis;
+		    }else if(c==ChronoUnit.NANOS) {
+		    	 long nanos = duration.toNanos();//相差的纳秒数
+		    	 return nanos;
+		    }
+		    return -1;
+	    }
 	    /**
 	     * 测试
 	     * 
@@ -168,7 +222,7 @@ public class LocalDateTimeUtil {
 	        System.out.println(getDayEnd());
 	        System.out.println(getFirstDayOfMonth());
 	        System.out.println(getLastDayOfMonth());
-	        System.out.println(plus(LocalDateTime.now(),10,ChronoUnit.DAYS));
+	        System.out.println(plus(LocalDateTime.now(),3,ChronoUnit.MONTHS));
 	        System.out.println(LocalDateTime.now().getMonthValue());
 	    }
 

@@ -1,6 +1,7 @@
 package com.zl.service;
 
 import java.util.List;
+import java.util.Map;
 
 import com.zl.pojo.OverdueRecord;
 
@@ -19,5 +20,9 @@ public interface OverdueRecordService {
     
     List<OverdueRecord> selectOverdueRecordBySubjectMatterId(Long id);
     
-    int subjectMatterOverdue();
+    int subjectMatterOverdue() throws Exception;
+    
+    int  applicationForOverdueRepayment(long[] subjectMatterIds) throws Exception ;
+    
+    public List<Map>queryForOverdueFeeInformation(long subjectMatterId);
 }

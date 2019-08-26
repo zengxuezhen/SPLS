@@ -63,5 +63,10 @@ public class CreditServiceImpl implements CreditService {
 		List<Credit>credits=cd.selectCreditBySubjectId(id);
 		return credits;
 	}
+	@Override
+	public Credit selectCreditByUserIdAndSubjectId(long userId, long subjectId) {
+		// TODO Auto-generated method stub
+		return	cd.selectCreditByUserIdAndSubjectId(userId, subjectId);
+	}
 
 }

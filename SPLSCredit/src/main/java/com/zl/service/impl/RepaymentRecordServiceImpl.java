@@ -6,6 +6,7 @@ import java.math.MathContext;
 import java.math.RoundingMode;
 import java.time.LocalDateTime;
 import java.time.temporal.ChronoUnit;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
@@ -35,6 +36,7 @@ import com.zl.service.ReturnRecordService;
 import com.zl.service.SubjectMatterService;
 import com.zl.service.SubjectMatterTypeService;
 import com.zl.util.CalculationUtil;
+import com.zl.util.DateUtil;
 import com.zl.util.LocalDateTimeUtil;
 /*
  * 还款记录
@@ -48,7 +50,7 @@ public class RepaymentRecordServiceImpl implements RepaymentRecordService {
 	@Autowired
 	private OverdueRecordService ors;
 	@Autowired
-	private RepaymentRecordService repaymentRecordS;                                                                                                                
+	private RepaymentRecordService repaymentRecordS;
 	@Autowired 
 	private ReturnRecordService returnRecordS;
 	@Autowired
@@ -59,6 +61,104 @@ public class RepaymentRecordServiceImpl implements RepaymentRecordService {
 	private CreditService cs;
 	@Autowired
 	private StringRedisTemplate srt;
+	@Autowired
+	private SubjectMatterService sm;
+	@Autowired
+	private RepaymentRecordService rrs;
+	
+	////提前还款处理
+	@Transactional
+	@Override
+	public int applicationForAdvancePayment(long[] subjectMatterIds) throws Exception {
+		List<RepaymentRecord> repaymentRecordList=null;
+		List<OverdueRecord> overdueRecordList=null;
+		List<SubjectMatter> subjectMatterList=new ArrayList();
+		int flag=0;
+		//根据Id查询余下期数费用
+		for(int i=0;i<subjectMatterIds.length;i++) {
+			SubjectMatter subjectMatter=sm.selectByPrimaryKey(new BigDecimal(subjectMatterIds[i]));
+			subjectMatterList.add(subjectMatter);
+			repaymentRecordList=rrs.selectRepaymentRecordBySubjectMatterId(subjectMatterIds[i]);
+			overdueRecordList=ors.selectOverdueRecordBySubjectMatterId(subjectMatterIds[i]);
+			//期限
+			int term=subjectMatter.getSubjectMatterType().getDebtPeriod().intValue();
+			BigDecimal normalInterestRate=subjectMatter.getSubjectMatterType().getRepaymentMethod().getNormalInterestRate();
+			BigDecimal overdueInterestRate=subjectMatter.getSubjectMatterType().getRepaymentMethod().getOverdueInterestRate();
+			BigDecimal monthRecord=CalculationUtil.monthlyRepayment(subjectMatter.getLoanAmount(),
+					normalInterestRate, term);
+			//未到期还款
+			BigDecimal undueRepayment=monthRecord.multiply(new BigDecimal(term-repaymentRecordList.size()-overdueRecordList.size()));
+			BigDecimal totalOverdueExpenses=new BigDecimal("0");
+			if(overdueRecordList.size()>0) {
+				//起息日
+				Date startDate=subjectMatter.getFilledTime();
+				//逾期还款的总费用
+				totalOverdueExpenses=CalculationUtil.allOverdueCalculation(subjectMatter.getLoanAmount(),
+						overdueInterestRate, 
+						term, normalInterestRate, repaymentRecordList.size()+1,
+						repaymentRecordList.size()+overdueRecordList.size(),startDate);
+				/*
+				Date startDate=subjectMatter.getFilledTime();
+				//还款日（月的多少号）
+				Date repaymentRecordDate=DateUtil.getLastIssue(startDate, term);
+				//距下一还款日还有多少天
+				int daysDue=0;
+				Date day=new Date();
+				daysDue=-day.getDay()-repaymentRecordDate.getDay();
+				if(daysDue<0) {
+					//如果小于这个月获取 上一月的天数加上这个月已过的天数
+					repaymentRecordDate.setMonth(repaymentRecordDate.getMonth()-1);
+					daysDue=DateUtil.getDaysOfMonth(repaymentRecordDate)+repaymentRecordDate.getDay()+day.getDay();
+					
+				}
+				//DateUtil.differentDaysByMillisecond(new Date(),);
+				//逾期还款的总费用
+				totalOverdueExpenses=CalculationUtil.overdueCalculation(subjectMatter.getLoanAmount(),
+						overdueInterestRate, 
+						term, normalInterestRate, repaymentRecordList.size()+1,
+						repaymentRecordList.size()+overdueRecordList.size(), daysDue);*/
+			}	
+			//提前还款总费用 
+			BigDecimal  totalAdvancePaymentCost=undueRepayment.add(totalOverdueExpenses);
+			//调用用户的扣款接口
+			//.............
+			if(true) {
+				//修改村的状态为已完成，消息通知
+				subjectMatter.setStatus(6);
+				if(sm.updateByPrimaryKeySelective(subjectMatter)!=1) {
+					throw new Exception("修改失败");
+				}
+				//增加还款记录
+				for(int j=repaymentRecordList.size();j<=term;j++) {
+					 repaymentRecordList.get(j);
+					 RepaymentRecord rr=new RepaymentRecord();
+					 rr.setAmount(monthRecord);
+					 rr.setCreateTime(new Date());
+					 rr.setSubjectMatterId(subjectMatter.getId());
+					 rr.setTerm((short)j);
+					 if(rrs.insert(rr)!=1) {
+						throw new Exception("插入失败");
+					}
+				}
+				//修改逾期记录状态为已还款
+				for(int j=0;j<overdueRecordList.size();j++) {
+					OverdueRecord overdueRecord=overdueRecordList.get(j);
+					//修改逾期记录为已完成
+					overdueRecord.setOverdueStatus((short)1);
+					if(ors.insert(overdueRecord)!=1) {
+						throw new Exception("插入失败");
+					}
+				}
+				//返回结果信息
+				flag=0;
+			}else {
+				//帐户扣款失败，消息通知
+				//返回结果信息
+			}
+			
+		}
+		return flag;
+	}
 	@Override
 	public int deleteByPrimaryKey(Long id) {
 		// TODO Auto-generated method stub

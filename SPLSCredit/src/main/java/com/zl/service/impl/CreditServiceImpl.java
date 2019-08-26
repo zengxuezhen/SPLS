@@ -3,6 +3,7 @@ package com.zl.service.impl;
 import java.io.IOException;
 import java.math.BigDecimal;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -62,6 +63,14 @@ public class CreditServiceImpl implements CreditService {
 	public List<Credit> queryCreditBySubjectId(Long subjectId) {
 		List<Credit>credits=cd.selectCreditBySubjectId(subjectId);
 		return credits;
+	}
+	
+	@Override
+	public List<Credit> queryCreditBySort(Map<String, Object> map) {
+		map.put("userId", 1L);
+		map.put("state", 1);
+		List<Credit> list=cd.selectCreditByCreditorAndState(map);
+		return list;
 	}
 	
 	

@@ -25,7 +25,12 @@ public interface CreditDao {
 	 * 根据debtorUserId出借人ID和subjectId原始标的ID修改amount金额 
 	 */
 	int updateCreditAmount(Credit credit);
-	
+	/**
+	 * 根据debtorUserId出借人ID和subjectId原始标的ID查询债权表
+	 * @param credit
+	 * @return
+	 */
+	Credit selectCreditByDebitorUserIdAndSubjectId(Credit credit);
 	/**
 	 * 根据用户主键查询对应所拥有的债权信息
 	 * @author 王静

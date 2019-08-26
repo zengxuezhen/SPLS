@@ -29,7 +29,12 @@ public interface CreditService {
 	 *根据debtorUserId出借人ID和subjectId原始标的ID修改amount金额 
 	 **/
 	int modifyCreditAmount(CreditorOrderRecord creditorOrderRecord);
-
+	/**
+	 * 根据debtorUserId出借人ID和subjectId原始标的ID查询债权表
+	 * @param credit
+	 * @return
+	 */
+	Credit queryCreditByDebitorUserIdAndSubjectId(Credit credit);
 	/**
 	 * 分类获取债权信息
 	 * @author 王静

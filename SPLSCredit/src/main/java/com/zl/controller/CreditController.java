@@ -57,5 +57,17 @@ public class CreditController {
 		result.put("credits", credits);
 		return result;
 	}
-	
+	/**
+	 * 根据debtorUserId出借人ID和subjectId原始标的ID查询债权表
+	 * @param subjectId
+	 * @return
+	 */
+	@RequestMapping(path="/CreditByDebitorUserIdAndSubjectId",method=RequestMethod.POST)
+	public Map<String, Object> getCreditByDebitorUserIdAndSubjectId(@RequestBody Credit credit){
+		Map<String,Object> result=new HashMap<String,Object>();
+		
+		credit=cs.queryCreditByDebitorUserIdAndSubjectId(credit);
+		result.put("credit", credit);
+		return result;
+	}
 }

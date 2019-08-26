@@ -72,6 +72,11 @@ public class CreditServiceImpl implements CreditService {
 		List<Credit> list=cd.selectCreditByCreditorAndState(map);
 		return list;
 	}
+	@Override
+	public Credit queryCreditByDebitorUserIdAndSubjectId(Credit credit) {
+		credit=cd.selectCreditByDebitorUserIdAndSubjectId(credit);
+		return null;
+	}
 	
 	
 }

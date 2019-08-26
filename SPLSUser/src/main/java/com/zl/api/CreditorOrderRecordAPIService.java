@@ -8,5 +8,8 @@ import com.zl.pojo.CreditorOrderRecord;
 @FeignClient(value="credit-service")
 public interface CreditorOrderRecordAPIService {
 	@RequestMapping("/getOrderRecordBySubjectId")
-	CreditorOrderRecord getOrderRecordBySubjectId(Long subjectId);		
+	CreditorOrderRecord getOrderRecordBySubjectId(Long subjectId);	
+	
+	@RequestMapping("/credit/getMyCredit")
+	String getMyCreditOrderAll();
 }

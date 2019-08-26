@@ -7,6 +7,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -18,9 +20,11 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.fasterxml.jackson.core.JsonParseException;
 import com.fasterxml.jackson.databind.JsonMappingException;
+import com.zl.pojo.AllUser;
 import com.zl.pojo.Credit;
 import com.zl.pojo.CreditorOrderRecord;
 import com.zl.service.CreditService;
+import com.zl.service.CreditorOrderRecordService;
 
 @RestController
 @RequestMapping("/credit")
@@ -70,4 +74,23 @@ public class CreditController {
 		result.put("credit", credit);
 		return result;
 	}
+	
+	@Autowired
+	private CreditorOrderRecordService cos;
+	/**
+	 * 用户查看自己所有的债权信息，user服务调用
+	 * @author 王静
+	 * @param session
+	 * @return
+	 */
+	@RequestMapping("/getMyCredit")
+	@ResponseBody
+	public List<CreditorOrderRecord> getMyCreditOrderAll(HttpSession session){
+		AllUser user=new AllUser();
+		user.setId(2L);
+		session.setAttribute("user", user);
+		List<CreditorOrderRecord> list=cos.queryOrderRecordByUserId(user.getId());
+		return list;
+	}
+	
 }

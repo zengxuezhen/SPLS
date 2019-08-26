@@ -11,6 +11,8 @@ eureka:
 spring:
   application:
     name: user-service
+  main:
+    allow-bean-definition-overriding: true
   #oracle数据库相关配置
   datasource:
     url: jdbc:oracle:thin:@10.1.12.223:1521:orcl

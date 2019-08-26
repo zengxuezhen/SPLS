@@ -12,7 +12,10 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.zl.api.CreditorOrderRecordAPIService;
 import com.zl.pojo.AllUser;
+import com.zl.pojo.CreditorOrderRecord;
 import com.zl.service.TradeService;
 import com.zl.view.MonthAccountView;
 
@@ -27,6 +30,8 @@ public class MonthAccountController {
 
 	@Autowired
 	private TradeService ts;
+	@Autowired
+	private CreditorOrderRecordAPIService cs;
 	
 	/**
 	 * 前端跳转到月账单显示页面
@@ -54,6 +59,23 @@ public class MonthAccountController {
 		map.put("userId", user.getId());
 		map.put("year", "2019");
 		List<MonthAccountView> list=ts.queryMonthAccount(map);
+		map.put("viewList", list);
+		return map;
+	}
+	
+	/**
+	 * 显示债权信息
+	 * @return
+	 * @throws Exception
+	 */
+	@RequestMapping("/credit/showMyAll")
+	@ResponseBody
+	public Map<String, Object> showMyAllCreidtRecord() throws Exception{
+		Map<String, Object> map=new HashMap<String, Object>();
+		String json=cs.getMyCreditOrderAll();
+		ObjectMapper om=new ObjectMapper();
+		@SuppressWarnings("unchecked")
+		List<CreditorOrderRecord> list=om.readValue(json, List.class);
 		map.put("viewList", list);
 		return map;
 	}

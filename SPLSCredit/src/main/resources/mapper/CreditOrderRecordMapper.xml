@@ -35,4 +35,9 @@
 	    from CREDITOR_ORDER_RECORD
 	    where SUBJECT_MATTER_ID=#{subjectMatterId}
 	</select>
+	
+	
+	<select id="selectOrderRecordByUserId" parameterType="java.lang.Long" resultType="com.zl.pojo.CreditorOrderRecord">
+		select * from CREDITOR_ORDER_RECORD where seller_user_id=#{sellerUserId}
+	</select>
 </mapper>

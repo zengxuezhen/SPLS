@@ -35,12 +35,5 @@ public interface CreditService {
 	 * @return
 	 */
 	Credit queryCreditByDebitorUserIdAndSubjectId(Credit credit);
-	/**
-	 * 分类获取债权信息
-	 * @author 王静
-	 * @param map
-	 * @return
-	 */
-	List<Credit> queryCreditBySort(Map<String, Object> map);
 	
 }

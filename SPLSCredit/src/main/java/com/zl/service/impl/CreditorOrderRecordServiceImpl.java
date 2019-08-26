@@ -62,6 +62,11 @@ public class CreditorOrderRecordServiceImpl implements CreditorOrderRecordServic
 		
 		return orderRecords;
 	}
+
+	@Override
+	public List<CreditorOrderRecord> queryOrderRecordByUserId(Long userId) {
+		return cd.selectOrderRecordByUserId(userId);
+	}
 	
 	
 	

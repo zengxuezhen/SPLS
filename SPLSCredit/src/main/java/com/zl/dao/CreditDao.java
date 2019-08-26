@@ -31,10 +31,4 @@ public interface CreditDao {
 	 * @return
 	 */
 	Credit selectCreditByDebitorUserIdAndSubjectId(Credit credit);
-	/**
-	 * 根据用户主键查询对应所拥有的债权信息
-	 * @author 王静
-	 * @return
-	 */
-	List<Credit> selectCreditByCreditorAndState(Map<String, Object> map);
 }

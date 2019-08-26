@@ -72,8 +72,8 @@ public class AccountInfoController {
 	 * @param accountInfo
 	 * @return 影响行数
 	 */
-	@PutMapping(value="/modifyActiveAmount")
-	public int modifyActiveAmount(@RequestBody List<AccountInfo> accountList){
+	@PutMapping(value="/modifyActiveAmountBatch")
+	public int modifyActiveAmountBatch(@RequestBody List<AccountInfo> accountList){
 		return as.modifyAccountInfoActiveAmountBatch(accountList);
 		
 	}

@@ -216,7 +216,7 @@ function getQueryVariable(variable)
 					//获取贷款个人信息
 					findPersonalLoanInfo:function(userId){
 						var _this = this;
-						axios.post("/accountInfo/getAccountInfoByUserId",{
+						axios.get("/accountInfo/getAccountInfoByUserId",{
 							params:{
 								id:userId
 							}
@@ -227,6 +227,28 @@ function getQueryVariable(variable)
 						}).catch(function (err) {
 							console.log(error);
 						});
+					},
+					//插入订单信息
+					addOrderRecord:function(orderRecords){
+						var _this=this;
+						axios.post("/makeOrderRecord",{
+							orderRecords:orderRecords
+							}).then(function (response) {
+								
+								console.log(response);
+		
+							}).catch(function (err) {
+								console.log(error);
+							});
+						
+					},
+					//出借
+					loan: function(userId,subjectId,debtorUserId){
+						
+						this.orderRecords.buyerUserId=userId;
+						this.orderRecords.subjectMatterId=subjectId;
+						this.orderRecords.sellerUserId=debtorUserId;
+						this.orderRecords.amount=$("#amount").val();
 					}
 				},
 				created(){
@@ -234,6 +256,7 @@ function getQueryVariable(variable)
 					var subjectId=getQueryVariable("subjectId")
 					this.findUser();
 					this.findSubjectMatter(subjectId);
+					
 					this.findOrderRecord(subjectId);
 					this.findAccountInfo(subjectId);
 					
@@ -849,7 +872,7 @@ function getQueryVariable(variable)
 									data-reactid=".0.1.$OPEN.0.1">充值</a>
 							</div>
 							<div class="bug-loan" data-reactid=".0.1.$OPEN.1">
-							<input data-max="21250" value="" type="text" data-type="1"
+							<input id="amount" data-max="" value="" type="text" data-type="1"
 								name="amount" placeholder="输入金额需为50元的整数倍" class="loan-value"
 								data-reactid=".0.1.$OPEN.1.0"><span
 								data-reactid=".0.1.$OPEN.1.1">元</span>
@@ -864,7 +887,7 @@ function getQueryVariable(variable)
 							</p>
 							<div class="error-text" data-reactid=".0.1.$OPEN.2.1"></div>
 						</div>
-						<button class="go-bug " data-reactid=".0.1.$OPEN.3">出借</button>
+						<button class="go-bug " data-reactid=".0.1.$OPEN.3" v-on:click="loan(allUser.id,subjectMatter.id,subjectMatter.debtorUserId)">出借</button>
 					</div>
 					
 				</div>

@@ -124,4 +124,13 @@ public class CreditorOrderRecord implements Serializable {
     public void setOriginSubjectMatterId(Long originSubjectMatterId) {
         this.originSubjectMatterId = originSubjectMatterId;
     }
+
+	@Override
+	public String toString() {
+		return "CreditorOrderRecord [id=" + id + ", recordNo=" + recordNo + ", buyerUerId=" + buyerUerId + ", amount="
+				+ amount + ", subjectMatterId=" + subjectMatterId + ", contractUrl=" + contractUrl + ", createTime="
+				+ createTime + ", sellerUserId=" + sellerUserId + ", originSubjectMatterId=" + originSubjectMatterId
+				+ "]";
+	}
+    
 }

@@ -1,6 +1,5 @@
 package com.zl.web;
 
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.request;
 
 import java.io.IOException;
 import java.util.HashMap;
@@ -18,9 +17,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.servlet.ModelAndView;
 
-import com.zl.pojo.AllUser;
+import com.zl.util.CodeUtil;
 import com.zl.service.IMailService;
 import com.zl.service.PersonalInfoService;
 import com.zl.util.CodeUtil;

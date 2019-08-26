@@ -57,6 +57,7 @@ public class JSONUtil {
 		}
 		return json.replaceAll("\"", "");//去除所有引号
 	}
+
 	/**
 	 * 删除所有不是数字的
 	 * @param input
@@ -74,4 +75,5 @@ public class JSONUtil {
     }
     return sb.toString();
 }
+
 }

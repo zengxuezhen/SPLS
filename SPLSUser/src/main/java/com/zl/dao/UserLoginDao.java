@@ -23,5 +23,6 @@ public interface UserLoginDao {
      * @return com.zl.pojo.AllUser
      **/
     AllUser findUserByEmail(String email);
+    AllUser selectByPrimaryKey(long id);
 
 }

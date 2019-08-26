@@ -3,18 +3,20 @@ package com.zl.web;
 import com.zl.pojo.AllUser;
 import com.zl.service.UserRegisterService;
 import com.zl.util.CodeUtil;
+import com.zl.util.RandomCharacterAndNumber;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.concurrent.TimeUnit;
+
+import static com.zl.web.CaptchaController.KEY_CAPTCHA;
 
 /**
  * @ClassName UserRegisterController
@@ -23,6 +25,8 @@ import java.util.concurrent.TimeUnit;
  * @Version 1.0
  */
 @Controller
+@RequestMapping("/register")
+@CrossOrigin(origins = "*")
 public class UserRegisterController {
     @Autowired
     private UserRegisterService urs;
@@ -30,60 +34,83 @@ public class UserRegisterController {
     @Qualifier("redisTemplate")
     //实例化
     private RedisTemplate<Object, Object> rts;
-    @PostMapping("/getCode")
+    @RequestMapping(value="/getCode",method = RequestMethod.POST)
     @ResponseBody
-    public Map<String, Object> findUserTel(String telphone){
-//        String regex = "^((13[0-9])|(14[5,7])|(15[0-3,5-9])|(17[0,3,5-8])|(18[0-9])|166|198|199|(147))\\d{8}$";
-//        Pattern p = Pattern.compile(regex, Pattern.CASE_INSENSITIVE);
-//        Matcher m = p.matcher(telphone);
-//        if (m.matches()==false){
-//
-//            return ;
-//        }
+    public Map<String, Object> findUserTel(@RequestBody Map<String, String> ma, HttpServletRequest request) {
         Map<String, Object> map = new HashMap<>();
-        if (urs.findTel(telphone)==null){
-            String zipCode=CodeUtil.getCode(telphone);
-
-            if (zipCode!=null) {
-                System.out.println(zipCode);
-                rts.opsForValue().set(telphone, zipCode, 3, TimeUnit.MINUTES);
-                map.put("msg", true);
-
-            }else {
-                map.put("msg",false);
-
-            }
-        }else {
-            map.put("msg",false);
-        }
-            return map;
-        }
-
-
-
-    @RequestMapping("/userRegister")
-    @ResponseBody
-    public Object plogin(String telphone, String pcode){
-        //System.out.println("username=" + telphone + ";pcode=" + pcode);
-        Object code = rts.opsForValue().get(telphone);
-            if (code.equals(pcode)) {
-                return true;
+        System.out.println(ma);
+        String telephone = ma.get("telephone");
+        String verifCode = ma.get("verifCode");
+        if (telephone!=null&&!"".equals(telephone)&&verifCode!=null&&!"".equals(verifCode)){
+            HttpSession session = request.getSession();
+            String str=(String)session.getAttribute(KEY_CAPTCHA);
+            /*
+             * @Author chengpunan
+             * @Description 判断前台的验证码是否正确,手机号有没有存在数据库中
+             * @Date 14:19 2019/8/20
+             * @Param [telphone, verifCode, request]
+             * @return java.util.Map<java.lang.String,java.lang.Object>
+             */
+            if (urs.findTel(telephone) == null&&verifCode.equalsIgnoreCase(str)) {
+                String zipCode = CodeUtil.getCode(telephone);
+                if (zipCode != null) {
+                    rts.opsForValue().set(telephone, zipCode, 3, TimeUnit.MINUTES);
+                    map.put("code", "200");
+                    return map;
+                } else {
+                    map.put("code", "401");
+                    return map;
+                }
             } else {
-                return false;
+                map.put("code", "401");
+                return map;
+            }
+        }
+        return map;
+    }
+
+
+    @RequestMapping(value = "/userRegister", method = RequestMethod.POST)
+    @ResponseBody
+    public Map<String, Object> addUser(@RequestBody Map<String, String> ma, HttpSession session){
+        RandomCharacterAndNumber rca = new RandomCharacterAndNumber();
+        Map<String, Object> map = new HashMap<>();
+        String telephone = ma.get("telephone");
+        String mobileCode = ma.get("mobileCode");
+        Object code = rts.opsForValue().get(telephone);
+        System.out.println(code);
+        System.out.println(mobileCode);
+            if (code.equals(mobileCode)) {
+                AllUser user = new AllUser();
+                user.setTelephone(telephone);
+                String userName = rca.getRandomCode();
+                user.setUserName(userName);
+                urs.addUser(user);
+                session.setAttribute("user", user);
+                map.put("code","200");
+                map.put("name",userName);
+                return map;
+            } else {
+                map.put("code","401");
+                return map;
             }
     }
-    @RequestMapping("/addToUser")
+    @RequestMapping(value = "/addToUser", method = RequestMethod.POST)
     @ResponseBody
-    public Object addToUser(String telphone, String password, HttpSession session){
-        AllUser user = new AllUser();
-        if (telphone!= null&&!"".equals(telphone)&&password != null && !"".equals(password)){
-            user.setTelephone(telphone);
+    public Map<String, Object> updateUser(@RequestBody Map<String, String> ma){
+        Map<String, Object> map = new HashMap<>();
+        String userName = ma.get("userName");
+        String password = ma.get("password");
+        if (userName!=null&&!"".equals(userName)&&password != null && !"".equals(password)){
+            AllUser user = new AllUser();
+            user.setUserName(userName);
             user.setPwd(password);
-            urs.addUser(user);
-            session.setAttribute("user", user);
-            return true;
+            urs.updateUser(user);
+            map.put("code", "200");
+            return map;
         }
-        return false;
+        map.put("code", "401");
+        return map;
     }
 
 

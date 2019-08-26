@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 import com.zl.pojo.CreditorOrderRecord;
-@FeignClient(value="debit-service",fallback=CreditorOrderRecordServiceError.class)
+//@FeignClient(value="debit-service",fallback=CreditorOrderRecordServiceError.class)
 public interface CreditorOrderRecordService {
     int deleteByPrimaryKey(BigDecimal id);
     

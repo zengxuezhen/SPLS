@@ -9,7 +9,7 @@ import org.springframework.format.annotation.DateTimeFormat;
 import com.fasterxml.jackson.annotation.JsonFormat;
 
 /**
- * 提现记录实体类
+ * 提现记录实体类【此类暂无作用】
  * @author Administrator
  * 映射数据库表withdraw_record
  */
@@ -21,7 +21,7 @@ public class WithdrawRecord implements Serializable {
     //提现记录编号
     private String recordNo;
     //提现时间
-    @JsonFormat(pattern="yyyy-MM-dd HH-mm-ss")
+    @JsonFormat(pattern="yyyy-MM-dd HH-mm-ss",timezone="GMT+8")
     @DateTimeFormat(pattern="yyyy-MM-dd HH-mm-ss")
     private Date createTime;
     //提现金额

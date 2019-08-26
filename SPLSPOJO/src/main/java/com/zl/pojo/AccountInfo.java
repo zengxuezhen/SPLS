@@ -31,7 +31,11 @@ public class AccountInfo implements Serializable {
 	private Date createTime;
 	// 此账户对应用户主键
 	private Long userId;
-
+	// 平台账户最大额度
+	private BigDecimal maxAmount;
+	// 平台账户交易密码
+	private String password;
+	
 	public AccountInfo(Long id, String accountNo, BigDecimal activeAmount, BigDecimal frozenAmount, Date createTime,
 			Long userId) {
 		this.id = id;
@@ -44,6 +48,14 @@ public class AccountInfo implements Serializable {
 
 	public AccountInfo() {
 		super();
+	}
+
+	public BigDecimal getMaxAmount() {
+		return maxAmount;
+	}
+
+	public void setMaxAmount(BigDecimal maxAmount) {
+		this.maxAmount = maxAmount;
 	}
 
 	public Long getId() {
@@ -92,6 +104,14 @@ public class AccountInfo implements Serializable {
 
 	public void setUserId(Long userId) {
 		this.userId = userId;
+	}
+
+	public String getPassword() {
+		return password;
+	}
+
+	public void setPassword(String password) {
+		this.password = password;
 	}
 
 	@Override

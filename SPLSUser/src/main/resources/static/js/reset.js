@@ -1,0 +1,1 @@
+geetest_1566202729772({"status": "success", "data": {"c": [12, 58, 98, 36, 43, 95, 62, 15, 12], "s": "652e3972", "challenge": "5fb39dcf3ac082978f1c4dc6c25586bc"}})

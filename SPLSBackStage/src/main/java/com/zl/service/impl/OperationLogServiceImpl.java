@@ -3,6 +3,7 @@ package com.zl.service.impl;
 import java.util.Date;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import com.zl.dao.OperationLogDao;
 import com.zl.pojo.OperationLog;
@@ -10,6 +11,7 @@ import com.zl.service.OperationLogService;
 /*
  * 操作日志service层接口实现类
  * */
+@Service
 public class OperationLogServiceImpl implements OperationLogService {
 	
 	@Autowired
